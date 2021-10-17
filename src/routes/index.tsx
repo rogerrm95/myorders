@@ -1,12 +1,17 @@
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 
 // Pages //
 import Login from '../pages/Login'
+import Home from '../pages/Home'
 
 export default function Routes() {
     return (
             <Switch>
-                <Route component={Login} path='/login' exact />
+                <Route path='/' exact render={() => (
+                    <Redirect to='/login'/>
+                )}/>
+                <Route path='/home' component={Home}/>
+                <Route component={Login} path='/login' exact/>
             </Switch>
     )
 }

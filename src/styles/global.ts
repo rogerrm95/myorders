@@ -53,8 +53,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body{
-        background: var(--gray-900);
-        color: var(--white);
+        background: #F1F1F1;
+        color: var(--primary);
     }
 
     body, input, textarea, select, button{
@@ -63,6 +63,11 @@ const GlobalStyle = createGlobalStyle`
 
     h1,h2, p, span {
         color: var(--primary);
+    }
+
+    button, input {
+        border: 0;
+        outline: none;
     }
 
     button{
