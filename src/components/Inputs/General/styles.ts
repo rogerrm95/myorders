@@ -6,9 +6,6 @@ type ContainerProps = {
 
 export const Container = styled.div<ContainerProps>`
     grid-area: ${props => props.gridAreaName && props.gridAreaName};
-
-    display: flex;
-    flex-direction: column;
     gap: 0.25rem;
     width: 100%;
 
@@ -21,12 +18,9 @@ export const Container = styled.div<ContainerProps>`
         display: flex;
         justify-content: center;
         align-items: center;
-
-        button, input {
-            height: 4rem;
-        }
-
+        
         input {
+            height: 4rem;
             width: 100%;
             border-bottom: 1px solid  #E0E0E0;
             color: var(--primary);

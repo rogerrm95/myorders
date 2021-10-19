@@ -9,7 +9,7 @@ export const Box = styled.div`
     form {
         display: grid;
         grid-template-columns: 2fr 1fr;
-        grid-template-rows: repeat(3, 1fr);
+        grid-template-rows: 5rem 1fr 1fr;
         gap: 1.5rem;
         grid-template-areas:
         "food food"
@@ -41,7 +41,7 @@ export const Summary = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0.5rem 0;
+    margin: 1.5rem 0 0.5rem 0;
 
     h2:last-child{
         color:var(--blue-500);
