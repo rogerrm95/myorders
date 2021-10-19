@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
-export const Container = styled.button`
+type ContainerProps = {
+    bgColor?: string,
+    color?: string,
+    height?: number
+}
+
+export const Container = styled.button<ContainerProps>`
     display: flex;
     justify-content: center;
     align-items: center;
     
-    height: 4rem;
+    height: ${props => props.height ? `${props.height}rem` : `4rem`};
     width: 100%;
     border-radius: 8px;
     margin-top: 1.5rem;
-    background-color: var(--red-500);
+    background-color: ${props => props.bgColor ? props.bgColor : "#000"};
     transition: filter 0.3s;
 
     span {
@@ -17,10 +23,10 @@ export const Container = styled.button`
         display: flex;
         justify-content: center;
         align-items: center;
-        color: var(--white);
+        color: ${props => props.color ? props.color : "#FFF"};
 
         svg {
-            margin-left: 0.5rem;
+            margin: 0 0.5rem;
         }
     }
 

@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useEffect, useRef } from "react";
+import { InputHTMLAttributes, useRef } from "react";
 import { IconType } from "react-icons";
 
 import { Container, IconBox } from './styles'
@@ -6,12 +6,12 @@ import { Container, IconBox } from './styles'
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string,
     Icon: IconType,
+    Image?: string,
     colorIcon?: string,
     sizeIcon?: number,
-    onChange?: () => void
 }
 
-export function Input({ label, Icon, colorIcon, sizeIcon = 16, onChange, ...rest }: InputProps) {
+export function InputLogin({ label, Icon, Image, colorIcon, sizeIcon = 16, ...rest }: InputProps) {
 
     const inputRef = useRef<HTMLInputElement>(null)
 

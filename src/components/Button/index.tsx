@@ -4,12 +4,14 @@ import { Container } from './styles'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     color?: string,
+    backgroundColor?: string,
+    height?: number,
     children: ReactNode
 }
 
-export function Button({ color = '#FFF', children, ...rest }: ButtonProps) {
+export function Button({ color = '#FFF', backgroundColor = '#000', height = 4, children, ...rest }: ButtonProps) {
     return (
-        <Container {...rest} color={color}>
+        <Container {...rest} color={color} bgColor={backgroundColor} height={height}>
             <span>
                 {
                     children

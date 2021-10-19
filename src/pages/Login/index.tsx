@@ -3,7 +3,8 @@ import { Container, Footer } from './styles'
 // Images & Icons //
 import ChefImage from './../../assets/chef.png'
 import { FiMail, FiLock, FiLogIn } from 'react-icons/fi'
-import { Input } from '../../components/Input'
+// Components //
+import { InputLogin } from '../../components/Inputs/Login'
 import { Button } from '../../components/Button'
 import { HeaderHomePage } from '../../components/HeaderHomePage'
 
@@ -33,14 +34,14 @@ export default function Login() {
                 </h1>
 
                 <form>
-                    <Input
+                    <InputLogin
                         label='E-mail'
                         Icon={FiMail}
                         colorIcon="#FFF"
                         sizeIcon={24}
                         type='email'
                         placeholder="nome_usuario@example.com.br" />
-                    <Input
+                    <InputLogin
                         label='Senha'
                         Icon={FiLock}
                         colorIcon="#FFF"
@@ -48,7 +49,7 @@ export default function Login() {
                         type='password'
                         placeholder="**************" />
 
-                    <Button type="submit">
+                    <Button type="submit" color='#FFF' backgroundColor="#E84A5F" >
                         Entrar
                         <FiLogIn size='24' color='#FFF' />
                     </Button>

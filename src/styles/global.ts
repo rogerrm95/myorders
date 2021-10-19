@@ -11,8 +11,8 @@ const GlobalStyle = createGlobalStyle`
     :root {
     --background: #D6D6D6;
     --white: #FFF;
+    --gray-light: #E0E0E0;
     --placeholder: #E0E0E0;
-    --disable: #E0E0E0;
 
     --primary: #45545A;
     --secondary: #6E787C;
@@ -43,13 +43,15 @@ const GlobalStyle = createGlobalStyle`
         }
     }
 
-    html, body, #root {
+    html, body {
         height: 100%;
     }
 
     #root {
         background-image: url(${BackgroundImage});
-        background-repeat: repeat;  
+        background-repeat: repeat;
+        overflow-y: scroll;
+        height: inherit;
     }
 
     body{
