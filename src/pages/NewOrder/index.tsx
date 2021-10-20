@@ -4,7 +4,7 @@ import { Input } from '../../components/Inputs/General'
 import { OrderPage } from '../../components/OrderPage'
 
 // Images //
-import { FiAlignRight, FiArrowRight, FiArrowRightCircle, FiChevronRight, FiPlus, FiTrash, FiTrash2 } from 'react-icons/fi'
+import { FiChevronRight, FiPlus, FiTrash2 } from 'react-icons/fi'
 import FoodInService from './../../assets/icons/plate-in-service.svg'
 import Note from './../../assets/icons/note.svg'
 import Number from './../../assets/icons/number.svg'
@@ -57,9 +57,9 @@ export default function NewOrder() {
                             </div>
 
                             <p>R$ 45,00</p>
-                            
+
                             <button>
-                                <FiTrash size='24' color="#E84A5F"/>
+                                <FiTrash2 size='24' color="#E84A5F" />
                             </button>
                         </ListItem>
 
@@ -70,9 +70,9 @@ export default function NewOrder() {
                             </div>
 
                             <p>R$ 105,00</p>
-                            
+
                             <button>
-                                <FiTrash size='24' color="#E84A5F"/>
+                                <FiTrash2 size='24' color="#E84A5F" />
                             </button>
                         </ListItem>
 
@@ -83,9 +83,9 @@ export default function NewOrder() {
                             </div>
 
                             <p>R$ 250,00</p>
-                            
+
                             <button>
-                                <FiTrash size='24' color="#E84A5F"/>
+                                <FiTrash2 size='24' color="#E84A5F" />
                             </button>
                         </ListItem>
                     </ul>
@@ -93,12 +93,12 @@ export default function NewOrder() {
 
                 <div>
                     <Button backgroundColor='#C4C4C4'>
-                        <FiTrash2  size={20}/>
+                        <FiTrash2 size={20} />
                         Limpar
                     </Button>
                     <Button backgroundColor='#4C8BEA'>
                         Próximo
-                        <FiChevronRight size={24}/>
+                        <FiChevronRight size={24} />
                     </Button>
                 </div>
             </Box>
