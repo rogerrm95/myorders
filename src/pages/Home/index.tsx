@@ -14,8 +14,12 @@ import NotificationIcon from './../../assets/icons/orders.svg'
 import HatIcon from './../../assets/icons/hat.svg'
 
 import { Container } from './styles' // Styles //
+import { Link } from 'react-router-dom'
+import SuccessMessage from '../SuccessMessage'
 
 export default function Home() {
+    const title = "Pedido Realizado"
+    const legend = "O pedido foi devidamente encerrado"
     return (
         <Container>
             <HeaderHomePage />
@@ -37,7 +41,6 @@ export default function Home() {
             <main>
                 <ItemMenu image={PlateImage} path='/order/new' title="Nova Comanda" legend="Criar uma nova comanda" icon={PlusIcon} />
                 <ItemMenu image={NoteImage}  path='/orders' title="Atualizar Comanda" legend="Atualizar um pedido ativo" icon={RefreshIcon}/>
-                <ItemMenu image={ScreenImage} path='/orders/all' title="Pedidos" legend="Gerenciamento dos pedidos ativos" icon={NotificationIcon}/>
                 <ItemMenu image={HatImage} path='/dashboard' title="Cozinha" legend="Acessar o área administrativa da cozinha" icon={HatIcon}/>
             </main>
         </Container>

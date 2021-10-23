@@ -2,9 +2,8 @@
 import { AllOrdersList } from "../../components/AllOrdersList";
 import { Input } from "../../components/Inputs/General";
 import { OrderPage } from "../../components/OrderPage";
-// Icons & Images //
-import { FiEye } from "react-icons/fi";
-import FoodInService from './../../assets/icons/plate-in-service.svg'
+
+import FoodInService from './../../assets/icons/plate-in-service.svg' // Image //
 
 import { Container } from "./styles"; // Styles //
 
@@ -24,7 +23,7 @@ export default function Orders() {
 
                 <h2>Pedidos</h2>
 
-                <AllOrdersList orders={orders} IconName={FiEye} colorIcon="#6E787C"/>
+                <AllOrdersList orders={orders}/>
             </Container>
         </OrderPage>
     )

@@ -39,12 +39,13 @@ export const Container = styled.div`
 
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: stretch;
         margin: 0 1.5rem;
         padding: 2rem 1.5rem 1.5rem 1.5rem;
 
         background-color: var(--white);
-        border-radius: 50px 50px 0 0;
+        border-radius: 25px 25px 0 0;
         filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.1));
 
         a:not(:first-child){

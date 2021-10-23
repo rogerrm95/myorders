@@ -6,26 +6,31 @@ type ContainerProps = {
 
 export const Container = styled.div<ContainerProps>`
     grid-area: ${props => props.gridAreaName && props.gridAreaName};
-    gap: 0.25rem;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 
     span {
         font-size: 1.5rem;
+        margin-bottom: 0.5rem;
     }
     
     div {
 
         display: flex;
-        justify-content: center;
         align-items: center;
         
         input {
             height: 4rem;
             width: 100%;
-            border-bottom: 1px solid  #E0E0E0;
+            padding-left: 1rem;
+            margin-left: 0.75rem;
+            
             color: var(--primary);
             font: 1.5rem normal Roboto, sans-serif;
-            padding-left: 1rem;
+            border-bottom: 2px solid  #45545A;
 
             caret-color: var(--red-500);
 
@@ -43,12 +48,10 @@ export const ImageBox = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    height: 3rem;
-    width: 4rem;
+    min-width: 69px;
+    min-height: 64px;
 
     background-color: var(--primary);
-    padding: 0.5rem;
-    margin-right: 0.75rem;
 
     img {
         max-width: 35px;

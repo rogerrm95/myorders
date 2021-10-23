@@ -1,14 +1,13 @@
 import { TableHTMLAttributes } from "react";
-import { IconType } from "react-icons";
-import { Link } from 'react-router-dom'
-import { useLocation } from 'react-router'
+import { Link, useHistory } from 'react-router-dom'
+// Icons //
+import EditIcon from './../../assets/icons/edit.svg'
+import DetailsIcon from './../../assets/icons/eye.svg'
 
-import { Container } from "./styles";
+import { Actions, Container } from "./styles";
 
 interface AllOrdersListProps extends TableHTMLAttributes<HTMLTableElement> {
     orders: Order[],
-    IconName: IconType,
-    colorIcon?: string
 }
 
 type Order = {
@@ -19,9 +18,9 @@ type Order = {
 }
 
 // Componente que renderiza a tabela de pedidos //
-export function AllOrdersList({ orders, IconName, colorIcon = "#FFF", ...rest }: AllOrdersListProps) {
-
-    const { pathname } = useLocation() // Capta a URL atual //
+export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
+    // Capta a URL //
+    const { location } = useHistory()
 
     return (
         <Container {...rest}>
@@ -43,11 +42,14 @@ export function AllOrdersList({ orders, IconName, colorIcon = "#FFF", ...rest }:
                             <td>{order.desk}</td>
                             <td>{order.status}</td>
                             <td>{order.initialTime}</td>
-                            <td>
-                                <Link to={`${pathname}/${order.id}`} >
-                                    <IconName size='20' color={colorIcon} />
+                            <Actions>
+                                <Link to={`${location.pathname}/edit/${order.id}`} >
+                                    <img src={EditIcon} alt="Editar" />
                                 </Link>
-                            </td>
+                                <Link to={`${location.pathname}/details/${order.id}`} >
+                                    <img src={DetailsIcon} alt="Visualizar" />
+                                </Link>
+                            </Actions>
                         </tr>
                     ))
                 }

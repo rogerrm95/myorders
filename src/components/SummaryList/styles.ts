@@ -14,24 +14,35 @@ export const Container = styled.table`
             padding: 1rem;
             color: var(--white);
             font-weight: 500;
+
+            &:nth-child(1){
+                text-align: start;
+            }
         }
     }
 
     td {
-        text-align: center;
+        
         font-weight: 500;
         font-size: 0.85rem;
-        padding: 1.5rem;
+        padding: 1rem;
+        font-family: Saira, sans-serif;
 
-        &:nth-child(3) {
+        &:nth-child(1) {
+            p{
+                font-size: 1rem;
+            }
+            
+            span {
+                font-size: 0.75rem;
+                font-weight: 700;
+            }
+        }
+        
+        &:nth-child(2) {
             font-weight: 700;
+            text-align: center;
+            color: var(--green-500)
         }
     }
-`
-
-export const Actions = styled.td`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
 `
