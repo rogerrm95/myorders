@@ -43,9 +43,11 @@ export const IconBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
-
-    background-color: var(--red-500);
-    padding: 1.5rem;
+    
     margin-right: 0.5rem;
+    min-width: 64px;
+    height: 64px;
+    
+    border-radius: 8px;
+    background-color: var(--red-500);
 `

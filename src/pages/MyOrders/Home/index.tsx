@@ -1,22 +1,24 @@
 // Components //
-import { HeaderHomePage } from '../../components/HeaderHomePage'
-import { ItemMenu } from '../../components/ItemMenu'
-
+import { HeaderHomePage as Header } from '../../../components/MyOrders/HeaderHomePage'
+import { ItemMenu } from '../../../components/MyOrders/ItemMenu'
 // Images & Icons //
-import WaiterImage from './../../assets/waiter.png'
-import PlateImage from './../../assets/icons/plates.png'
-import NoteImage from './../../assets/icons/note.png'
-import HatImage from './../../assets/icons/chef-hat.png'
-import PlusIcon from './../../assets/icons/plus.svg'
-import RefreshIcon from './../../assets/icons/refresh.svg'
-import HatIcon from './../../assets/icons/hat.svg'
+import WaiterImage from '../../../assets/waiter.png'
+import PlateImage from '../../../assets/icons/plates.png'
+import NoteImage from '../../../assets/icons/note.png'
+import HatImage from '../../../assets/icons/chef-hat.png'
+import PlusIcon from '../../../assets/icons/plus.svg'
+import RefreshIcon from '../../../assets/icons/refresh.svg'
+import HatIcon from '../../../assets/icons/hat.svg'
 
 import { Container } from './styles' // Styles //
+
+// VERIFICAR SE O USUÁRIO ESTÁ AUTENTICADO //
+// SENÃO ESTIVER, O REDIRECIONAR PARA A PÁGINA DE LOGIN //
 
 export default function Home() {
     return (
         <Container>
-            <HeaderHomePage />
+            <Header />
 
             <section>
                 <article>

@@ -1,11 +1,11 @@
-import { Redirect, useHistory,  } from 'react-router'
-import {createBrowserHistory} from 'history'
-
+import { Redirect, useHistory, } from 'react-router'
+import { createBrowserHistory } from 'history'
+// Components //
+import { Button } from '../../../components/MyOrders/Button'
+// Images & Icons //
 import { FiHome, FiLayers } from 'react-icons/fi'
-import SuccessImage from './../../assets/success.png'
-
-import { Button } from '../../components/Button'
-
+import SuccessImage from '../../../assets/success.png'
+// Styles //
 import { Container } from './styles'
 
 type SuccessMessageProps = {
@@ -17,7 +17,7 @@ export default function SuccessMessage({ title, legend }: SuccessMessageProps) {
     const { push } = useHistory()
 
     if (!title && !legend) {
-       return  <Redirect to='/home'/>
+        return <Redirect to='/home' />
     }
 
     return (

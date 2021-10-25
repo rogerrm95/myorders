@@ -1,18 +1,21 @@
-import { Container, Footer } from './styles'
-
-// Images & Icons //
-import ChefImage from './../../assets/chef.png'
-import { FiMail, FiLock, FiLogIn } from 'react-icons/fi'
 // Components //
-import { InputLogin } from '../../components/Inputs/Login'
-import { Button } from '../../components/Button'
-import { HeaderHomePage } from '../../components/HeaderHomePage'
+import { InputLogin } from '../../../components/MyOrders/Inputs/Login'
+import { Button } from '../../../components/MyOrders/Button'
+import { HeaderHomePage as Header } from '../../../components/MyOrders/HeaderHomePage'
+// Images & Icons //
+import { FiMail, FiLock, FiLogIn } from 'react-icons/fi'
+import ChefImage from '../../../assets/chef.png'
+// Styles //
+import { Container, Footer } from './styles'
+import { useState } from 'react'
 
 export default function Login() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     return (
         <Container>
-
-            <HeaderHomePage/>
+            <Header />
 
             <section>
                 <article>
@@ -38,20 +41,24 @@ export default function Login() {
                         label='E-mail'
                         Icon={FiMail}
                         colorIcon="#FFF"
-                        sizeIcon={24}
                         type='email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="nome_usuario@example.com.br" />
                     <InputLogin
                         label='Senha'
                         Icon={FiLock}
                         colorIcon="#FFF"
-                        sizeIcon={24}
                         type='password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         placeholder="**************" />
 
                     <Button type="submit" color='#FFF' backgroundColor="#E84A5F" >
-                        Entrar
-                        <FiLogIn size='24' color='#FFF' />
+                        <span>
+                            Entrar
+                            <FiLogIn size='24' color='#FFF' />
+                        </span>
                     </Button>
                 </form>
 

@@ -1,14 +1,13 @@
 // Components //
-import { AllOrdersList } from "../../components/AllOrdersList";
-import { Input } from "../../components/Inputs/General";
-import { OrderPage } from "../../components/OrderPage";
-
-import FoodInService from './../../assets/icons/plate-in-service.svg' // Image //
-
-import { Container } from "./styles"; // Styles //
+import { AllOrdersList } from "../../../components/MyOrders/AllOrdersList";
+import { Input } from "../../../components/MyOrders/Inputs/General";
+import { OrderPage } from "../../../components/MyOrders/OrderPage";
+ // Image //
+import FoodInService from '../../../assets/icons/plate-in-service.svg'
+ // Styles //
+import { Container } from "./styles";
 
 export default function Orders() {
-
     // Temporário //
     const orders = [
         {id: 3000, desk: "01", status: 'Pronto', initialTime: '12:00'},

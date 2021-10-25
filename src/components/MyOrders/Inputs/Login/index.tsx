@@ -8,11 +8,9 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     Icon: IconType,
     Image?: string,
     colorIcon?: string,
-    sizeIcon?: number,
 }
 
-export function InputLogin({ label, Icon, Image, colorIcon, sizeIcon = 16, ...rest }: InputProps) {
-
+export function InputLogin({ label, Icon, Image, colorIcon, ...rest }: InputProps) {
     const inputRef = useRef<HTMLInputElement>(null)
 
     // Foca no input ao clicar no ícone //
@@ -26,7 +24,7 @@ export function InputLogin({ label, Icon, Image, colorIcon, sizeIcon = 16, ...re
 
             <div>
                 <IconBox onClick={activeFocus}>
-                    <Icon size={sizeIcon} color={colorIcon} />
+                    <Icon size="24" color={colorIcon} />
                 </IconBox>
                 <input ref={inputRef} {...rest} />
             </div>

@@ -1,8 +1,8 @@
 import { TableHTMLAttributes } from "react";
 import { Link, useHistory } from 'react-router-dom'
 // Icons //
-import EditIcon from './../../assets/icons/edit.svg'
-import DetailsIcon from './../../assets/icons/eye.svg'
+import EditIcon from '../../../assets/icons/edit.svg'
+import DetailsIcon from '../../../assets/icons/eye.svg'
 
 import { Actions, Container } from "./styles";
 

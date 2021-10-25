@@ -1,15 +1,17 @@
 // Components //
-import { Button } from '../../components/Button'
-import { Input } from '../../components/Inputs/General'
-import { OrderPage } from '../../components/OrderPage'
-
+import { Button } from '../../../components/MyOrders/Button'
+import { Input } from '../../../components/MyOrders/Inputs/General'
+import { OrderPage } from '../../../components/MyOrders/OrderPage'
 // Images //
 import { FiChevronRight, FiPlus, FiTrash2 } from 'react-icons/fi'
-import FoodInService from './../../assets/icons/plate-in-service.svg'
-import Note from './../../assets/icons/note.svg'
-import Number from './../../assets/icons/number.svg'
+import FoodInService from '../../../assets/icons/plate-in-service.svg'
+import Note from '../../../assets/icons/note.svg'
+import Number from '../../../assets/icons/number.svg'
+// Styles //
+import { Box, List, ListItem, Summary } from './styles' 
 
-import { Box, List, ListItem, Summary } from './styles'
+// CRIAR STEP //
+// STEP DE 2 PASSOS //
 
 export default function NewOrder() {
     return (

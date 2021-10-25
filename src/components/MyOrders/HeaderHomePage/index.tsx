@@ -1,6 +1,6 @@
 // Icons & Image //
 import { FiLogOut } from 'react-icons/fi'
-import Logo from './../../assets/logo-full.png'
+import Logo from '../../../assets/logo-full.png'
 
 import { Header } from './styles' // Styles //
 

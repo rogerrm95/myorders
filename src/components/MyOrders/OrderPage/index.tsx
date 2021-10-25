@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { useHistory } from 'react-router'
 import { FiArrowLeft } from 'react-icons/fi'
 
-import Logo from './../../assets/logo-full.png'
+import Logo from '../../../assets/logo-full.png'
 import { Container, Header, Main } from './styles'
 
 type OrderPageProps = {

@@ -1,23 +1,21 @@
-import { Input } from "../../components/Inputs/General";
-import { OrderPage } from "../../components/OrderPage";
+// Components //
+import { Input } from "../../../components/MyOrders/Inputs/General";
+import { OrderPage } from "../../../components/MyOrders/OrderPage";
+import { Button } from "../../../components/MyOrders/Button";
+import { SummaryList } from "../../../components/MyOrders/SummaryList";
 
 // Icons //
-import UserIcon from './../../assets/icons/person.svg'
-import DeskIcon from './../../assets/icons/desk.svg'
-import NumberIcon from './../../assets/icons/number.svg'
-import WaiterIcon from './../../assets/icons/waiter.svg'
-import CalendarIcon from './../../assets/icons/calendary.svg'
+import { FiCheck } from "react-icons/fi";
+import UserIcon from '../../../assets/icons/person.svg'
+import DeskIcon from '../../../assets/icons/desk.svg'
+import NumberIcon from '../../../assets/icons/number.svg'
+import WaiterIcon from '../../../assets/icons/waiter.svg'
+import CalendarIcon from '../../../assets/icons/calendary.svg'
 
 import { Container } from "./styles";
-import { Button } from "../../components/Button";
-import { FiCheck } from "react-icons/fi";
-import { SummaryList } from "../../components/SummaryList";
-
 
 export default function DetailsOrder() {
-
     // Temporario //
-
     const orderDetails = [
         {
             id: 1,

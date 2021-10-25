@@ -1,14 +1,13 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
-import DetailsOrder from '../pages/DetailsOrder'
-
 // Pages //
 // Garçom //
-import EditOrder from '../pages/EditOrder'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import NewOrder from '../pages/NewOrder'
-import Orders from '../pages/Orders'
-import SuccessMessage from '../pages/SuccessMessage'
+import DetailsOrder from '../pages/MyOrders/DetailsOrder'
+import EditOrder from '../pages/MyOrders/EditOrder'
+import Home from '../pages/MyOrders/Home'
+import Login from '../pages/MyOrders/Login'
+import NewOrder from '../pages/MyOrders/NewOrder'
+import Orders from '../pages/MyOrders/Orders'
+import SuccessMessage from '../pages/MyOrders/SuccessMessage'
 // Cozinha //
 import Dashboard from '../pages/Dashboard/Home'
 

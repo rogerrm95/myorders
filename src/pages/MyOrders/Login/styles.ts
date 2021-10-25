@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
     max-width: 800px;
@@ -33,23 +33,46 @@ export const Container = styled.div`
             color: var(--secondary);
         }
     }
-
+    // Login //
     main {
-        flex:5;
+        flex: 5;
 
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: stretch;
+        align-items: center;
+        justify-content: space-between;
         margin: 0 1.5rem;
-        padding: 2rem 1.5rem 1.5rem 1.5rem;
+        padding: 2rem 5.5rem;
 
         background-color: var(--white);
-        border-radius: 25px 25px 0 0;
+        border-radius: 50px 50px 0 0;
         filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.1));
 
-        a:not(:first-child){
-            margin-top: 1rem;
+        h1 {
+            color: var(--red-500);
+            font-size: 2.5rem;
+        }
+
+        form {
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }        
+    }
+`
+
+export const Footer = styled.footer`
+    margin-top: 1rem;
+
+    span {
+        font-size: 0.75rem;
+        font-weight: 700;
+
+        a {
+            margin-left: 0.5rem;
+            color: var(--red-500);
+            text-decoration: underline;
         }
     }
 `
