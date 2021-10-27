@@ -37,7 +37,7 @@ export default function Home() {
             <main>
                 <ItemMenu image={PlateImage} path='/order/new' title="Nova Comanda" legend="Criar uma nova comanda" icon={PlusIcon} />
                 <ItemMenu image={NoteImage}  path='/orders' title="Atualizar Comanda" legend="Atualizar um pedido ativo" icon={RefreshIcon}/>
-                <ItemMenu image={HatImage} path='/dashboard' title="Cozinha" legend="Acessar o área administrativa da cozinha" icon={HatIcon}/>
+                <ItemMenu image={HatImage} path='/admin/home' title="Cozinha" legend="Acessar o área administrativa da cozinha" icon={HatIcon}/>
             </main>
         </Container>
     )
