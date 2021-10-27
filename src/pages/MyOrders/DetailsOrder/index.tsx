@@ -69,7 +69,7 @@ export default function DetailsOrder() {
                         label='Início'
                         imageSrc={CalendarIcon}
                         type='text'
-                        value={'20/01/1990'}
+                        defaultValue={'20/01/1990'}
                         gridAreaName='start' />
 
                     <Input

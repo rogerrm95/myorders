@@ -35,7 +35,8 @@ export const Container = styled.table`
             
             span {
                 font-size: 0.75rem;
-                font-weight: 700;
+                text-transform: capitalize;
+                color: var(--red-250);
             }
         }
         
