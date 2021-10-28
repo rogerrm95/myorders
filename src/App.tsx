@@ -1,13 +1,16 @@
-import React, { Fragment } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { OrderContextProvider } from './contexts/OrderContext';
 import Routes from './routes'
 import GlobalStyle from './styles/global';
 
 function App() {
   return (
-    <Fragment>
-      <GlobalStyle/>
-      <Routes />
-    </Fragment>
+    <BrowserRouter>
+      <GlobalStyle />
+      <OrderContextProvider>
+        <Routes />
+      </OrderContextProvider>
+    </BrowserRouter>
   );
 }
 

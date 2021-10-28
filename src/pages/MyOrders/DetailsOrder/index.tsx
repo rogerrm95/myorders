@@ -37,7 +37,7 @@ export default function DetailsOrder() {
     ]
     const orderInfo = {
         id: 3000,
-        status: 'Pronto',
+        status: 'waiting',
         client: 'Rogério Marques',
         desk: '10',
         qtdPeople: 2,
@@ -51,7 +51,9 @@ export default function DetailsOrder() {
 
                 <header>
                     <h2>{`Pedido Nº ${orderInfo.id}`}</h2>
-                    <span>Status - <strong>{orderInfo.status}</strong></span>
+                    <span>Status - 
+                        <strong>{orderInfo.status}</strong>
+                    </span>
                 </header>
                 <form>
                     <Input label='Nome' imageSrc={UserIcon} readOnly value={orderInfo.client} gridAreaName='user' />

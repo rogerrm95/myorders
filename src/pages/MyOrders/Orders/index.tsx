@@ -7,13 +7,21 @@ import FoodInService from '../../../assets/icons/plate-in-service.svg'
  // Styles //
 import { Container } from "./styles";
 
+type OrderData = {
+    id: number,
+    desk: string,
+    status: 'done' | 'preparing' | 'waiting',
+    initialTime: string,
+}
+
 export default function Orders() {
     // Temporário //
     const orders = [
-        {id: 3000, desk: "01", status: 'Pronto', initialTime: '12:00'},
-        {id: 3001, desk: "03", status: 'Em preparo', initialTime: '12:02'},
-        {id: 3005, desk: "12", status: 'Na Fila', initialTime: '12:10'}
-    ]
+        {id: 3000, desk: "01", status: 'done', initialTime: '12:00'},
+        {id: 3001, desk: "03", status: 'preparing', initialTime: '12:02'},
+        {id: 3005, desk: "12", status: 'waiting', initialTime: '12:10'}
+    ] as OrderData[]
+
 
     return (
         <OrderPage title="Lista de pedidos">

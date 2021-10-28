@@ -29,9 +29,34 @@ export const Container = styled.table`
     }
 `
 
-export const Actions = styled.td`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+type ListItemData = {
+    status: 'done' | 'preparing' | 'waiting'
+}
+
+// Cores para cada status dos pedidos //
+const statusStyle = {
+    'done': '#73C273',
+    'preparing': '#F59B31',
+    'waiting': '#4C8BEA'
+}
+
+export const ListItem = styled.tr<ListItemData>`
+    td {
+        text-align: center;
+        font-weight: 500;
+        font-size: 0.85rem;
+        padding: 1.5rem;
+        color: ${props => statusStyle[props.status]};
+
+        &:nth-child(3) {
+            font-weight: 700;
+        }
+    }
+
+    .actionButtons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
 `

@@ -3,8 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 // Icons //
 import EditIcon from '../../../assets/icons/edit.svg'
 import DetailsIcon from '../../../assets/icons/eye.svg'
-
-import { Actions, Container } from "./styles";
+// Styles //
+import { Container, ListItem } from "./styles";
 
 interface AllOrdersListProps extends TableHTMLAttributes<HTMLTableElement> {
     orders: Order[],
@@ -13,7 +13,7 @@ interface AllOrdersListProps extends TableHTMLAttributes<HTMLTableElement> {
 type Order = {
     id: number,
     desk: string,
-    status: string,
+    status: 'done' | 'preparing' | 'waiting',
     initialTime: string,
 }
 
@@ -37,20 +37,26 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
             <tbody>
                 {
                     orders.map(order => (
-                        <tr key={order.id}>
+                        <ListItem key={order.id} status={order.status}>
                             <td>{order.id}</td>
                             <td>{order.desk}</td>
-                            <td>{order.status}</td>
+                            <td>
+                                {
+                                    order.status === 'done' ? 'Pronto' : (
+                                        order.status === 'preparing' ? 'Preparando' : 'Aguardando'
+                                    )
+                                }
+                            </td>
                             <td>{order.initialTime}</td>
-                            <Actions>
+                            <td className='actionButtons'>
                                 <Link to={`${location.pathname}/edit/${order.id}`} >
                                     <img src={EditIcon} alt="Editar" />
                                 </Link>
                                 <Link to={`${location.pathname}/details/${order.id}`} >
                                     <img src={DetailsIcon} alt="Visualizar" />
                                 </Link>
-                            </Actions>
-                        </tr>
+                            </td>
+                        </ListItem>
                     ))
                 }
             </tbody>

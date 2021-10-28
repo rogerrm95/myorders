@@ -14,19 +14,18 @@ import Dashboard from '../pages/Dashboard/Home'
 export default function Routes() {
     return (
         <Switch>
+            <Route path='/' exact render={() => (
+                <Redirect to='/login' />
+            )} />
+            <Route path='/home' component={Home} />
+            <Route component={Login} path='/login' />
+            <Route component={NewOrder} path='/order/new' />
+            <Route component={Orders} path='/orders' exact />
+            <Route component={EditOrder} path='/orders/edit/:id' />
+            <Route component={DetailsOrder} path='/orders/details/:id' />
+            <Route component={SuccessMessage} path='/success' />
 
-                <Route path='/' exact render={() => (
-                    <Redirect to='/login' />
-                )} />
-                <Route path='/home' component={Home}/>
-                <Route component={Login} path='/login' exact />
-                <Route component={NewOrder} path='/order/new' />
-                <Route component={Orders} path='/orders' exact />
-                <Route component={EditOrder} path='/orders/edit/:id' />
-                <Route component={DetailsOrder} path='/orders/details/:id' />
-                <Route component={SuccessMessage} path='/success' />
-                
-                <Route component={Dashboard} path='/admin/home' />
+            <Route component={Dashboard} path='/admin/home' />
         </Switch>
     )
 }

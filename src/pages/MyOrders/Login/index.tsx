@@ -8,10 +8,12 @@ import ChefImage from '../../../assets/chef.png'
 // Styles //
 import { Container, Footer } from './styles'
 import { useState } from 'react'
+import { useOrders } from '../../../hooks/useOrders'
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const { waiter } = useOrders()
 
     return (
         <Container>
