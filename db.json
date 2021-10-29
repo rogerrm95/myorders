@@ -1,0 +1,153 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Roger",
+            "lastname": "Marques",
+            "birthday": "01/01/1995",
+            "phone": "44 99115-9900",
+            "email": "rogerrm@test.com.br",
+            "job": "Cozinheiro Jr",
+            "genre": "M",
+            "amountSales": 0
+        },
+        {
+            "id": 2,
+            "name": "Samanta",
+            "lastname": "Fernandes",
+            "birthday": "25/11/2002",
+            "phone": "11 92587-9910",
+            "email": "samanta@test.com.br",
+            "job": "Cozinheira Pl",
+            "genre": "F",
+            "amountSales": 0
+        },
+        {
+            "id": 3,
+            "name": "José",
+            "lastname": "de Alencar Freitas",
+            "birthday": "25/11/1990",
+            "phone": "11 99787-5910",
+            "email": "jose@test.com.br",
+            "job": "Garçon",
+            "genre": "G",
+            "amountSales": 120
+        }
+    ],
+    "orders": [
+        {
+            "id": 3000,
+            "waiter": "José de Alencar",
+            "client": "Roger Marques",
+            "desk": 5,
+            "price": "120,00",
+            "people": 1,
+            "createdAt": "28/10/2021 ás 12:00",
+            "finishedAt": null,
+            "status": "done",
+            "itens": [
+                {
+                    "food": "Lasanha ao Fugo - Frango",
+                    "anotation": null,
+                    "price": "34,90",
+                    "amount": 1,
+                    "isReady": false
+                },
+                {
+                    "food": "Suco Del Vale - Uva - 500ml",
+                    "anotation": "com gelo",
+                    "price": "8,90",
+                    "amount": 2,
+                    "isReady": true
+                },
+                {
+                    "food": "Sundae de Ovomaltine - Pequeno",
+                    "anotation": null,
+                    "price": "12,50",
+                    "amount": 1,
+                    "isReady": false
+                }
+            ]
+        },
+        {
+            "id": 3001,
+            "waiter": "José de Alencar",
+            "client": "Sarah Gonçalves",
+            "desk": 1,
+            "price": "240,50",
+            "people": 2,
+            "createdAt": "28/10/2021 ás 12:01",
+            "finishedAt": null,
+            "status": "preparing",
+            "itens": [
+                {
+                    "food": "Lasanha ao Fugo - Frango",
+                    "anotation": null,
+                    "price": "34,90",
+                    "amount": 2,
+                    "isReady": false
+                },
+                {
+                    "food": "Suco Del Vale - Uva - 500ml",
+                    "anotation": "com gelo",
+                    "price": "8,90",
+                    "amount": 4,
+                    "isReady": true
+                },
+                {
+                    "food": "Sundae de Ovomaltine - Pequeno",
+                    "anotation": null,
+                    "price": "12,50",
+                    "amount": 2,
+                    "isReady": false
+                }
+            ]
+        }
+    ],
+    "foods": [
+        {
+            "id": 1,
+            "name": "Lasanha ao Fugo - Frango",
+            "description": "É um fato conhecido de todos que um leitor se distrairá com o conteúdo de texto legível de uma página quando estiver examinando sua diagramação. ",
+            "price": "34,90",
+            "category": "Prato Principal",
+            "isActive": true
+            
+        },
+        {
+            "id": 2,
+            "name": "Suco Del Vale - Uva - 500ml",
+            "description": "Suco de Lata",
+            "price": "8,90",
+            "category": "Bebidas",
+            "isActive": true
+            
+        },
+        {
+            "id": 3,
+            "name": "Sundae de Ovomaltine - Pequeno",
+            "description": "Sundae Artesanal",
+            "price": "12,50",
+            "category": "Sobremesas",
+            "isActive": true
+            
+        },
+        {
+            "id": 4,
+            "name": "Founde de Chocolate - c/ Morangos ",
+            "description": "Fondue",
+            "price": "50,50",
+            "category": "Sobremesas",
+            "isActive": true
+            
+        },
+        {
+            "id": 5,
+            "name": "Macarrona Italiana",
+            "description": "Macarronada feita com toda tradição Italiana",
+            "price": "25,80",
+            "category": "Prato Principal",
+            "isActive": false
+        }
+    ]
+}

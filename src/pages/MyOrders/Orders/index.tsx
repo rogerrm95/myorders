@@ -2,35 +2,44 @@
 import { AllOrdersList } from "../../../components/MyOrders/AllOrdersList";
 import { Input } from "../../../components/MyOrders/Inputs/General";
 import { OrderPage } from "../../../components/MyOrders/OrderPage";
- // Image //
+// Image //
 import FoodInService from '../../../assets/icons/plate-in-service.svg'
- // Styles //
+// Styles //
 import { Container } from "./styles";
+import { useEffect, useState } from "react";
+import { useOrders } from "../../../hooks/useOrders";
 
 type OrderData = {
     id: number,
-    desk: string,
+    desk: number,
     status: 'done' | 'preparing' | 'waiting',
-    initialTime: string,
+    initialTime?: string,
 }
 
 export default function Orders() {
-    // Temporário //
-    const orders = [
-        {id: 3000, desk: "01", status: 'done', initialTime: '12:00'},
-        {id: 3001, desk: "03", status: 'preparing', initialTime: '12:02'},
-        {id: 3005, desk: "12", status: 'waiting', initialTime: '12:10'}
-    ] as OrderData[]
+    const { orders } = useOrders()
+    const [list, setList] = useState<OrderData[]>([])
 
+    useEffect(() => {
+        const newList = orders.map(order => {
+            return {
+                id:order.id,
+                desk: order.desk,
+                status: order.status,
+                initialTime: '12:10' // Temporario //
+            }
+        })
+        setList(newList)
+    }, [orders])
 
     return (
         <OrderPage title="Lista de pedidos">
             <Container>
-                <Input imageSrc={FoodInService} alt='Icone' placeholder='Número do pedido. Ex: 0001-CC'/>
+                <Input imageSrc={FoodInService} alt='Icone' placeholder='Número do pedido. Ex: 0001-CC' />
 
                 <h2>Pedidos</h2>
 
-                <AllOrdersList orders={orders}/>
+                <AllOrdersList orders={list} />
             </Container>
         </OrderPage>
     )

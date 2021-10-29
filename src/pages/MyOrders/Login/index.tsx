@@ -1,3 +1,4 @@
+import { useState } from 'react'
 // Components //
 import { InputLogin } from '../../../components/MyOrders/Inputs/Login'
 import { Button } from '../../../components/MyOrders/Button'
@@ -7,13 +8,10 @@ import { FiMail, FiLock, FiLogIn } from 'react-icons/fi'
 import ChefImage from '../../../assets/chef.png'
 // Styles //
 import { Container, Footer } from './styles'
-import { useState } from 'react'
-import { useOrders } from '../../../hooks/useOrders'
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const { waiter } = useOrders()
 
     return (
         <Container>
@@ -56,7 +54,7 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="**************" />
 
-                    <Button type="submit" color='#FFF' backgroundColor="#E84A5F" >
+                    <Button type="submit" color='#FFF' backgroundColor="#E84A5F">
                         <span>
                             Entrar
                             <FiLogIn size='24' color='#FFF' />

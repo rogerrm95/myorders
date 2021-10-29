@@ -12,9 +12,9 @@ interface AllOrdersListProps extends TableHTMLAttributes<HTMLTableElement> {
 
 type Order = {
     id: number,
-    desk: string,
+    desk: number,
     status: 'done' | 'preparing' | 'waiting',
-    initialTime: string,
+    initialTime?: string,
 }
 
 // Componente que renderiza a tabela de pedidos //
