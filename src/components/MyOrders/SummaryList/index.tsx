@@ -7,15 +7,15 @@ interface SummaryListProps extends TableHTMLAttributes<HTMLTableElement> {
 }
 
 type Order = {
-    id: number,
     food: string,
     note?: string,
-    cost: string,
+    amount: number,
+    price: string,
 }
 
 // Componente que renderiza a tabela de pedidos //
-export function SummaryList({ orders, ...rest }: SummaryListProps) {
-    
+export function SummaryList({ orders = [], ...rest }: SummaryListProps) {
+
     return (
         <Container {...rest}>
             <thead>
@@ -27,14 +27,14 @@ export function SummaryList({ orders, ...rest }: SummaryListProps) {
 
             <tbody>
                 {
-                    orders.map(order => (
-                        <tr key={order.id}>
+                    orders.map((order, index) => (
+                        <tr key={index}>
                             <td>
-                                <p>{order.food}</p>
+                                <p>{`${order.food} - Qtd ${order.amount}`}</p>
                                 <span>{order.note ? order.note : 'Obs: N/A'}</span>
                             </td>
 
-                            <td>{order.cost}</td>
+                            <td>{order.price}</td>
                         </tr>
                     ))
                 }

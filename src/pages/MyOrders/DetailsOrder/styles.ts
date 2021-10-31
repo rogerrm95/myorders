@@ -1,6 +1,17 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+type ContainerProps = {
+    statusStyle: 'done' | 'preparing' | 'waiting'
+}
+
+// Cores para cada status dos pedidos //
+const status = {
+    done: '#73C273',
+    preparing: '#F59B31',
+    waiting: '#4C8BEA',
+}
+
+export const Container = styled.div<ContainerProps>`
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -15,13 +26,13 @@ export const Container = styled.div`
             font-size: 2rem;
         }
 
-        span {
+        .status {
             font-weight: 700;
             font-size: 1.5rem;
 
             strong {
-                color: #F37807;
-                background-color: #f378071a;
+                color: ${props => props.statusStyle ? status[props.statusStyle] : 'none'};
+                margin-left: 0.5rem;
                 padding: 0.5rem;
                 border-radius: 0.5rem;
             }

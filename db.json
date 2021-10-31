@@ -40,12 +40,11 @@
             "waiter": "José de Alencar",
             "client": "Roger Marques",
             "desk": 5,
-            "price": "120,00",
             "people": 1,
             "createdAt": "28/10/2021 ás 12:00",
             "finishedAt": null,
             "status": "done",
-            "itens": [
+            "items": [
                 {
                     "food": "Lasanha ao Fugo - Frango",
                     "anotation": null,
@@ -74,12 +73,11 @@
             "waiter": "José de Alencar",
             "client": "Sarah Gonçalves",
             "desk": 1,
-            "price": "240,50",
             "people": 2,
             "createdAt": "28/10/2021 ás 12:01",
             "finishedAt": null,
             "status": "preparing",
-            "itens": [
+            "items": [
                 {
                     "food": "Lasanha ao Fugo - Frango",
                     "anotation": null,
