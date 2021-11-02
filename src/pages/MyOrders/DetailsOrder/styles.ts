@@ -52,19 +52,6 @@ export const Container = styled.div<ContainerProps>`
         gap: 1rem;
     }
     
-    .timeOfOrder{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: "start end";
-        gap: 1.5rem;
-        margin: 0 auto;
-        
-        input {
-            min-width: 100px;
-            font-size: 1.25rem;
-        }
-    }
-
     .cost {
         display: flex;
         justify-content: center;

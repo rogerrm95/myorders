@@ -14,7 +14,7 @@ import NumberIcon from '../../../assets/icons/number.svg'
 import WaiterIcon from '../../../assets/icons/waiter.svg'
 import CalendarIcon from '../../../assets/icons/calendary.svg'
 // Utils //
-import { ConvertToCashString } from "../../../utils/ConvertToCashString";
+import { CalculateValueTotal } from "../../../utils/CalculateValueTotal";
 // Styles //
 import { Container } from "./styles";
 
@@ -51,7 +51,7 @@ export default function DetailsOrder() {
 
             // Soma todos os valores de cada item pedido //
             // Converte o valor pra PT-BR //
-            const amountAtToPay = ConvertToCashString(data.items)
+            const amountAtToPay = CalculateValueTotal(data.items)
 
             setTotal(amountAtToPay)
             setOrder(data)
@@ -89,23 +89,6 @@ export default function DetailsOrder() {
 
                         <div>
                             <SummaryList orders={order.items} />
-                        </div>
-
-                        <div className='timeOfOrder'>
-                            <Input
-                                label='Início'
-                                imageSrc={CalendarIcon}
-                                type='text'
-                                defaultValue={'20/01/1990' /*Arrumar*/}
-                                gridAreaName='start' />
-
-                            <Input
-                                label='Fim'
-                                imageSrc={CalendarIcon}
-                                type='text'
-                                placeholder='__ / __ / __'
-                                gridAreaName='end'
-                            />
                         </div>
 
                         <div className="cost">
