@@ -2,10 +2,10 @@ import { FiTrash2 } from "react-icons/fi";
 import { List, ListItem } from "./styles";
 
 type Items = {
-    item: string,
+    food: string,
     anotation?: string,
-    price: number,
-    unit: number
+    price: string,
+    amount: number
 }
 
 type ItemsListProps = {
@@ -24,20 +24,22 @@ export function ItemList({ items, onRemoveItem }: ItemsListProps) {
 
             <ul>
                 {
-                    items.map((item, index) => (
-                        <ListItem key={index}>
-                            <div>
-                                <p>{`Qtd: ${item.unit} - ${item.item}`}</p>
-                                <span>Obs: {`${item.anotation ? item.anotation : 'N/A'}`}</span>
-                            </div>
+                    items && (
+                        items.map((item, index) => (
+                            <ListItem key={index}>
+                                <div>
+                                    <p>{`Qtd: ${item.amount} - ${item.food}`}</p>
+                                    <span>Obs: {`${item.anotation ? item.anotation : 'N/A'}`}</span>
+                                </div>
 
-                            <p>R$ {item.price}</p>
+                                <p>R$ {item.price}</p>
 
-                            <button onClick={() => onRemoveItem(index)}>
-                                <FiTrash2 size='24' color="#E84A5F" />
-                            </button>
-                        </ListItem>
-                    ))
+                                <button onClick={() => onRemoveItem(index)}>
+                                    <FiTrash2 size='24' color="#E84A5F" />
+                                </button>
+                            </ListItem>
+                        ))
+                    )
                 }
             </ul>
         </List>

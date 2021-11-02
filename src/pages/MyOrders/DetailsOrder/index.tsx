@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { api } from "../../../services/api";
 // Components //
 import { Input } from "../../../components/MyOrders/Inputs/General";
 import { OrderPage } from "../../../components/MyOrders/OrderPage";
 import { Button } from "../../../components/MyOrders/Button";
 import { SummaryList } from "../../../components/MyOrders/SummaryList";
-
 // Icons //
 import { FiCheck } from "react-icons/fi";
 import UserIcon from '../../../assets/icons/person.svg'
@@ -13,16 +13,17 @@ import DeskIcon from '../../../assets/icons/desk.svg'
 import NumberIcon from '../../../assets/icons/number.svg'
 import WaiterIcon from '../../../assets/icons/waiter.svg'
 import CalendarIcon from '../../../assets/icons/calendary.svg'
-
+// Utils //
+import { ConvertToCashString } from "../../../utils/ConvertToCashString";
+// Styles //
 import { Container } from "./styles";
-import { api } from "../../../services/api";
 
 type OrdersData = {
     id: string,
     status: 'done' | 'preparing' | 'waiting',
     client: string,
     desk: number,
-    qtdPeople: number,
+    people: number,
     waiter: string,
     price: string,
     items: Order[]
@@ -49,11 +50,8 @@ export default function DetailsOrder() {
                 .then(res => res.data)
 
             // Soma todos os valores de cada item pedido //
-            const amountAtToPay = data.items
-                .map((item: Order) => parseFloat(item.price) * item.amount)
-                .reduce((item, acc) => {
-                    return item + acc
-                }, 0).toFixed(2).replace('.', ',')
+            // Converte o valor pra PT-BR //
+            const amountAtToPay = ConvertToCashString(data.items)
 
             setTotal(amountAtToPay)
             setOrder(data)
@@ -85,7 +83,7 @@ export default function DetailsOrder() {
                         <form>
                             <Input label='Nome' imageSrc={UserIcon} readOnly value={order.client} gridAreaName='user' />
                             <Input label='Mesa' imageSrc={DeskIcon} readOnly value={order.desk} gridAreaName='desk' />
-                            <Input label='Quantidade' imageSrc={NumberIcon} readOnly value={order.qtdPeople} gridAreaName='qtdPeople' />
+                            <Input label='Quantidade' imageSrc={NumberIcon} readOnly value={order.people} gridAreaName='qtdPeople' />
                             <Input label='Atendente' imageSrc={WaiterIcon} readOnly value={order.waiter} gridAreaName='waiter' />
                         </form>
 

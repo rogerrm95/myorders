@@ -1,18 +1,14 @@
 // Components //
-import { Input } from "../../../components/MyOrders/Inputs/General";
+import { useParams } from "react-router";
 import { OrderPage } from "../../../components/MyOrders/OrderPage";
-// Icon //
-import FoodInService from '../../../assets/icons/plate-in-service.svg'
-// Styles //
-import { Container } from "./styles";
+import { Stepper } from "../../../components/MyOrders/Stepper";
 
 export default function EditOrder() {
+    const { id }: any = useParams()
 
     return (
-        <OrderPage title="Lista de pedidos">
-            <Container>
-                <Input imageSrc={FoodInService} alt='Icone' placeholder='Número do pedido. Ex: 0001-CC' />
-            </Container>
+        <OrderPage title={`Pedido Nº ${id}`}>
+            <Stepper />
         </OrderPage>
     )
 }
