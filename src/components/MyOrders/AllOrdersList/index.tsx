@@ -13,7 +13,7 @@ interface AllOrdersListProps extends TableHTMLAttributes<HTMLTableElement> {
 type Order = {
     id: number,
     desk: number,
-    status: 'done' | 'preparing' | 'waiting',
+    status: 'done' | 'preparing' | 'waiting' | 'finished',
     initialTime?: string,
 }
 
@@ -21,6 +21,12 @@ type Order = {
 export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
     // Capta a URL //
     const { location } = useHistory()
+    const statusText = {
+        'done': "Pronto",
+        'preparing': 'Preparando',
+        'waiting': 'Aguardando',
+        'finished': 'Finalizado'
+    }
 
     return (
         <Container {...rest}>
@@ -33,7 +39,6 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
                     <th>Ação</th>
                 </tr>
             </thead>
-
             <tbody>
                 {
                     orders.map(order => (
@@ -42,16 +47,18 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
                             <td>{order.desk}</td>
                             <td>
                                 {
-                                    order.status === 'done' ? 'Pronto' : (
-                                        order.status === 'preparing' ? 'Preparando' : 'Aguardando'
-                                    )
+                                    statusText[order.status]
                                 }
                             </td>
                             <td>{order.initialTime}</td>
                             <td className='actionButtons'>
-                                <Link to={`${location.pathname}/edit/${order.id}`} >
-                                    <img src={EditIcon} alt="Editar" />
-                                </Link>
+                                {
+                                    order.status !== 'finished' && (
+                                        <Link to={`${location.pathname}/edit/${order.id}`} >
+                                            <img src={EditIcon} alt="Editar" />
+                                        </Link>
+                                    )
+                                }
                                 <Link to={`${location.pathname}/details/${order.id}`} >
                                     <img src={DetailsIcon} alt="Visualizar" />
                                 </Link>

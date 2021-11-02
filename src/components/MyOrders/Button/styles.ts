@@ -30,7 +30,11 @@ export const Container = styled.button<ContainerProps>`
         }
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
         filter: brightness(0.9)
+    }
+
+    &[disabled] {
+        cursor: default;
     }
 `

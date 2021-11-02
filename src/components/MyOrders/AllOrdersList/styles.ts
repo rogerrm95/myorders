@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+type ListItemData = {
+    status: 'done' | 'preparing' | 'waiting' | 'finished'
+}
+
+// Cores para cada status dos pedidos //
+const statusStyle = {
+    'done': '#73C273',
+    'preparing': '#F59B31',
+    'waiting': '#4C8BEA',
+    'finished': '#E0E0E0'
+}
+
 export const Container = styled.table`
     border: 1px solid var(--grey-light);
     border-collapse: collapse;
@@ -28,17 +40,6 @@ export const Container = styled.table`
         }
     }
 `
-
-type ListItemData = {
-    status: 'done' | 'preparing' | 'waiting'
-}
-
-// Cores para cada status dos pedidos //
-const statusStyle = {
-    'done': '#73C273',
-    'preparing': '#F59B31',
-    'waiting': '#4C8BEA'
-}
 
 export const ListItem = styled.tr<ListItemData>`
     td {

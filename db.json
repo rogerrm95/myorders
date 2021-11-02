@@ -89,9 +89,10 @@
       "client": "Roger",
       "desk": "13",
       "people": "2",
-      "status": "waiting",
+      "status": "finished",
       "createdAt": "2021-11-02T17:17:14.259Z",
-      "id": 3002
+      "id": 3002,
+      "finishedAt": "2021-11-02T19:45:22.171Z"
     }
   ],
   "foods": [

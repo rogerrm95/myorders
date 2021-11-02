@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router";
+import { createBrowserHistory } from 'history'
+import { toast } from "react-toastify";
 import { api } from "../../../services/api";
 // Components //
 import { Input } from "../../../components/MyOrders/Inputs/General";
@@ -12,7 +14,6 @@ import UserIcon from '../../../assets/icons/person.svg'
 import DeskIcon from '../../../assets/icons/desk.svg'
 import NumberIcon from '../../../assets/icons/number.svg'
 import WaiterIcon from '../../../assets/icons/waiter.svg'
-import CalendarIcon from '../../../assets/icons/calendary.svg'
 // Utils //
 import { CalculateValueTotal } from "../../../utils/CalculateValueTotal";
 // Styles //
@@ -20,7 +21,7 @@ import { Container } from "./styles";
 
 type OrdersData = {
     id: string,
-    status: 'done' | 'preparing' | 'waiting',
+    status: 'done' | 'preparing' | 'waiting' | 'finished',
     client: string,
     desk: number,
     people: number,
@@ -38,6 +39,7 @@ type Order = {
 
 export default function DetailsOrder() {
     const { id }: any = useParams()
+    const { push } = useHistory()
 
     const [isLoading, setIsLoading] = useState(false)
     const [order, setOrder] = useState({} as OrdersData)
@@ -59,6 +61,26 @@ export default function DetailsOrder() {
         }
         getOrderById()
     }, [id])
+
+    // Finaliza um pedido - Apenas os marcados como "Prontos" //
+    async function handleFinishOrder() {
+        try {
+            if (order.status === 'done') {
+                await api.put(`orders/${id}`, {
+                    ...order,
+                    status: 'finished',
+                    finishedAt: new Date()
+                })
+                    .then(_ => {
+                        toast.success('Pedido encerrado!')
+                        createBrowserHistory()
+                        push('/home')
+                    })
+            }
+        } catch {
+            toast.error('Ops, ocorreu um erro durante o processamento!')
+        }
+    }
 
     return (
         <OrderPage title="Detalhes">
@@ -96,9 +118,20 @@ export default function DetailsOrder() {
                         </div>
 
                         <div className='finishButton'>
-                            <Button backgroundColor="#E84A5F">
-                                Encerrar pedido
-                                <FiCheck size='24' color='#FFF' />
+                            <Button
+                                backgroundColor={order.status === 'finished' ? '#E0E0E0' : "#E84A5F"}
+                                disabled={order.status === 'finished'}
+                                onClick={handleFinishOrder}>
+
+                                {
+                                    order.status === 'finished' ? "Encerrado" : (
+                                        <>
+                                            Encerrar pedido
+                                            <FiCheck size='24' color='#FFF' />
+                                        </>
+                                    )
+                                }
+
                             </Button>
                         </div>
 

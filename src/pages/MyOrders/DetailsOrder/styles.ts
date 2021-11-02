@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type ContainerProps = {
-    statusStyle: 'done' | 'preparing' | 'waiting'
+    statusStyle: 'done' | 'preparing' | 'waiting' | 'finished'
 }
 
 // Cores para cada status dos pedidos //
@@ -9,6 +9,7 @@ const status = {
     done: '#73C273',
     preparing: '#F59B31',
     waiting: '#4C8BEA',
+    finished: '#E0E0E0'
 }
 
 export const Container = styled.div<ContainerProps>`
