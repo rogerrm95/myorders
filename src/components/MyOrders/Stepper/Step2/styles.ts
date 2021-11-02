@@ -24,5 +24,10 @@ export const Container = styled.div`
         "user user"
         "desk qtdPeople"
         "waiter waiter";
+        gap: 1.5rem 2rem;
+    }
+
+    button svg {
+        stroke-width: 4;
     }
 `

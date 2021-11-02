@@ -9,8 +9,8 @@ import HatImage from '../../../assets/icons/chef-hat.png'
 import PlusIcon from '../../../assets/icons/plus.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import HatIcon from '../../../assets/icons/hat.svg'
-
-import { Container } from './styles' // Styles //
+// Styles //
+import { Container } from './styles'
 
 // VERIFICAR SE O USUÁRIO ESTÁ AUTENTICADO //
 // SENÃO ESTIVER, O REDIRECIONAR PARA A PÁGINA DE LOGIN //
@@ -37,7 +37,7 @@ export default function Home() {
             <main>
                 <ItemMenu image={PlateImage} path='/order/new' title="Nova Comanda" legend="Criar uma nova comanda" icon={PlusIcon} />
                 <ItemMenu image={NoteImage}  path='/orders' title="Atualizar Comanda" legend="Atualizar um pedido ativo" icon={RefreshIcon}/>
-                <ItemMenu image={HatImage} path='/admin/home' title="Cozinha" legend="Acessar o área administrativa da cozinha" icon={HatIcon}/>
+                <ItemMenu image={HatImage} path='/admin/home' title="Cozinha" legend="Acessar a área administrativa da cozinha" icon={HatIcon}/>
             </main>
         </Container>
     )

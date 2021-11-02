@@ -13,7 +13,7 @@ type Order = {
     price: string,
 }
 
-// Componente que renderiza a tabela de pedidos //
+// Componente que renderiza os itens do pedido //
 export function SummaryList({ orders = [], ...rest }: SummaryListProps) {
 
     return (
@@ -24,19 +24,26 @@ export function SummaryList({ orders = [], ...rest }: SummaryListProps) {
                     <th>Preço</th>
                 </tr>
             </thead>
-
             <tbody>
                 {
-                    orders.map((order, index) => (
-                        <tr key={index}>
-                            <td>
-                                <p>{`${order.food} - Qtd ${order.amount}`}</p>
-                                <span>{order.note ? order.note : 'Obs: N/A'}</span>
-                            </td>
+                    orders.length !== 0 ? (
+                        orders.map((order, index) => (
+                            <tr key={index} className='items'>
+                                <td>
+                                    <p>{`${order.food} - Qtd ${order.amount}`}</p>
+                                    <span>{order.note ? order.note : 'Obs: N/A'}</span>
+                                </td>
 
-                            <td>{order.price}</td>
+                                <td>{order.price}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr className='empty-list'>
+                            <td colSpan={2}>
+                                <h1>Sem itens</h1>
+                            </td>
                         </tr>
-                    ))
+                    )
                 }
             </tbody>
         </Container>

@@ -12,7 +12,7 @@ import { ItemList } from '../../ItemList'
 
 import { Box, Summary } from './styles'
 import { useStepper } from '../../../../hooks/useStepper'
-import { ConvertToCashString } from '../../../../utils/ConvertToCashString'
+import { CalculateValueTotal } from '../../../../utils/CalculateValueTotal'
 
 type Item = {
     food: string,
@@ -23,7 +23,7 @@ type Item = {
 
 // Etapa 1: Adicionar itens ao pedido //
 export function Step1() {
-    const { order, onNextPage,updateOrder } = useStepper()
+    const { order, onNextPage, updateOrder } = useStepper()
 
     const price = GenerateRandonNumber(100).toString() // Temporario //
     const [food, setFood] = useState('')
@@ -35,7 +35,7 @@ export function Step1() {
     // Calculará o preço total do pedido //
     useEffect(() => {
         if (order.items) {
-            const value = ConvertToCashString(order.items)
+            const value = CalculateValueTotal(order.items)
 
             setTotal(value)
         }
@@ -71,53 +71,51 @@ export function Step1() {
     }
 
     return (
-        <>
-            <Box>
-                <form>
-                    <Input
-                        gridAreaName="food"
-                        imageSrc={FoodInService}
-                        value={food}
-                        onChange={(e) => setFood(e.target.value)}
-                        placeholder="Selecione os pratos ou bebidas..." />
+        <Box>
+            <form>
+                <Input
+                    gridAreaName="food"
+                    imageSrc={FoodInService}
+                    value={food}
+                    onChange={(e) => setFood(e.target.value)}
+                    placeholder="Selecione os pratos ou bebidas..." />
 
-                    <Input
-                        gridAreaName="obs"
-                        imageSrc={Note}
-                        label="Observação"
-                        type='text'
-                        value={anotation}
-                        onChange={(e) => setAnotation(e.target.value)}
-                        placeholder="Ex: Retirar cebolha, sem sal e etc... " />
+                <Input
+                    gridAreaName="obs"
+                    imageSrc={Note}
+                    label="Observação"
+                    type='text'
+                    value={anotation}
+                    onChange={(e) => setAnotation(e.target.value)}
+                    placeholder="Ex: Retirar cebolha, sem sal e etc... " />
 
-                    <Input
-                        imageSrc={Number}
-                        gridAreaName="unit"
-                        label="Quantidade"
-                        type='number'
-                        min='1'
-                        value={units}
-                        onChange={(e) => setUnits(parseInt(e.target.value))} />
+                <Input
+                    imageSrc={Number}
+                    gridAreaName="unit"
+                    label="Quantidade"
+                    type='number'
+                    min='1'
+                    value={units}
+                    onChange={(e) => setUnits(parseInt(e.target.value))} />
 
-                    <Button backgroundColor="#10A610" height={3.5} onClick={handleAddItem} type='button'>
-                        Adicionar <FiPlus size={16} color="#FFF" />
-                    </Button>
-                </form>
+                <Button backgroundColor="#10A610" height={3.5} onClick={handleAddItem} type='button'>
+                    Adicionar <FiPlus size={16} color="#FFF" />
+                </Button>
+            </form>
 
-                <Summary>
-                    <h2>Pedido</h2>
-                    <h2>Total: R$ {total}</h2>
-                </Summary>
+            <Summary>
+                <h2>Pedido</h2>
+                <h2>Total: R$ {total}</h2>
+            </Summary>
 
-                <ItemList items={order.items} onRemoveItem={handleRemoveItem} />
+            <ItemList items={order.items} onRemoveItem={handleRemoveItem} />
 
-                <div>
-                    <Button backgroundColor='#4C8BEA' onClick={onNextPage}>
-                        Próximo
-                        <FiChevronRight size={24} />
-                    </Button>
-                </div>
-            </Box>
-        </>
+            <div>
+                <Button backgroundColor='#4C8BEA' onClick={onNextPage}>
+                    Próximo
+                    <FiChevronRight size={24} />
+                </Button>
+            </div>
+        </Box>
     )
 }

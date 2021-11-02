@@ -22,11 +22,14 @@ export default function Orders() {
 
     useEffect(() => {
         const newList = orders.map(order => {
+            const hour = new Date(order.createdAt).getHours().toString().padStart(2, "0")
+            const minute = new Date(order.createdAt).getMinutes().toString().padStart(2, "0")
+
             return {
-                id:order.id,
+                id: order.id,
                 desk: order.desk,
                 status: order.status,
-                initialTime: '12:10' // Temporario //
+                initialTime: `${hour}:${minute}`
             }
         })
         setList(newList)

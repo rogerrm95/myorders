@@ -41,64 +41,57 @@
       "client": "Roger Marques",
       "desk": 5,
       "people": 1,
-      "createdAt": "2021-11-01T22:47:15.171Z",
-      "finishedAt": null,
       "status": "waiting",
+      "createdAt": "2021-11-02T16:33:11.069Z",
+      "finishedAt": null,
       "items": [
-        {
-          "food": "Lasanha ao Fugo - Frango",
-          "anotation": null,
-          "price": "34,90",
-          "amount": 1,
-          "isReady": false
-        },
-        {
-          "food": "Suco Del Vale - Uva - 500ml",
-          "anotation": "com gelo",
-          "price": "8,90",
-          "amount": 2,
-          "isReady": true
-        },
         {
           "food": "Sorvete de Pote - Laranja",
           "anotation": "",
           "amount": 2,
-          "price": "96"
+          "price": "96,00"
+        },
+        {
+          "food": "Sorvete de ameixa",
+          "anotation": "",
+          "amount": 1,
+          "price": "35,00"
         }
       ]
     },
     {
-      "id": 3001,
-      "waiter": "José de Alencar",
-      "client": "Sarah Gonçalves",
-      "desk": 1,
-      "people": 2,
-      "createdAt": "28/10/2021 ás 12:01",
-      "finishedAt": null,
-      "status": "preparing",
       "items": [
         {
-          "food": "Lasanha ao Fugo - Frango",
-          "anotation": null,
-          "price": "34,90",
-          "amount": 2,
-          "isReady": false
-        },
-        {
-          "food": "Suco Del Vale - Uva - 500ml",
-          "anotation": "com gelo",
-          "price": "8,90",
-          "amount": 4,
-          "isReady": true
-        },
-        {
-          "food": "Sundae de Ovomaltine - Pequeno",
-          "anotation": null,
-          "price": "12,50",
-          "amount": 2,
-          "isReady": false
+          "food": "Arroz doce",
+          "anotation": "",
+          "amount": 1,
+          "price": "20,00"
         }
-      ]
+      ],
+      "waiter": "José de Alencar",
+      "client": "Tulio Soares",
+      "desk": "5",
+      "people": "1",
+      "status": "waiting",
+      "createdAt": "2021-11-02T17:07:02.964Z",
+      "id": 3001
+    },
+    {
+      "items": [
+        {
+          "food": "Torta de Frango c/ Catupiry",
+          "anotation": "",
+          "amount": 1,
+          "price": "79,00"
+        }
+      ],
+      "waiter": "José de Alencar",
+      "client": "Roger",
+      "desk": "13",
+      "people": "2",
+      "status": "waiting",
+      "createdAt": "2021-11-02T17:17:14.259Z",
+      "id": 3002
     }
   ],
   "foods": [

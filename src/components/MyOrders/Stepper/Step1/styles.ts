@@ -10,11 +10,11 @@ export const Box = styled.div`
         display: grid;
         grid-template-columns: 2fr 1fr;
         grid-template-rows: 5rem 1fr 1fr;
-        gap: 1.5rem;
         grid-template-areas:
         "food food"
         "obs unit"
         "button button";
+        gap: 1.5rem 2rem;
 
         button {
             grid-area: button;

@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import { useParams, useHistory } from "react-router";
 import { createBrowserHistory } from 'history'
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify'
+import { api } from "../../../../services/api";
 // Hook //
 import { useStepper } from "../../../../hooks/useStepper";
 // Components //
+import { Button } from "../../Button";
 import { Input } from "../../Inputs/General";
 import { SummaryList } from "../../SummaryList";
 // Icons //
+import { FiCheck } from "react-icons/fi";
 import UserIcon from '../../../../assets/icons/person.svg'
 import DeskIcon from '../../../../assets/icons/desk.svg'
 import NumberIcon from '../../../../assets/icons/number.svg'
 import WaiterIcon from '../../../../assets/icons/waiter.svg'
 // Styles //
 import { Container } from './styles'
-import { api } from "../../../../services/api";
-import { useParams, useHistory } from "react-router";
-
 
 export function Step2() {
     const { order } = useStepper()
@@ -31,13 +32,12 @@ export function Step2() {
     async function handleUpdateOrder() {
         const updatedOrder = {
             ...order,
+            waiter,
             client,
             desk,
             people,
-            waiter,
             status: 'waiting',
         }
-
 
         if (id) {
             api.put(`orders/${id}`, updatedOrder)
@@ -50,7 +50,7 @@ export function Step2() {
                         pauseOnHover: false,
                     })
                     createBrowserHistory()
-                    push('/orders')
+                    push('/home')
                 })
         } else {
             api.post('orders/', { ...updatedOrder, createdAt: new Date() })
@@ -63,7 +63,7 @@ export function Step2() {
                         pauseOnHover: false,
                     })
                     createBrowserHistory()
-                    push('/orders')
+                    push('/home')
                 })
         }
     }
@@ -101,9 +101,9 @@ export function Step2() {
                 <SummaryList orders={order.items} />
             </div>
 
-            <button onClick={handleUpdateOrder}>
-                Enviar
-            </button>
+            <Button onClick={handleUpdateOrder} backgroundColor="#10A610">
+                Finalizar pedido <FiCheck size={24}/>
+            </Button>
         </Container>
     )
 }
