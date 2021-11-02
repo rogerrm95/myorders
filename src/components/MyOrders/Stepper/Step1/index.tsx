@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import GenerateRandonNumber from '../../../../utils/GenerateRandonNumber'
+import { CalculateValueTotal } from '../../../../utils/CalculateValueTotal'
+// Hook //
+import { useStepper } from '../../../../hooks/useStepper'
 // Images //
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
 import FoodInService from '../../../../assets/icons/plate-in-service.svg'
@@ -9,10 +13,10 @@ import Number from '../../../../assets/icons/number.svg'
 import { Button } from '../../Button'
 import { Input } from '../../Inputs/General'
 import { ItemList } from '../../ItemList'
-
+// Styles //
 import { Box, Summary } from './styles'
-import { useStepper } from '../../../../hooks/useStepper'
-import { CalculateValueTotal } from '../../../../utils/CalculateValueTotal'
+// Schema - Validação //
+import { Step1Schema } from './schema'
 
 type Item = {
     food: string,
@@ -42,18 +46,26 @@ export function Step1() {
     }, [order.items])
 
     // Adiociona um item na tabela //
-    function handleAddItem() {
+    async function handleAddItem() {
         const item = {
             food,
             anotation: anotation ? anotation : '',
             amount: units,
-            price,
+            price
         } as Item
 
-        const newList = order.items ? [...order.items, item] : [item]
-
-        updateOrder(newList)
-        handleResetFields()
+        // Validação dos dados //
+        await Step1Schema.validate({ ...item }, { abortEarly: false })
+            .then(_ => {
+                const newList = order.items ? [...order.items, item] : [item]
+                updateOrder(newList)
+                handleResetFields()
+            })
+            .catch(err => {
+                err.errors.map((error: string) => (
+                    toast.warning(error)
+                ))
+            })
     }
     // Remove um item da tabela //
     function handleRemoveItem(id: number) {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 // Components //
 import { InputLogin } from '../../../components/MyOrders/Inputs/Login'
 import { Button } from '../../../components/MyOrders/Button'
@@ -8,10 +8,30 @@ import { FiMail, FiLock, FiLogIn } from 'react-icons/fi'
 import ChefImage from '../../../assets/chef.png'
 // Styles //
 import { Container, Footer } from './styles'
+import { LoginSchema } from './schema'
+import { toast } from 'react-toastify'
 
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    // Realiza o Login do usuário //
+    async function handleLogin(e: FormEvent){
+        e.preventDefault()
+        const user = {email, password}
+
+        await LoginSchema.validate({...user}, {abortEarly: false})
+            .then(_ => {
+                // Função de Logar o usuário //
+                // api.get('/autenticate', user)
+                toast.success('Login Aceito')
+            })
+            .catch(err => {
+                err.errors.map((error: string) => (
+                    toast.warning(error)
+                ))
+            })
+    }
 
     return (
         <Container>
@@ -36,7 +56,7 @@ export default function Login() {
                     Login
                 </h1>
 
-                <form>
+                <form onSubmit={handleLogin}>
                     <InputLogin
                         label='E-mail'
                         Icon={FiMail}

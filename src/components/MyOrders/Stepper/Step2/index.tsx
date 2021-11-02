@@ -18,6 +18,7 @@ import NumberIcon from '../../../../assets/icons/number.svg'
 import WaiterIcon from '../../../../assets/icons/waiter.svg'
 // Styles //
 import { Container } from './styles'
+import { Step2Schema } from "./schema";
 
 export function Step2() {
     const { order } = useStepper()
@@ -39,33 +40,42 @@ export function Step2() {
             status: 'waiting',
         }
 
-        if (id) {
-            api.put(`orders/${id}`, updatedOrder)
-                .then(_ => {
-                    toast.success(`Pedido atualizado!`, {
-                        draggable: true,
-                        position: 'top-right',
-                        autoClose: 4000,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                    })
-                    createBrowserHistory()
-                    push('/home')
-                })
-        } else {
-            api.post('orders/', { ...updatedOrder, createdAt: new Date() })
-                .then(res => {
-                    toast.success(`Pedido realizado! Nº ${res.data.id}`, {
-                        draggable: true,
-                        position: 'top-right',
-                        autoClose: 4000,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                    })
-                    createBrowserHistory()
-                    push('/home')
-                })
-        }
+        // Validação dos dados //
+        await Step2Schema.validate({ ...updatedOrder }, { abortEarly: false })
+            .then(_ => {
+                if (id) {
+                    api.put(`orders/${id}`, updatedOrder)
+                        .then(_ => {
+                            toast.success(`Pedido atualizado!`, {
+                                draggable: true,
+                                position: 'top-right',
+                                autoClose: 4000,
+                                closeOnClick: true,
+                                pauseOnHover: false,
+                            })
+                            createBrowserHistory()
+                            push('/home')
+                        })
+                } else {
+                    api.post('orders/', { ...updatedOrder, createdAt: new Date() })
+                        .then(res => {
+                            toast.success(`Pedido realizado! Nº ${res.data.id}`, {
+                                draggable: true,
+                                position: 'top-right',
+                                autoClose: 4000,
+                                closeOnClick: true,
+                                pauseOnHover: false,
+                            })
+                            createBrowserHistory()
+                            push('/home')
+                        })
+                }
+            })
+            .catch(err => {
+                err.errors.map((error: string) => (
+                    toast.warning(error)
+                ))
+            })
     }
 
     return (
@@ -76,24 +86,28 @@ export function Step2() {
                     imageSrc={UserIcon}
                     value={order.client}
                     onChange={(e) => setClient(e.target.value)}
+                    placeholder='Nome do cliente...'
                     gridAreaName='user' />
                 <Input
                     label='Mesa'
                     imageSrc={DeskIcon}
                     value={order.desk}
                     onChange={(e) => setDesk(e.target.value)}
+                    placeholder='Informar o Nº da mesa'
                     gridAreaName='desk' />
                 <Input
-                    label='Quantidade'
+                    label='Quantidade *'
                     imageSrc={NumberIcon}
                     value={order.people}
                     onChange={(e) => setPeople(e.target.value)}
+                    placeholder='Informar o Nº de pessoas'
                     gridAreaName='qtdPeople' />
                 <Input
                     label='Atendente'
                     imageSrc={WaiterIcon}
                     value={order.waiter}
                     onChange={(e) => setWaiter(e.target.value)}
+                    placeholder='Selecionar um atendente...'
                     gridAreaName='waiter' />
             </form>
 
@@ -102,7 +116,7 @@ export function Step2() {
             </div>
 
             <Button onClick={handleUpdateOrder} backgroundColor="#10A610">
-                Finalizar pedido <FiCheck size={24}/>
+                Finalizar pedido <FiCheck size={24} />
             </Button>
         </Container>
     )
