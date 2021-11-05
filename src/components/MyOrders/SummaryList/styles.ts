@@ -71,6 +71,7 @@ export const Container = styled.table`
             align-items: center;
             opacity: 0.25;
             font-weight: 500;
+            z-index: 0;
         }
     }
 `

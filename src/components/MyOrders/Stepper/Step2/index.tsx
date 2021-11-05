@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { createBrowserHistory } from 'history'
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +19,14 @@ import WaiterIcon from '../../../../assets/icons/waiter.svg'
 // Styles //
 import { Container } from './styles'
 import { Step2Schema } from "./schema";
+import { Select } from "../../Select";
+
+type UsersData = {
+    id: number,
+    name: string,
+    lastname: string,
+    job: string
+}
 
 export function Step2() {
     const { order } = useStepper()
@@ -29,6 +37,20 @@ export function Step2() {
     const [desk, setDesk] = useState(order.desk)
     const [people, setPeople] = useState(order.people)
     const [waiter, setWaiter] = useState(order.waiter)
+
+    const [users, setUsers] = useState([] as UsersData[])
+
+    useEffect(() => {
+        async function getUsers() {
+            const data = await api.get<UsersData[]>('users')
+                .then(res => res.data)
+
+            setUsers(data)
+        }
+
+        getUsers()
+    }, [])
+
 
     async function handleUpdateOrder() {
         const updatedOrder = {
@@ -102,13 +124,12 @@ export function Step2() {
                     onChange={(e) => setPeople(e.target.value)}
                     placeholder='Informar o Nº de pessoas'
                     gridAreaName='qtdPeople' />
-                <Input
-                    label='Atendente'
+                <Select
+                    options={users}
                     imageSrc={WaiterIcon}
-                    value={order.waiter}
-                    onChange={(e) => setWaiter(e.target.value)}
-                    placeholder='Selecionar um atendente...'
-                    gridAreaName='waiter' />
+                    gridAreaName='waiter'
+                    value={waiter}
+                    setWaiter={setWaiter} />
             </form>
 
             <div>

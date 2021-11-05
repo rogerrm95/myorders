@@ -93,6 +93,41 @@
       "createdAt": "2021-11-02T17:17:14.259Z",
       "id": 3002,
       "finishedAt": "2021-11-02T19:45:22.171Z"
+    },
+    {
+      "items": [
+        {
+          "food": "Lasanha de Peixe - Média",
+          "anotation": "",
+          "amount": 2,
+          "price": "89"
+        },
+        {
+          "food": "Suco de Beterraba",
+          "anotation": "sem açucar",
+          "amount": 1,
+          "price": "40"
+        },
+        {
+          "food": "Suco de maçã",
+          "anotation": "",
+          "amount": 1,
+          "price": "89"
+        },
+        {
+          "food": "Bolo de Pote - Brigadeiro",
+          "anotation": "",
+          "amount": 2,
+          "price": "15"
+        }
+      ],
+      "waiter": "Roger Marques",
+      "client": "Ester Meireles",
+      "desk": "02",
+      "people": "02",
+      "status": "waiting",
+      "createdAt": "2021-11-05T00:52:24.654Z",
+      "id": 3003
     }
   ],
   "foods": [
