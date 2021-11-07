@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import GenerateRandonNumber from '../../../../utils/GenerateRandonNumber'
 import { CalculateValueTotal } from '../../../../utils/CalculateValueTotal'
 // Hook //
 import { useStepper } from '../../../../hooks/useStepper'
@@ -17,24 +16,37 @@ import { ItemList } from '../../ItemList'
 import { Box, Summary } from './styles'
 // Schema - Validação //
 import { Step1Schema } from './schema'
+import { AutoComplete } from '../../Inputs/AutoComplete'
+import { api } from '../../../../services/api'
 
-type Item = {
-    food: string,
-    anotation?: string,
+type Food = {
+    id: number,
+    name: string,
     price: string,
-    amount: number
+    category: string
 }
 
 // Etapa 1: Adicionar itens ao pedido //
 export function Step1() {
     const { order, onNextPage, updateOrder } = useStepper()
 
-    const price = GenerateRandonNumber(100).toString() // Temporario //
-    const [food, setFood] = useState('')
+    const [foods, setFoods] = useState([] as Food[]) // Lista dos itens vindo da API //
+    const [food, setFood] = useState({} as Food)
     const [anotation, setAnotation] = useState('')
     const [units, setUnits] = useState(1)
-
     const [total, setTotal] = useState('0')
+    const [hasClean, setHasClean] = useState(false)
+    
+
+    // Irá buscar todos os pratos cadastrados no sistema //
+    useEffect(() => {
+        async function getAPIAllFoods() {
+            const data = await api.get('/foods').then(res => res.data)
+            setFoods(data)
+        }
+
+        getAPIAllFoods()
+    }, [])
 
     // Calculará o preço total do pedido //
     useEffect(() => {
@@ -48,11 +60,11 @@ export function Step1() {
     // Adiociona um item na tabela //
     async function handleAddItem() {
         const item = {
-            food,
+            food: food.name,
             anotation: anotation ? anotation : '',
             amount: units,
-            price
-        } as Item
+            price: food.price
+        }
 
         // Validação dos dados //
         await Step1Schema.validate({ ...item }, { abortEarly: false })
@@ -79,19 +91,21 @@ export function Step1() {
     function handleResetFields() {
         setAnotation('')
         setUnits(1)
-        setFood('') // Temporário //
+        setFood({} as Food)
+        setHasClean(!hasClean)
     }
 
     return (
         <Box>
             <form>
-                <Input
-                    gridAreaName="food"
+                <AutoComplete
+                    gridAreaName='food'
                     imageSrc={FoodInService}
-                    value={food}
-                    onChange={(e) => setFood(e.target.value)}
-                    placeholder="Selecione os pratos ou bebidas..." />
-
+                    placeholder='Selecione os pratos ou bebidas...'
+                    items={foods}
+                    onSelectedChange={setFood}
+                    clearData={hasClean}/>
+                
                 <Input
                     gridAreaName="obs"
                     imageSrc={Note}

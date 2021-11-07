@@ -128,6 +128,58 @@
       "status": "waiting",
       "createdAt": "2021-11-05T00:52:24.654Z",
       "id": 3003
+    },
+    {
+      "items": [
+        {
+          "food": "Lasanha ao Fugo - Frango",
+          "anotation": "",
+          "amount": 2,
+          "price": "34,90"
+        },
+        {
+          "food": "Suco Del Vale - Uva - 500ml",
+          "anotation": "",
+          "amount": 2,
+          "price": "8,90"
+        }
+      ],
+      "waiter": "Samanta Fernandes",
+      "client": "Rogerio Marques",
+      "desk": "01",
+      "people": "2",
+      "status": "waiting",
+      "createdAt": "2021-11-07T19:55:16.594Z",
+      "id": 3004
+    },
+    {
+      "items": [
+        {
+          "food": "Lasanha ao Fugo - Frango",
+          "anotation": "",
+          "amount": 1,
+          "price": "34,90"
+        },
+        {
+          "food": "Suco Del Vale - Uva - 500ml",
+          "anotation": "sem açucar",
+          "amount": 3,
+          "price": "8,90"
+        },
+        {
+          "food": "Sundae de Ovomaltine - Pequeno",
+          "anotation": "",
+          "amount": 2,
+          "price": "12,50"
+        }
+      ],
+      "waiter": "José de Alencar Freitas",
+      "client": "Sarah",
+      "desk": "02",
+      "people": "3",
+      "status": "waiting",
+      "createdAt": "2021-11-07T20:17:58.970Z",
+      "id": 3005
     }
   ],
   "foods": [
@@ -165,7 +217,7 @@
     },
     {
       "id": 5,
-      "name": "Macarrona Italiana",
+      "name": "Macarronada Italiana",
       "description": "Macarronada feita com toda tradição Italiana",
       "price": "25,80",
       "category": "Prato Principal",
