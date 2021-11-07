@@ -8,36 +8,22 @@ import { MdFastfood } from 'react-icons/md'
 import { FaCheckCircle, FaClock } from 'react-icons/fa'
 import { GiCookingPot } from 'react-icons/gi'
 import HeroImage from '../../../assets/dashboard-hero.svg'
-
-import { Container, ActiveOrdersContainer } from './styles' // Styles //
-
-// temporario //
-const activeList = [
-    {
-        id: 3001,
-        client: 'Rogério Marques',
-        desk: '04'
-    },
-    {
-        id: 3002,
-        client: 'Alberto de Souza',
-        desk: '12'
-    },
-]
+// Styles //
+import { Container, ActiveOrdersContainer } from './styles' 
 
 export default function Dashboard() {
     return (
         <Container>
             <Navbar />
 
-            <Information title='Painel Administrativo' heroImage={HeroImage}>
-                <p>
-                    Gerencie todo o fluxo do seu restaurante por aqui, de maneira fácil e amigavél.<br />
-                    Através deste painel você será capaz de visualizar a quantidade de pedidos realizados, gerenciar usuários, criar pratos e o principal
-                </p>
-            </Information>
-
             <main>
+                <Information
+                    title='Painel Administrativo'
+                    description='Através deste painel você será capaz de visualizar a quantidade de pedidos realizados, 
+                    gerenciar usuários, criar pratos e o principal.'
+                    heroImage={HeroImage}
+                />
+
                 <ActiveOrdersContainer>
                     <div className='top-label'>
                         <h1>
@@ -48,9 +34,9 @@ export default function Dashboard() {
                     </div>
 
                     <div className='orders-container'>
-                        <ActiveOrders orders={activeList} status='done' title='Pronto' Icon={FaCheckCircle} />
-                        <ActiveOrders orders={activeList} status='preparing' title='Prepando' Icon={GiCookingPot} />
-                        <ActiveOrders orders={activeList} status='waiting' title='Aguardando' Icon={FaClock} />
+                        <ActiveOrders status='done' title='Pronto' Icon={FaCheckCircle} />
+                        <ActiveOrders status='preparing' title='Prepando' Icon={GiCookingPot} />
+                        <ActiveOrders status='waiting' title='Aguardando' Icon={FaClock} />
                     </div>
                 </ActiveOrdersContainer>
             </main>

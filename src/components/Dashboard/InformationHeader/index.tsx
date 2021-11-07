@@ -1,22 +1,16 @@
-import { ReactNode } from 'react'
-
 import { Container } from './styles' // Styles //
 
 type InformationHeaderProps = {
     title: string,
+    description: string,
     heroImage: string,
-    children: ReactNode
 }
 
-export function InformationHeader({ title, heroImage, children }: InformationHeaderProps) {
+export function InformationHeader({ title, heroImage, description }: InformationHeaderProps) {
     return (
         <Container>
-            <div>
-                <h1>{title}</h1>
-                {
-                    children
-                }
-            </div>
+            <h1>{title}</h1>
+            <p>{description}</p>
             <img src={heroImage} alt="Hero" />
         </Container>
     )

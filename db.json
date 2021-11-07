@@ -125,7 +125,7 @@
       "client": "Ester Meireles",
       "desk": "02",
       "people": "02",
-      "status": "waiting",
+      "status": "done",
       "createdAt": "2021-11-05T00:52:24.654Z",
       "id": 3003
     },
@@ -148,7 +148,7 @@
       "client": "Rogerio Marques",
       "desk": "01",
       "people": "2",
-      "status": "waiting",
+      "status": "preparing",
       "createdAt": "2021-11-07T19:55:16.594Z",
       "id": 3004
     },
@@ -180,6 +180,29 @@
       "status": "waiting",
       "createdAt": "2021-11-07T20:17:58.970Z",
       "id": 3005
+    },
+    {
+      "items": [
+        {
+          "food": "Macarronada Italiana",
+          "anotation": "",
+          "amount": 2,
+          "price": "25,80"
+        },
+        {
+          "food": "Founde de Chocolate - c/ Morangos ",
+          "anotation": "",
+          "amount": 1,
+          "price": "50,50"
+        }
+      ],
+      "waiter": "Samanta Fernandes",
+      "client": "Sergio Moralles",
+      "desk": "6",
+      "people": "2",
+      "status": "done",
+      "createdAt": "2021-11-07T23:23:49.720Z",
+      "id": 3006
     }
   ],
   "foods": [

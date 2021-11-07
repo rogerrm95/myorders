@@ -6,7 +6,8 @@ interface OrderContextProviderProps {
 }
 
 interface OrderContextData {
-    orders: Order[]
+    orders: Order[],
+    getOrdersByStatus: (status: string) => Order[]
 }
 
 type Order = {
@@ -42,13 +43,22 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
 
     async function getOrders() {
         const data = await api.get<Order[]>('/orders')
-        .then(res => res.data)
+            .then(res => res.data)
 
         setOrders(data)
     }
 
+    function getOrdersByStatus(status: string) {
+        // eslint-disable-next-line array-callback-return
+        const list = orders.filter(order => {
+            if (order.status === status) return order.id
+        })
+
+        return list
+    }
+
     return (
-        <OrderContext.Provider value={{ orders }}>
+        <OrderContext.Provider value={{ orders, getOrdersByStatus }}>
             {
                 children
             }

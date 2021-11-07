@@ -49,7 +49,6 @@ const GlobalStyle = createGlobalStyle`
     }
 
     #root{
-        overflow-y: scroll;
         height: inherit;
         background-image: url(${BackgroundImage});
         background-repeat: repeat;

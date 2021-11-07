@@ -2,42 +2,30 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     flex: 1;
-    display: grid;
-    grid-template-columns: 232px 1fr;
-    grid-template-rows: 210px 1fr;
-    grid-template-areas: 
-    "menu info"
-    "menu content";
 
+    display: flex;
     width: 100%;
     height: 100%;
+
+    overflow: hidden;
     background-color: var(--background);
 
-    aside {
-        grid-area: menu;
-    }
-
-    > header, main {
-        margin: 2.5rem 2rem 0 1.5rem;
-    }
-
-    > header {
-        grid-area: info;
-
-    }
-
     main {
-        grid-area: content;
-        margin: auto;
-        // Adequar ao Grid //
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
     }
 `
 
 export const ActiveOrdersContainer = styled.div`
+    align-self: stretch;
+    
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 0 auto;
 
     .top-label {
         display: flex;

@@ -1,20 +1,38 @@
+import { useEffect, useState } from "react"
 import { IconType } from "react-icons"
+import { useOrders } from "../../../hooks/useOrders"
 import { Container } from './styles'
 
 type ActiveOrdersProps = {
     title: string,
     Icon: IconType,
     status: 'done' | 'preparing' | 'waiting'
-    orders: Order[]
 }
 
 type Order = {
     id: number,
     client: string,
-    desk: string
+    desk: number
 }
 
-export function ActiveOrders({ title, status, Icon, orders }: ActiveOrdersProps) {
+export function ActiveOrders({ title, status, Icon }: ActiveOrdersProps) {
+    const { getOrdersByStatus, orders } = useOrders()
+
+    const [orderList, setOrderList] = useState([] as Order[])
+
+    useEffect(() => {
+        const data = getOrdersByStatus(status)
+        const newOrderList = data.map(order => {
+            return {
+                id: order.id,
+                client: order.client,
+                desk: order.desk
+            }
+        })
+
+        setOrderList(newOrderList)
+    }, [status, getOrdersByStatus, orders])
+
     return (
         <Container status={status}>
             <h2>
@@ -25,7 +43,7 @@ export function ActiveOrders({ title, status, Icon, orders }: ActiveOrdersProps)
             <div className='orders-list'>
                 <ul>
                     {
-                        orders.map(order => (
+                        orderList.map(order => (
                             <li key={order.id}>
                                 <span>Pedido: <strong>{order.id}</strong></span>
                                 <span>Mesa: <strong>{order.desk}</strong></span>
