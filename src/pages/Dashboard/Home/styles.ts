@@ -6,13 +6,13 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-    background-color: var(--background);
 
+    background-color: var(--background);
+    
     main {
         height: 100%;
-
+        overflow: scroll;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -52,5 +52,24 @@ export const ActiveOrdersContainer = styled.div`
         display: flex;
         flex: 1;
         gap: 2rem
+    }
+
+    // Media Queries //
+
+    @media(max-width: 1200px){
+
+        margin-bottom: 1.5rem;
+
+        .orders-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    @media(max-width: 800px){
+
+        a {
+            display: none;
+        }
     }
 `

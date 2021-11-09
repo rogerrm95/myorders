@@ -9,6 +9,7 @@ import NewOrder from '../pages/MyOrders/NewOrder'
 import Orders from '../pages/MyOrders/Orders'
 // Cozinha //
 import Dashboard from '../pages/Dashboard/Home'
+import AdminOrders from '../pages/Dashboard/Orders'
 
 export default function Routes() {
     return (
@@ -22,7 +23,10 @@ export default function Routes() {
             <Route component={NewOrder} path='/order/new' />
             <Route component={EditOrder} path='/orders/edit/:id' />
             <Route component={DetailsOrder} path='/orders/details/:id' />
+
+
             <Route component={Dashboard} path='/admin/home' />
+            <Route component={AdminOrders} path='/admin/pedidos' />
         </Switch>
     )
 }

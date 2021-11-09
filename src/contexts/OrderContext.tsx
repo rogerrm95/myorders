@@ -20,15 +20,16 @@ type Order = {
     createdAt: string,
     finishedAt?: string,
     status: "done" | "preparing" | "waiting",
-    itens: Item | []
+    items: Item[] | []
 }
 
 type Item = {
-    food: string,
+    name: string,
     anotation: string,
+    description: string,
     price: string,
     amount: number,
-    isReady: boolean
+    isDone: boolean
 }
 
 export const OrderContext = createContext<OrderContextData>({} as OrderContextData)

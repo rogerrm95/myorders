@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.header`
     display: grid;
-    grid-template-columns: 1fr 350px;
+    grid-template-columns: 1fr 300px;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
     'title image'
@@ -35,27 +35,31 @@ export const Container = styled.header`
     img {
         grid-area: image;
         position: absolute;
-        bottom: 0.5rem;
-        right: 0;
+        bottom: 1rem;
+        right: -1rem;
+        place-items: center;
 
 
         width: 300px;
         height: 150px;
-        align-self: flex-end;
-        margin-bottom: -0.5rem;
     }
 
-    @media(max-width: 1000px){
+    @media(max-width: 1200px){
         grid-template-columns: 1fr 275px;
 
+        h1 {
+            font-size: 1.5rem;
+        }
+
         img {
-            width: 275px;
+            width: 250px;
             height: 125px;
         }
     }
 
-    @media(max-width: 800px){
+    @media(max-width: 900px){
         grid-template-columns: 1fr;
+
         img {
             display: none;
         }

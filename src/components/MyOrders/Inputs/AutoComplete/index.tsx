@@ -19,7 +19,9 @@ type Content = {
     id: number,
     name: string,
     price: string,
-    category: string
+    category: string,
+    description: string,
+    isDone: boolean
 }
 
 export function AutoComplete({
@@ -68,7 +70,9 @@ export function AutoComplete({
             id: suggestion.id,
             name: suggestion.name,
             price: suggestion.price,
-            category: suggestion.category
+            category: suggestion.category,
+            description: suggestion.description,
+            isDone: suggestion.isDone
         }
 
         setSelectedFood(selected)
