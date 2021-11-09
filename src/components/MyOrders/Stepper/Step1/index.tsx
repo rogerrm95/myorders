@@ -23,7 +23,9 @@ type Food = {
     id: number,
     name: string,
     price: string,
-    category: string
+    category: string,
+    description: string,
+    isDone: boolean
 }
 
 // Etapa 1: Adicionar itens ao pedido //
@@ -63,7 +65,9 @@ export function Step1() {
             food: food.name,
             anotation: anotation ? anotation : '',
             amount: units,
-            price: food.price
+            price: food.price,
+            description: food.description,
+            isDone: false
         }
 
         // Validação dos dados //
