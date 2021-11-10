@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react'
+import { useOrders } from '../../../hooks/useOrders'
 // Components //
 import { InformationHeader as Information } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
 // Icons & Images //
 import HeroImage from '../../../assets/orders-hero.svg'
+import {MdOutlineNoteAlt} from 'react-icons/md'
 // Styles //
-import { Container } from './styles'
-import { useEffect, useState } from 'react'
-import { useOrders } from '../../../hooks/useOrders'
+import { Container, Items, Order, Details } from './styles'
 
 type OrderData = {
     id: number,
@@ -64,18 +65,53 @@ export default function Orders() {
                         </div>
                     </div>
 
-                    <div className='order'>
+                    <Order className='order'>
                         <header>
                             <h1>Detalhes</h1>
                             <p>Status: Aguardando</p>
                         </header>
 
-                        <div className='order-details'>
+                        <div>
+                            <Details>
 
+                                <div className='details-left'>
+                                    <h2>
+                                        Nº 3000
+                                        <button>
+                                            ...
+                                        </button>
+                                    </h2>
+                                    
+                                    <p>Cliente: <strong>NOME</strong></p>
+                                    <p>Atendente: <strong>NOME_ATENDENTE</strong></p>
+                                    <span>Data de abertura: <strong>11/09 ás 12:01</strong></span>
+                                </div>
+
+                                <div className='details-right'>
+                                    <p>Valor: <strong>R$ 0,00</strong></p>
+                                    <p>Mesa: <strong>00</strong></p>
+                                    <button className='button-finish'>
+                                        Finalizar
+                                        <MdOutlineNoteAlt size='24'/>
+                                    </button>
+                                </div>
+
+                            </Details>
+
+                            <Items>
+                                <div className='items-head'>
+                                    <h2>Pedido: </h2>
+                                    <span>05 Itens</span>
+                                </div>
+
+                                <ul className='items-list'>
+                                    <li>Item 1</li>
+                                    <li>Item 2</li>
+                                    <li>Item 3</li>
+                                </ul>
+                            </Items>
                         </div>
-                    </div>
-
-
+                    </Order>
                 </section>
             </main>
         </Container>
