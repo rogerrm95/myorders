@@ -7,16 +7,15 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
-
+    
     background-color: var(--background);
     
     main {
-        height: 100%;
-        overflow: scroll;
+        flex: 1;
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        padding: 2rem;
+        padding: 1rem 1.5rem 0.5rem;
     }
 
     section {
@@ -188,7 +187,6 @@ export const Items = styled.div`
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     gap: 1rem;
     
     .items-head {
@@ -213,19 +211,33 @@ export const Items = styled.div`
     }
 
     .items-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        max-height: 300px;
+        overflow-y: scroll;
+
         padding: 0.5rem 1rem;
 
-        ul {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        /* SCROLL-BAR */
+        ::-webkit-scrollbar {
+            width: 0.5rem;
         }
 
-        li {
-            background: #FCFCFC;
-            box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
-            border-radius: 8px;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: orange; // Temporário //
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #040404; 
         }
     }
 `

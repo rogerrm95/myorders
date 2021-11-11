@@ -3,9 +3,10 @@ import { useOrders } from '../../../hooks/useOrders'
 // Components //
 import { InformationHeader as Information } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
+import { OrderItems } from '../../../components/Dashboard/OrderItems'
 // Icons & Images //
 import HeroImage from '../../../assets/orders-hero.svg'
-import {MdOutlineNoteAlt} from 'react-icons/md'
+import { MdOutlineNoteAlt } from 'react-icons/md'
 // Styles //
 import { Container, Items, Order, Details } from './styles'
 
@@ -32,11 +33,17 @@ export default function Orders() {
 
     const [ordersList, setOrdersList] = useState([] as OrderData[])
     const [status, setStatus] = useState('waiting')
+    const [selectOrder, setSelectOrder] = useState({} as OrderData)
 
     useEffect(() => {
         const data = getOrdersByStatus(status)
         setOrdersList(data)
     }, [getOrdersByStatus])
+
+    function handleLoadDataOfOrder(index: number) {
+        const data = ordersList[index]
+        setSelectOrder(data)
+    }
 
     return (
         <Container>
@@ -51,6 +58,7 @@ export default function Orders() {
                 />
 
                 <section>
+                    {/* NAVBAR */}
                     <div className='orders-id'>
                         <h1>Pedidos</h1>
 
@@ -59,59 +67,70 @@ export default function Orders() {
 
                             <ul>
                                 {
-                                    ordersList.map(order => <li>{order.id}</li>)
+                                    ordersList.map((order, index) => (
+                                        <li key={index} onClick={() => handleLoadDataOfOrder(index)}>
+                                            {order.id}
+                                        </li>
+                                    ))
                                 }
                             </ul>
                         </div>
                     </div>
 
-                    <Order className='order'>
-                        <header>
-                            <h1>Detalhes</h1>
-                            <p>Status: Aguardando</p>
-                        </header>
+                    {/* PEDIDO DETALHADO */}
+                    {
+                        selectOrder.id && (
+                            <Order className='order'>
+                                <header>
+                                    <h1>Detalhes</h1>
+                                    <p>Status: Aguardando</p>
+                                </header>
 
-                        <div>
-                            <Details>
+                                <div>
+                                    <Details>
 
-                                <div className='details-left'>
-                                    <h2>
-                                        Nº 3000
-                                        <button>
-                                            ...
-                                        </button>
-                                    </h2>
-                                    
-                                    <p>Cliente: <strong>NOME</strong></p>
-                                    <p>Atendente: <strong>NOME_ATENDENTE</strong></p>
-                                    <span>Data de abertura: <strong>11/09 ás 12:01</strong></span>
+                                        <div className='details-left'>
+                                            <h2>
+                                                {`Nº ${selectOrder.id}`}
+                                                <button>
+                                                    ...
+                                                </button>
+                                            </h2>
+
+                                            <p>Cliente: <strong>{selectOrder.client}</strong></p>
+                                            <p>Atendente: <strong>{selectOrder.waiter}</strong></p>
+                                            <span>Data de abertura: <strong>11/09 ás 12:01</strong></span>
+                                        </div>
+
+                                        <div className='details-right'>
+                                            <p>Valor: <strong>R$ 0,00</strong></p>
+                                            <p>Mesa: <strong>{selectOrder.desk}</strong></p>
+                                            <button className='button-finish'>
+                                                Finalizar
+                                                <MdOutlineNoteAlt size='24' />
+                                            </button>
+                                        </div>
+
+                                    </Details>
+
+                                    <Items>
+                                        <div className='items-head'>
+                                            <h2>Pedido: </h2>
+                                            <span>{`${selectOrder.items?.length} itens`}</span>
+                                        </div>
+
+                                        <ul className='items-list'>
+                                            {
+                                                selectOrder.items.map(item => (
+                                                    <OrderItems amount={item.amount} food={item.name} description={item.description} />
+                                                ))
+                                            }
+                                        </ul>
+                                    </Items>
                                 </div>
-
-                                <div className='details-right'>
-                                    <p>Valor: <strong>R$ 0,00</strong></p>
-                                    <p>Mesa: <strong>00</strong></p>
-                                    <button className='button-finish'>
-                                        Finalizar
-                                        <MdOutlineNoteAlt size='24'/>
-                                    </button>
-                                </div>
-
-                            </Details>
-
-                            <Items>
-                                <div className='items-head'>
-                                    <h2>Pedido: </h2>
-                                    <span>05 Itens</span>
-                                </div>
-
-                                <ul className='items-list'>
-                                    <li>Item 1</li>
-                                    <li>Item 2</li>
-                                    <li>Item 3</li>
-                                </ul>
-                            </Items>
-                        </div>
-                    </Order>
+                            </Order>
+                        )
+                    }
                 </section>
             </main>
         </Container>
