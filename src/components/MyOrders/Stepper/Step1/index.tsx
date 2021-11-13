@@ -62,7 +62,7 @@ export function Step1() {
     // Adiociona um item na tabela //
     async function handleAddItem() {
         const item = {
-            food: food.name,
+            name: food.name,
             anotation: anotation ? anotation : '',
             amount: units,
             price: food.price,

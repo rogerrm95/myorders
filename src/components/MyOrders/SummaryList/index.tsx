@@ -7,7 +7,7 @@ interface SummaryListProps extends TableHTMLAttributes<HTMLTableElement> {
 }
 
 type Order = {
-    food: string,
+    name: string,
     note?: string,
     amount: number,
     price: string,
@@ -30,7 +30,7 @@ export function SummaryList({ orders = [], ...rest }: SummaryListProps) {
                         orders.map((order, index) => (
                             <tr key={index} className='items'>
                                 <td>
-                                    <p>{`${order.food} - Qtd ${order.amount}`}</p>
+                                    <p>{`${order.name} - Qtd ${order.amount}`}</p>
                                     <span>{order.note ? order.note : 'Obs: N/A'}</span>
                                 </td>
 

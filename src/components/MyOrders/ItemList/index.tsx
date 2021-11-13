@@ -2,7 +2,7 @@ import { FiTrash2 } from "react-icons/fi";
 import { List, ListItem } from "./styles";
 
 type Items = {
-    food: string,
+    name: string,
     anotation?: string,
     price: string,
     amount: number
@@ -28,7 +28,7 @@ export function ItemList({ items, onRemoveItem }: ItemsListProps) {
                         items.map((item, index) => (
                             <ListItem key={index}>
                                 <div>
-                                    <p>{`Qtd: ${item.amount} - ${item.food}`}</p>
+                                    <p>{`Qtd: ${item.amount} - ${item.name}`}</p>
                                     <span>Obs: {`${item.anotation ? item.anotation : 'N/A'}`}</span>
                                 </div>
 

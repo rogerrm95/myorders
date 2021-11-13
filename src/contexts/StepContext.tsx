@@ -23,7 +23,7 @@ type OrderData = {
 }
 
 type Item = {
-    food: string,
+    name: string,
     amount: number,
     anotation?: string,
     price: string

@@ -7,7 +7,8 @@ interface OrderContextProviderProps {
 
 interface OrderContextData {
     orders: Order[],
-    getOrdersByStatus: (status: string) => Order[]
+    getOrdersByStatus: (status: string) => Order[],
+    getOrders: () => Promise<void>
 }
 
 type Order = {
@@ -59,7 +60,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
 
     return (
-        <OrderContext.Provider value={{ orders, getOrdersByStatus }}>
+        <OrderContext.Provider value={{ orders, getOrdersByStatus, getOrders }}>
             {
                 children
             }
