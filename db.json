@@ -36,47 +36,39 @@
   ],
   "orders": [
     {
-      "id": 3000,
-      "waiter": "José de Alencar",
-      "client": "Roger Marques",
-      "desk": 5,
-      "people": 1,
-      "status": "waiting",
-      "createdAt": "2021-11-02T16:33:11.069Z",
-      "finishedAt": null,
       "items": [
         {
-          "food": "Sorvete de Pote - Laranja",
-          "anotation": "",
-          "amount": 2,
-          "price": "96,00"
-        },
-        {
-          "food": "Sorvete de ameixa",
-          "anotation": "",
-          "amount": 1,
-          "price": "35,00"
-        }
-      ]
-    },
-    {
-      "items": [
-        {
-          "food": "Lasanha ao Fugo - Frango",
+          "name": "Lasanha ao Fugo - Frango",
           "anotation": "sem molho",
           "amount": 2,
           "price": "34,90",
           "description": "É um fato conhecido de todos que um leitor se distrairá com o conteúdo de texto legível de uma página quando estiver examinando sua diagramação. ",
-          "isDone": false
+          "isDone": true
+        },
+        {
+          "name": "Suco Del Vale - Uva - 500ml",
+          "anotation": "",
+          "amount": 2,
+          "price": "8,90",
+          "description": "Suco de Lata",
+          "isDone": true
+        },
+        {
+          "name": "Founde de Chocolate - c/ Morangos ",
+          "anotation": "",
+          "amount": 1,
+          "price": "50,50",
+          "description": "Fondue",
+          "isDone": true
         }
       ],
-      "waiter": "José de Alencar Freitas",
-      "client": "Sasha de Moraes",
-      "desk": "1",
+      "waiter": "Samanta Fernandes",
+      "client": "Gabriela Ghion",
+      "desk": "05",
       "people": "2",
-      "status": "waiting",
-      "createdAt": "2021-11-09T00:10:39.405Z",
-      "id": 3001
+      "status": "done",
+      "createdAt": "2021-11-13T23:09:37.458Z",
+      "id": 1
     }
   ],
   "foods": [
