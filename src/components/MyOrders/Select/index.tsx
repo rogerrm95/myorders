@@ -6,9 +6,9 @@ import { Container, ImageBox } from "./style";
 interface SelectProps {
     options: UsersData[],
     value: string,
-    setWaiter: (value: string) => void,
     imageSrc?: string,
-    gridAreaName?: string
+    gridAreaName?: string,
+    setWaiter: (value: string) => void,
 }
 
 type UsersData = {

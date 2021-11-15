@@ -6,32 +6,30 @@ import { Container } from './styles'
 type ActiveOrdersProps = {
     title: string,
     Icon: IconType,
-    status: 'done' | 'preparing' | 'waiting'
+    status: 'Pronto' | 'Preparando' | 'Aguardando'
 }
 
 type Order = {
     id: number,
     client: string,
-    desk: number
+    desk: number,
 }
 
 export function ActiveOrders({ title, status, Icon }: ActiveOrdersProps) {
-    const { getOrdersByStatus, orders } = useOrders()
+    const { orders, getOrdersByStatus, getOrders } = useOrders()
 
     const [orderList, setOrderList] = useState([] as Order[])
 
     useEffect(() => {
-        const data = getOrdersByStatus(status)
-        const newOrderList = data.map(order => {
-            return {
-                id: order.id,
-                client: order.client,
-                desk: order.desk
-            }
-        })
+        const data = orders.filter(order => order.status === status && order)
+        setOrderList(data)
 
-        setOrderList(newOrderList)
-    }, [status, getOrdersByStatus, orders])
+        const time = setInterval(() => { getOrders() }, 10000)
+
+        return () => clearInterval(time)
+
+    }, [orders, status, getOrdersByStatus])
+
 
     return (
         <Container status={status}>

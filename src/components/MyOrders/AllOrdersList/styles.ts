@@ -1,17 +1,9 @@
 import styled from "styled-components";
+import statusColors from '../../../utils/ColorsOfTypeStatus'
 
 type ListItemData = {
-    status: 'done' | 'preparing' | 'waiting' | 'finished'
+    status: 'Pronto' | 'Preparando' | 'Aguardando' | 'Encerrado'
 }
-
-// Cores para cada status dos pedidos //
-const statusStyle = {
-    'done': '#73C273',
-    'preparing': '#F59B31',
-    'waiting': '#4C8BEA',
-    'finished': '#E0E0E0'
-}
-
 export const Container = styled.table`
     border: 1px solid var(--grey-light);
     border-collapse: collapse;
@@ -47,7 +39,7 @@ export const ListItem = styled.tr<ListItemData>`
         font-weight: 500;
         font-size: 0.85rem;
         padding: 1.5rem;
-        color: ${props => statusStyle[props.status]};
+        color: ${props => statusColors[props.status]};
 
         &:nth-child(3) {
             font-weight: 700;

@@ -10,6 +10,7 @@ import Orders from '../pages/MyOrders/Orders'
 // Cozinha //
 import Dashboard from '../pages/Dashboard/Home'
 import AdminOrders from '../pages/Dashboard/Orders'
+import AdminFoods from '../pages/Dashboard/Foods'
 
 export default function Routes() {
     return (
@@ -27,6 +28,7 @@ export default function Routes() {
 
             <Route component={Dashboard} path='/admin/home' />
             <Route component={AdminOrders} path='/admin/pedidos' />
+            <Route component={AdminFoods} path='/admin/pratos' />
         </Switch>
     )
 }

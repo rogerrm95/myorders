@@ -1,37 +1,50 @@
+import { FiCheck } from "react-icons/fi";
 import { Container } from "./styles";
 
 type ItemsProps = {
-    food: string,
+    name: string,
     description: string,
     anotation?: string,
     amount: number,
-    isDone?: boolean,
-    onClick?: () => {}
+    isDone: boolean,
+    onDeleteClick?: () => void,
+    onFinishClick?: () => void,
 }
 
-export function OrderItems({ food, description, anotation, amount, isDone = true }: ItemsProps) {
+export function OrderItems({ name, description, anotation, amount, isDone, onDeleteClick, onFinishClick }: ItemsProps) {
     return (
-        <Container>
-            <div className='content'>
-                <h2>Lasanha ao Fugo - Frango</h2>
+        <Container className={isDone ? "finished" : ''}>
+            <div className='box'>
+                <h2>{name}</h2>
 
                 <p><strong>Descrição: </strong><br />
-                    Lasanha ao fugo com massa artesanal,
-                    preparada com molho branco,
-                    frango desfiado temperado e carne moída.
+                    {description}
                 </p>
 
                 <p>
                     <strong>Observação: </strong>
-                    N/A
+                    {anotation ? anotation : "N/A"}
                 </p>
 
-                <span>Quantidade: 04</span>
+                <span>Quantidade: {amount}</span>
             </div>
 
             <div className='buttons-group'>
-                <button>Deletar item</button>
-                <button>Confirmar</button>
+                {
+                    isDone ? (
+                        <>
+                            <button disabled>
+                                Item finalizado
+                                <FiCheck size='20' />
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={onDeleteClick}>Deletar item</button>
+                            <button onClick={onFinishClick}>Confirmar</button>
+                        </>
+                    )
+                }
             </div>
         </Container>
     )

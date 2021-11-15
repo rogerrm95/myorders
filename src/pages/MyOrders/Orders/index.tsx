@@ -12,7 +12,7 @@ import { useOrders } from "../../../hooks/useOrders";
 type OrderData = {
     id: number,
     desk: number,
-    status: 'done' | 'preparing' | 'waiting',
+    status: 'Pronto' | 'Preparando' | 'Aguardando' | 'Encerrado',
     initialTime?: string,
 }
 

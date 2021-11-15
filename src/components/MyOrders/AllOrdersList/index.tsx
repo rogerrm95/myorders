@@ -13,7 +13,7 @@ interface AllOrdersListProps extends TableHTMLAttributes<HTMLTableElement> {
 type Order = {
     id: number,
     desk: number,
-    status: 'done' | 'preparing' | 'waiting' | 'finished',
+    status: 'Pronto' | 'Preparando' | 'Aguardando' | 'Encerrado',
     initialTime?: string,
 }
 
@@ -21,12 +21,6 @@ type Order = {
 export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
     // Capta a URL //
     const { location } = useHistory()
-    const statusText = {
-        'done': "Pronto",
-        'preparing': 'Preparando',
-        'waiting': 'Aguardando',
-        'finished': 'Finalizado'
-    }
 
     return (
         <Container {...rest}>
@@ -47,13 +41,13 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
                             <td>{order.desk}</td>
                             <td>
                                 {
-                                    statusText[order.status]
+                                    order.status
                                 }
                             </td>
                             <td>{order.initialTime}</td>
                             <td className='actionButtons'>
                                 {
-                                    order.status !== 'finished' && (
+                                    order.status !== 'Encerrado' && (
                                         <Link to={`${location.pathname}/edit/${order.id}`} >
                                             <img src={EditIcon} alt="Editar" />
                                         </Link>

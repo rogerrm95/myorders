@@ -1,15 +1,8 @@
 import styled from "styled-components";
+import statusColors from '../../../utils/ColorsOfTypeStatus' // Utils //
 
 type ContainerProps = {
-    statusStyle: 'done' | 'preparing' | 'waiting' | 'finished'
-}
-
-// Cores para cada status dos pedidos //
-const status = {
-    done: '#73C273',
-    preparing: '#F59B31',
-    waiting: '#4C8BEA',
-    finished: '#E0E0E0'
+    statusStyle: 'Pronto' | 'Preparando' | 'Aguardando' | 'Encerrado'
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -32,7 +25,7 @@ export const Container = styled.div<ContainerProps>`
             font-size: 1.5rem;
 
             strong {
-                color: ${props => props.statusStyle ? status[props.statusStyle] : 'none'};
+                color: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
                 margin-left: 0.5rem;
                 padding: 0.5rem;
                 border-radius: 0.5rem;

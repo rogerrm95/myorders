@@ -12,12 +12,12 @@ export const Container = styled.div`
     
     main {
         height: 100%;
-        overflow: scroll;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 2rem;
         padding: 2rem;
+        margin: auto
     }
 `
 

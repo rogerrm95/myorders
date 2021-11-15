@@ -20,6 +20,7 @@ import WaiterIcon from '../../../../assets/icons/waiter.svg'
 import { Container } from './styles'
 import { Step2Schema } from "./schema";
 import { Select } from "../../Select";
+import { useOrders } from "../../../../hooks/useOrders";
 
 type UsersData = {
     id: number,
@@ -32,6 +33,7 @@ export function Step2() {
     const { order } = useStepper()
     const { id }: any = useParams()
     const { push } = useHistory()
+    const {getOrders} = useOrders()
 
     const [client, setClient] = useState(order.client)
     const [desk, setDesk] = useState(order.desk)
@@ -59,7 +61,7 @@ export function Step2() {
             client,
             desk,
             people,
-            status: 'waiting',
+            status: 'Aguardando',
         }
 
         // Validação dos dados //
@@ -75,6 +77,7 @@ export function Step2() {
                                 closeOnClick: true,
                                 pauseOnHover: false,
                             })
+                            getOrders()
                             createBrowserHistory()
                             push('/home')
                         })
@@ -88,6 +91,7 @@ export function Step2() {
                                 closeOnClick: true,
                                 pauseOnHover: false,
                             })
+                            getOrders()
                             createBrowserHistory()
                             push('/home')
                         })

@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import { useStepper } from './../../../hooks/useStepper' // Hook //
 
 import { Step1 } from './Step1' // Etapa 1 //
-import { Step2 } from './Step2'
+import { Step2 } from './Step2' // Etapa 2 //
 
 export function Stepper() {
     const { currentPage, getOrderById } = useStepper()

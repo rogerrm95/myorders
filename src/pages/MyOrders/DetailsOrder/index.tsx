@@ -21,7 +21,7 @@ import { Container } from "./styles";
 
 type OrdersData = {
     id: string,
-    status: 'done' | 'preparing' | 'waiting' | 'finished',
+    status: 'Pronto' | 'Preparando' | 'Aguardando' | 'Encerrado',
     client: string,
     desk: number,
     people: number,
@@ -65,10 +65,10 @@ export default function DetailsOrder() {
     // Finaliza um pedido - Apenas os marcados como "Prontos" //
     async function handleFinishOrder() {
         try {
-            if (order.status === 'done') {
+            if (order.status === 'Pronto') {
                 await api.put(`orders/${id}`, {
                     ...order,
-                    status: 'finished',
+                    status: 'Encerrado',
                     finishedAt: new Date()
                 })
                     .then(_ => {
@@ -94,11 +94,7 @@ export default function DetailsOrder() {
                             <h2>{`Pedido Nº ${order.id}`}</h2>
                             <span className='status'>Status
                                 <strong>
-                                    {
-                                        order.status === 'done' ? 'Pronto' : (
-                                            order.status === 'preparing' ? 'Preparando' : 'Aguardando'
-                                        )
-                                    }
+                                    {order.status}
                                 </strong>
                             </span>
                         </header>
@@ -119,12 +115,12 @@ export default function DetailsOrder() {
 
                         <div className='finishButton'>
                             <Button
-                                backgroundColor={order.status === 'finished' ? '#E0E0E0' : "#E84A5F"}
-                                disabled={order.status === 'finished'}
+                                backgroundColor={order.status === 'Encerrado' ? '#E0E0E0' : "#E84A5F"}
+                                disabled={order.status === 'Encerrado'}
                                 onClick={handleFinishOrder}>
 
                                 {
-                                    order.status === 'finished' ? "Encerrado" : (
+                                    order.status === 'Encerrado' ? "Encerrado" : (
                                         <>
                                             Encerrar pedido
                                             <FiCheck size='24' color='#FFF' />

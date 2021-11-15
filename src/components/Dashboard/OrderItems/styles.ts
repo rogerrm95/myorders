@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.li`
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     width: 22rem;
@@ -14,7 +13,7 @@ export const Container = styled.li`
     border-radius: 8px;
     overflow: hidden;
 
-    .content {
+    .box {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -55,6 +54,10 @@ export const Container = styled.li`
 
         button {
             flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             font: 700 1.25rem 'Baloo Thambi 2', cursive;
             color: var(--white);
             transition: filter 0.3s;
@@ -66,10 +69,29 @@ export const Container = styled.li`
                 background-color: var(--blue-500);
             }
 
-            :hover{
+            :not(:disabled):hover{
                 filter: brightness(0.85);
             }
         }
     }
 
+    // ITEM MARCADO COMO FINALIZADO //
+    &.finished {
+        background: var(--background);
+        
+        p, span, h2 {
+            opacity: 0.5;
+        }
+
+        .buttons-group {
+            button {
+                background: var(--primary);
+                opacity: 0.5;
+                cursor: default;
+            }
+            svg {
+                margin-left: 0.5rem;
+            }
+        }
+    }
 `;

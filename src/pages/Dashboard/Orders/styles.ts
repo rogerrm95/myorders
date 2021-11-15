@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import statusColors from '../../../utils/ColorsOfTypeStatus'
 
-export const Container = styled.div`
+type StatusProps = {
+    statusStyle: 'Pronto' | 'Preparando' | 'Aguardando' | 'Encerrado'
+}
+
+export const Container = styled.div<StatusProps>`
     flex: 1;
 
     display: flex;
@@ -53,24 +58,36 @@ export const Container = styled.div`
 
         h2 {
             font-size: 1.25rem;
+            color: var(--secondary);
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         li {
-            font-weight: 700;
             padding: 1rem 1.5rem;
             border-radius: 25%;
             
             cursor: pointer;
-            transition: background-color 0.25s;
+        }
+        
+        .selected {
+            background-color: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
+            color: var(--white);
 
+            transition: filter 0.3s;
+    
             &:hover {
-                background-color: aliceblue; // Temporário
+                filter: brightness(0.95);
             }
         }
     }
 `
 
-export const Order = styled.div`
+export const Order = styled.div<StatusProps>`
     width: 100%;
 
     display: flex;
@@ -81,36 +98,31 @@ export const Order = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        p { 
-            font-size: 0.75rem;
-            align-self: flex-end;
+        
+        h1 {
+            font-size: 2rem;
         }
     }
 
-    h1 {
-        font-size: 2rem;
-    }
-
-    > div {
+    .content {
         flex: 1;
         display: flex;
         flex-direction: column;
         
         box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
         border-radius: 8px;
-        border-left: 8px solid orange; // Temporário //
+        border-left: 8px solid ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
         background: var(--white);
     }    
 `
 
-export const Details = styled.div`
+export const Details = styled.div<StatusProps>`
     flex: 1;
     display: flex;
     justify-content: space-between;
 
     padding: 1rem;
-    border-bottom: 1px solid orange;   
+    border-bottom: 1px solid ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};   
     
     .details-left {
         display: flex;
@@ -119,7 +131,7 @@ export const Details = styled.div`
 
         h2 {
             font-size: 2rem;
-            color: orange; // Temporário //
+            color: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
             position: relative;
 
             button {
@@ -152,37 +164,10 @@ export const Details = styled.div`
                 color: var(--green-500);
             }
         }
-
-        button {
-            margin-top: auto;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            height: 3rem;
-            padding: 1rem;
-            font: 700 1.25rem 'Baloo Thambi 2', cursive;
-            letter-spacing: 0.05rem;
-
-            border-radius: 8px;
-            color: var(--white);
-            background: var(--green-250);
-            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-            transition: filter 0.3s;
-
-            &:hover {
-                filter: brightness(0.9);
-            }
-
-            svg {
-                margin-left: 0.5rem;
-            }
-        }
     }
 `
 
-export const Items = styled.div`
+export const Items = styled.div<StatusProps>`
     flex: 1;
     padding: 0.5rem 1rem;
     display: flex;
@@ -206,7 +191,7 @@ export const Items = styled.div`
             font-size: 0.75rem;
             border-radius: 50px;
             color: var(--white);
-            background: orange; // Temporário //
+            background: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
         }
     }
 
@@ -233,11 +218,34 @@ export const Items = styled.div`
         }
         
         ::-webkit-scrollbar-thumb {
-            background: orange; // Temporário //
+            background: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background: #040404; 
         }
     }
+`
+
+export const NoOrders = styled.article`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.75;
+
+    svg, p, h1 {
+        color: var(--secondary);
+    }
+
+    p {
+        width: 50%;
+        text-align: center;
+        font-weight: 500;
+        line-height: 1.5rem;
+    }
+
+    
 `

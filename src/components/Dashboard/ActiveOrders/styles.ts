@@ -1,15 +1,9 @@
 import { transparentize } from "polished";
 import styled from "styled-components";
+import statusColors from '../../../utils/ColorsOfTypeStatus'
 
 type ContainerProps = {
-    status: 'done' | 'preparing' | 'waiting'
-}
-
-// Cores para cada status dos pedidos //
-const status = {
-    'done': '#73C273',
-    'preparing': '#F59B31',
-    'waiting': '#4C8BEA'
+    status: 'Pronto' | 'Preparando' | 'Aguardando'
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -38,7 +32,7 @@ export const Container = styled.div<ContainerProps>`
 
     // Cor de acordo com o status //
     h2, li, svg {
-        color: ${props => status[props.status]}
+        color: ${props => statusColors[props.status]}
     }
 
     // Lista de pedidos //
@@ -66,7 +60,7 @@ export const Container = styled.div<ContainerProps>`
             padding: 0.5rem;
             gap: 1rem;
 
-            border: 2px solid ${props => transparentize(0.75, status[props.status])};
+            border: 2px solid ${props => transparentize(0.75, statusColors[props.status])};
             border-radius: 8px;
 
             span:nth-child(1) {

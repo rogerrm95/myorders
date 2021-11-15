@@ -20,7 +20,7 @@ type Order = {
     people?: number,
     createdAt: string,
     finishedAt?: string,
-    status: "done" | "preparing" | "waiting",
+    status: "Pronto" | "Preparando" | "Aguardando" | "Encerrado",
     items: Item[] | []
 }
 
@@ -51,11 +51,8 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
 
     function getOrdersByStatus(status: string) {
-        // eslint-disable-next-line array-callback-return
-        const list = orders.filter(order => {
-            if (order.status === status) return order.id
-        })
-
+        const list = orders.filter(order => order.status === status && order)
+        
         return list
     }
 

@@ -34,9 +34,9 @@ export default function Dashboard() {
                     </div>
 
                     <div className='orders-container'>
-                        <ActiveOrders status='done' title='Pronto' Icon={FaCheckCircle} />
-                        <ActiveOrders status='preparing' title='Prepando' Icon={GiCookingPot} />
-                        <ActiveOrders status='waiting' title='Aguardando' Icon={FaClock} />
+                        <ActiveOrders status='Pronto' title='Pronto' Icon={FaCheckCircle} />
+                        <ActiveOrders status='Preparando' title='Prepando' Icon={GiCookingPot} />
+                        <ActiveOrders status='Aguardando' title='Aguardando' Icon={FaClock} />
                     </div>
                 </ActiveOrdersContainer>
             </main>
