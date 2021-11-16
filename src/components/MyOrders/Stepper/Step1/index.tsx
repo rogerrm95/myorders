@@ -25,7 +25,6 @@ type Food = {
     price: string,
     category: string,
     description: string,
-    isDone: boolean
 }
 
 // Etapa 1: Adicionar itens ao pedido //
@@ -38,12 +37,18 @@ export function Step1() {
     const [units, setUnits] = useState(1)
     const [total, setTotal] = useState('0')
     const [hasClean, setHasClean] = useState(false)
-    
+
 
     // Irá buscar todos os pratos cadastrados no sistema //
+    // Pratos indisponíveis não serão listados //
     useEffect(() => {
         async function getAPIAllFoods() {
-            const data = await api.get('/foods').then(res => res.data)
+            const data = await api.get<Food[]>('/foods').then(res => {
+                const list = res.data
+
+                return list.filter((item: any) => item.isActive && item)
+            })
+
             setFoods(data)
         }
 
@@ -108,8 +113,8 @@ export function Step1() {
                     placeholder='Selecione os pratos ou bebidas...'
                     items={foods}
                     onSelectedChange={setFood}
-                    clearData={hasClean}/>
-                
+                    clearData={hasClean} />
+
                 <Input
                     gridAreaName="obs"
                     imageSrc={Note}
