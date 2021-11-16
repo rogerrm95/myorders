@@ -26,7 +26,8 @@ export const Container = styled.table`
             }
 
             &:nth-child(2){
-                text-align: center;
+                margin-left: auto;
+                margin-right: 0.5rem;
             }
         }
     }

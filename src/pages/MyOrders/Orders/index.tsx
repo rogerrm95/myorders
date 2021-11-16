@@ -8,6 +8,8 @@ import FoodInService from '../../../assets/icons/plate-in-service.svg'
 import { Container } from "./styles";
 import { useEffect, useState } from "react";
 import { useOrders } from "../../../hooks/useOrders";
+import sortOrders from "../../../utils/sortOrders";
+import { Spinner } from "../../../components/MyOrders/Spinner";
 
 type OrderData = {
     id: number,
@@ -32,14 +34,13 @@ export default function Orders() {
                 initialTime: `${hour}:${minute}`
             }
         })
-        setList(newList)
+        const sort = sortOrders(newList)
+        setList(sort)
     }, [orders])
 
     return (
         <OrderPage title="Lista de pedidos">
             <Container>
-                <Input imageSrc={FoodInService} alt='Icone' placeholder='Número do pedido. Ex: 0001-CC' />
-
                 <h2>Pedidos</h2>
 
                 <AllOrdersList orders={list} />

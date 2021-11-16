@@ -67,8 +67,12 @@ export const ListItem = styled.li`
         background: none;
         transition: filter 0.3s;
         
-        &:hover {
+        &:hover:not(:disabled) {
             filter: brightness(0.8);
+        }
+
+        &:disabled{
+            cursor: default;
         }
     }
 
@@ -82,5 +86,9 @@ export const ListItem = styled.li`
         left: 10%;
     }
 
-
+    &.done {    
+        p, span {
+            color: var(--grey-light);
+        }
+    }
 `

@@ -34,7 +34,7 @@ export function SummaryList({ orders = [], ...rest }: SummaryListProps) {
                                     <span>{order.note ? order.note : 'Obs: N/A'}</span>
                                 </td>
 
-                                <td>{order.price}</td>
+                                <td>R$ {order.price}</td>
                             </tr>
                         ))
                     ) : (

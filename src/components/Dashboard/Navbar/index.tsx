@@ -21,7 +21,7 @@ export function Navbar() {
                 <NavMenuItem name='Pedidos' href="/admin/pedidos" Icon={MdNoteAlt} />
                 <NavMenuItem name='Usuários' href="/admin/usuarios" Icon={FaUsers} />
                 <NavMenuItem name='Pratos' href="/admin/pratos" Icon={MdFastfood} />
-                <NavMenuItem name='Histórico' href="/admin/historico" Icon={MdHistory} />
+                <NavMenuItem name='MyOrders' href="/home" Icon={MdHistory} />
             </nav>
 
             <footer>

@@ -18,6 +18,7 @@ import WaiterIcon from '../../../assets/icons/waiter.svg'
 import { CalculateValueTotal } from "../../../utils/CalculateValueTotal";
 // Styles //
 import { Container } from "./styles";
+import { Spinner } from "../../../components/MyOrders/Spinner";
 
 type OrdersData = {
     id: string,
@@ -41,9 +42,9 @@ export default function DetailsOrder() {
     const { id }: any = useParams()
     const { push } = useHistory()
 
-    const [isLoading, setIsLoading] = useState(false)
     const [order, setOrder] = useState({} as OrdersData)
     const [total, setTotal] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         async function getOrderById() {
@@ -86,7 +87,7 @@ export default function DetailsOrder() {
         <OrderPage title="Detalhes">
             {
                 isLoading ? (
-                    <div>Carregando...</div>
+                    <Spinner size={32} speed={0.75} text='Carregando...'/>
                 ) : (
                     <Container statusStyle={`${order.status}`}>
 

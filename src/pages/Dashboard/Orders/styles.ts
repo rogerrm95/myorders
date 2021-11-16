@@ -130,15 +130,16 @@ export const Details = styled.div<StatusProps>`
         gap: 1rem;
 
         h2 {
+            display: flex;
+            align-items: center;
             font-size: 2rem;
             color: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
-            position: relative;
 
             button {
+                display: flex;
+                align-items: center;
+                margin-left: 0.75rem;
                 background: transparent;
-                margin-left: 0.5rem;
-                position: absolute;
-                top: 20%;
             }
         }
 

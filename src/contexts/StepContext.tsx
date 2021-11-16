@@ -19,7 +19,7 @@ type OrderData = {
     client: string,
     desk: string
     people: string,
-    waiter: string
+    waiter: string,
 }
 
 type Item = {
@@ -54,6 +54,7 @@ export function StepProvider({ children }: StepContextProviderProps) {
     }
 
     function updateOrder(item: Item[]){
+
         setOrder({
             ...order,
             items: item

@@ -1,8 +1,9 @@
-import { TableHTMLAttributes } from "react";
+import { TableHTMLAttributes, useEffect, useState } from "react";
 import { Link, useHistory } from 'react-router-dom'
 // Icons //
 import EditIcon from '../../../assets/icons/edit.svg'
 import DetailsIcon from '../../../assets/icons/eye.svg'
+import { Spinner } from "../Spinner";
 // Styles //
 import { Container, ListItem } from "./styles";
 
@@ -21,6 +22,17 @@ type Order = {
 export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
     // Capta a URL //
     const { location } = useHistory()
+    const [list, setList] = useState([] as Order[])
+
+    useEffect(() => {
+        const data = orders.map(order => order)
+        setList(data)
+    },[orders])
+    
+    // Exibirá um loading caso a lista ainda não tenha sido carregada//
+    if (list.length !== orders.length) {
+        return <Spinner size={64} />
+    }
 
     return (
         <Container {...rest}>
@@ -35,7 +47,7 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
             </thead>
             <tbody>
                 {
-                    orders.map(order => (
+                    list.map(order => (
                         <ListItem key={order.id} status={order.status}>
                             <td>{order.id}</td>
                             <td>{order.desk}</td>

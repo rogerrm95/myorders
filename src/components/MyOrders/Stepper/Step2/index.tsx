@@ -21,6 +21,7 @@ import { Container } from './styles'
 import { Step2Schema } from "./schema";
 import { Select } from "../../Select";
 import { useOrders } from "../../../../hooks/useOrders";
+import { CalculateValueTotal } from "../../../../utils/CalculateValueTotal";
 
 type UsersData = {
     id: number,
@@ -33,7 +34,7 @@ export function Step2() {
     const { order } = useStepper()
     const { id }: any = useParams()
     const { push } = useHistory()
-    const {getOrders} = useOrders()
+    const { getOrders, orders } = useOrders()
 
     const [client, setClient] = useState(order.client)
     const [desk, setDesk] = useState(order.desk)
@@ -53,8 +54,25 @@ export function Step2() {
         getUsers()
     }, [])
 
-
     async function handleUpdateOrder() {
+        const oldValue = CalculateValueTotal(order.items)
+        const value = orders.filter(order => order.id == id && order).map(item => CalculateValueTotal(item.items))
+
+        // Se não houver alterações nos itens do pedido, não irá mudar o status para Aguardando // 
+        if (value[0] === oldValue) {
+            toast.success(`Pedido atualizado!`, {
+                draggable: true,
+                position: 'top-right',
+                autoClose: 4000,
+                closeOnClick: true,
+                pauseOnHover: false,
+            })
+            createBrowserHistory()
+            push('/home')
+
+            return
+        }
+
         const updatedOrder = {
             ...order,
             waiter,

@@ -17,7 +17,11 @@ export const Container = styled.div`
         align-items: center;
         gap: 2rem;
         padding: 2rem;
-        margin: auto
+        margin: auto;
+
+        @media(max-width: 1100px){
+            overflow: scroll;
+        }
     }
 `
 
@@ -50,13 +54,14 @@ export const ActiveOrdersContainer = styled.div`
 
     .orders-container {
         display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
         flex: 1;
-        gap: 2rem
+        gap: 2rem;
     }
 
     // Media Queries //
-
-    @media(max-width: 1200px){
+    @media(max-width: 1100px){
 
         margin-bottom: 1.5rem;
 

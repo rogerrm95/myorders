@@ -15,6 +15,7 @@ import { MdWarningAmber } from 'react-icons/md'
 import { Container, Items, Order, Details, NoOrders } from './styles'
 import { ButtonUpdateStatus } from '../../../components/Dashboard/Button/ButtonUpdateStatus'
 import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
+import { FiTrash } from 'react-icons/fi'
 
 type OrderData = {
     id: number,
@@ -115,13 +116,16 @@ export default function Orders() {
     }
 
     async function handleDeleteOrder() {
-        await api.delete(`orders/${selectOrder.id}`)
-            .then(_ => {
-                getOrders()
-                setSelectOrder({} as OrderData)
-                toast.success("Pedido excluído!")
-            })
-            .catch(_ => toast.error('Não foi possível excluir o pedido'))
+        try {
+            await api.delete(`orders/${selectOrder.id}`)
+                .then(_ => {
+                    getOrders()
+                    setSelectOrder({} as OrderData)
+                    toast.success("Pedido excluído!")
+                })
+        } catch (_) {
+            return toast.error('Erro durante o processamento!')
+        }
     }
 
     async function handlePrepareOrder() {
@@ -193,8 +197,8 @@ export default function Orders() {
                                             <div className='details-left'>
                                                 <h2>
                                                     {`Nº ${selectOrder.id}`}
-                                                    <button>
-                                                        ...
+                                                    <button onClick={handleDeleteOrder}>
+                                                        <FiTrash size='16' />
                                                     </button>
                                                 </h2>
 

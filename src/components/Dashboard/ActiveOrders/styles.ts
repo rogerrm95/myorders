@@ -51,7 +51,7 @@ export const Container = styled.div<ContainerProps>`
         // Pedido //
         li {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 70px;
             grid-template-rows: 1fr 1fr;
             grid-template-areas: 
             "id desk"
