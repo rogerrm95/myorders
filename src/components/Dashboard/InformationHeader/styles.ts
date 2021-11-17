@@ -7,13 +7,12 @@ export const Container = styled.header`
     grid-template-areas: 
     'title image'
     'description image';
+
     align-items: center;
 
-    height: 150px;
-
-
+    gap: 0 1rem;
+    min-height: 125px;
     padding: 1rem 1.5rem 1rem 1rem;
-    position: relative;
 
     border-radius: 8px;
     box-shadow: -1px 1px 25px rgba(0, 0, 0, 0.1);
@@ -34,25 +33,21 @@ export const Container = styled.header`
 
     img {
         grid-area: image;
-        position: absolute;
-        bottom: 1rem;
-        right: -1rem;
-        place-items: center;
+        justify-self: center;
 
-
-        width: 300px;
-        height: 150px;
+        max-width: 250px;
+        max-height: 150px;
     }
 
     @media(max-width: 1200px){
-        grid-template-columns: 1fr 275px;
+        grid-template-columns: 2fr 1fr;
 
         h1 {
             font-size: 1.5rem;
         }
 
         img {
-            width: 250px;
+            width: 225px;
             height: 125px;
         }
     }

@@ -201,7 +201,7 @@ export const Items = styled.div<StatusProps>`
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem 1rem;
         flex-wrap: wrap;
 
         max-height: 300px;

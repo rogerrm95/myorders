@@ -21,6 +21,24 @@ export const Container = styled.div`
 
         @media(max-width: 1100px){
             overflow: scroll;
+
+            /* SCROLL-BAR */
+            ::-webkit-scrollbar {
+                width: 0.75rem;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1; 
+            }
+            
+            ::-webkit-scrollbar-thumb {
+                background: var(--primary);
+                border-radius: 16px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #040404; 
+            }
         }
     }
 `
