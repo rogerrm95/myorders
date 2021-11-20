@@ -24,4 +24,8 @@ export const Container = styled(Link)`
         font-family: 'Baloo Thambi 2', cursive;
         font-size: 1.25rem;
     }
+
+    &.active > * {
+        color: var(--red-500);
+    }
 `
