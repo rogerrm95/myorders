@@ -24,21 +24,29 @@ export const Container = styled.aside`
     }
 
     nav {
+        flex: 3;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 2rem;
         padding: 0 2rem;
         margin-top: 2rem;
+
+        & > :last-child{
+            margin-top: auto;
+        }
     }
 
     footer {
-        height: 100%;
+        align-self: flex-end;
+
+        flex: 1;
         display: flex;
+        align-items: flex-end;
 
         img {
-            align-self: flex-end;
             overflow: hidden;
+            height: 200px;
         }
     }
 `

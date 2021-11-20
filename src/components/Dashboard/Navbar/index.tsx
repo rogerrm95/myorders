@@ -1,4 +1,4 @@
-import { MdFastfood, MdHome, MdNoteAlt, MdHistory } from 'react-icons/md'
+import { MdFastfood, MdHome, MdNoteAlt, MdTabletAndroid } from 'react-icons/md'
 import { FaUsers } from 'react-icons/fa'
 
 import { NavMenuItem } from '../NavMenuItem' // Component //
@@ -21,7 +21,7 @@ export function Navbar() {
                 <NavMenuItem name='Pedidos' href="/admin/pedidos" Icon={MdNoteAlt} />
                 <NavMenuItem name='Usuários' href="/admin/usuarios" Icon={FaUsers} />
                 <NavMenuItem name='Pratos' href="/admin/pratos" Icon={MdFastfood} />
-                <NavMenuItem name='MyOrders' href="/home" Icon={MdHistory} />
+                <NavMenuItem name='MyOrders' href="/home" Icon={MdTabletAndroid}/>
             </nav>
 
             <footer>
