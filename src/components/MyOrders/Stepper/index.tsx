@@ -11,12 +11,12 @@ export function Stepper() {
 
     useEffect(() => {
         id && getOrderById(id)
-    }, [])
+    })
 
     return (
         <>
             {
-                currentPage === 1 ? (<Step1 />) : <Step2/>
+                currentPage === 1 ? (<Step1 />) : <Step2 />
             }
         </>
     )

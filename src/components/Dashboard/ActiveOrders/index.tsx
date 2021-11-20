@@ -28,6 +28,7 @@ export function ActiveOrders({ title, status, Icon }: ActiveOrdersProps) {
 
         return () => clearInterval(time)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orders, status, getOrdersByStatus])
 
 

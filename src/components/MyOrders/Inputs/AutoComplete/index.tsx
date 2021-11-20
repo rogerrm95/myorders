@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { InputHTMLAttributes, useEffect, useRef, useState } from "react"
 // Component //
 import { SuggestionItem } from '../../SuggestionItem';

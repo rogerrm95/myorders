@@ -1,9 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import { useOrders } from '../../../hooks/useOrders'
 import { toast } from 'react-toastify'
 import { api } from '../../../services/api'
+// Utils //
+import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
 import StatusList from '../../../utils/statusList'
 // Components //
+import { ButtonUpdateStatus } from '../../../components/Dashboard/Button/ButtonUpdateStatus'
 import { InformationHeader as Information } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
 import { OrderItems } from '../../../components/Dashboard/OrderItems'
@@ -11,11 +15,9 @@ import { SelectStatus } from '../../../components/Dashboard/SelectStatus'
 // Icons & Images //
 import HeroImage from '../../../assets/orders-hero.svg'
 import { MdWarningAmber } from 'react-icons/md'
+import { FiTrash } from 'react-icons/fi'
 // Styles //
 import { Container, Items, Order, Details, NoOrders } from './styles'
-import { ButtonUpdateStatus } from '../../../components/Dashboard/Button/ButtonUpdateStatus'
-import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
-import { FiTrash } from 'react-icons/fi'
 
 type OrderData = {
     id: number,

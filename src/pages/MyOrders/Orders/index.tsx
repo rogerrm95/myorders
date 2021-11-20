@@ -1,15 +1,12 @@
-// Components //
-import { AllOrdersList } from "../../../components/MyOrders/AllOrdersList";
-import { Input } from "../../../components/MyOrders/Inputs/General";
-import { OrderPage } from "../../../components/MyOrders/OrderPage";
-// Image //
-import FoodInService from '../../../assets/icons/plate-in-service.svg'
-// Styles //
-import { Container } from "./styles";
 import { useEffect, useState } from "react";
 import { useOrders } from "../../../hooks/useOrders";
+// Components //
+import { AllOrdersList } from "../../../components/MyOrders/AllOrdersList";
+import { OrderPage } from "../../../components/MyOrders/OrderPage";
+// Utils //
 import sortOrders from "../../../utils/sortOrders";
-import { Spinner } from "../../../components/MyOrders/Spinner";
+// Styles //
+import { Container } from "./styles";
 
 type OrderData = {
     id: number,

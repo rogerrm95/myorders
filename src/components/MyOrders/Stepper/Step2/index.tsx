@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 import { createBrowserHistory } from 'history'
