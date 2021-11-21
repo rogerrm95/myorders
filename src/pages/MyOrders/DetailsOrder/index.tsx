@@ -48,18 +48,23 @@ export default function DetailsOrder() {
 
     useEffect(() => {
         async function getOrderById() {
-            setIsLoading(true)
-            const data = await api.get<OrdersData>(`orders/${id}`)
-                .then(res => res.data)
+            try {
+                setIsLoading(true)
+                const data = await api.get<OrdersData>(`orders/${id}`)
+                    .then(res => res.data)
 
-            // Soma todos os valores de cada item pedido //
-            // Converte o valor pra PT-BR //
-            const amountAtToPay = CalculateValueTotal(data.items)
+                // Soma todos os valores de cada item pedido //
+                // Converte o valor pra PT-BR //
+                const amountAtToPay = CalculateValueTotal(data.items)
 
-            setTotal(amountAtToPay)
-            setOrder(data)
-            setIsLoading(false)
+                setTotal(amountAtToPay)
+                setOrder(data)
+                setIsLoading(false)
+            } catch {
+                push('/home')
+            }
         }
+
         getOrderById()
     }, [id])
 
@@ -67,7 +72,7 @@ export default function DetailsOrder() {
     async function handleFinishOrder() {
         try {
             if (order.status === 'Pronto') {
-                await api.put(`orders/${id}`, {
+                await api.patch(`orders/${id}`, {
                     ...order,
                     status: 'Encerrado',
                     finishedAt: new Date()
@@ -87,7 +92,7 @@ export default function DetailsOrder() {
         <OrderPage title="Detalhes">
             {
                 isLoading ? (
-                    <Spinner size={32} speed={0.75} text='Carregando...'/>
+                    <Spinner size={32} speed={0.75} text='Carregando...' />
                 ) : (
                     <Container statusStyle={`${order.status}`}>
 

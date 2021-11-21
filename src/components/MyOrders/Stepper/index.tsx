@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { useStepper } from './../../../hooks/useStepper' // Hook //
@@ -11,7 +12,7 @@ export function Stepper() {
 
     useEffect(() => {
         id && getOrderById(id)
-    })
+    }, [])
 
     return (
         <>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useOrders } from '../../../hooks/useOrders'
 import { toast } from 'react-toastify'
 import { api } from '../../../services/api'
+import { AxiosError } from 'axios'
 // Utils //
 import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
 import StatusList from '../../../utils/statusList'
@@ -40,7 +41,7 @@ type Item = {
 type Status = 'Pronto' | 'Preparando' | 'Aguardando'
 
 export default function Orders() {
-    const { getOrdersByStatus, getOrders, orders } = useOrders()
+    const { getOrdersByStatus, getOrders } = useOrders()
 
     const [ordersList, setOrdersList] = useState([] as OrderData[])
     const [selectOrder, setSelectOrder] = useState({} as OrderData)
@@ -52,7 +53,7 @@ export default function Orders() {
     useEffect(() => {
         const data = getOrdersByStatus(status)
         setOrdersList(data)
-    }, [getOrdersByStatus, status, orders])
+    }, [getOrdersByStatus, status])
 
     // Se todos os items estiverem prontos, botão Finalizar ficará ativo //
     useEffect(() => {
@@ -79,13 +80,14 @@ export default function Orders() {
             items: newListOfItems
         } as OrderData
 
-        await api.put(`orders/${selectOrder.id}`, newData).then(res => {
+        await api.patch(`orders/${selectOrder.id}`, newData).then(res => {
             getOrders()
             setSelectOrder(newData)
             toast.success('Item deletado !')
         }).catch(_ => toast.error('Não foi possível excluir o item, tente novamente!'))
     }
 
+    // Funcionalidade de alterar o status de um item da lista //
     async function handleFinishItem(id: number) {
         const itemsUptaded = selectOrder.items.map((item, index) => {
             let data = item
@@ -98,49 +100,46 @@ export default function Orders() {
             return data
         })
 
-        await api.put(`orders/${selectOrder.id}`, { ...selectOrder, items: itemsUptaded })
+        await api.patch(`orders/${selectOrder.id}`, { ...selectOrder, items: itemsUptaded })
             .then(res => {
                 toast.success('Item Finalizado')
                 setSelectOrder(res.data)
             })
-            .catch(_ => toast.error('Não foi possível finalizar o item'))
+            .catch((error: AxiosError) => toast.error(error.message))
+    }
+
+    // Funcionalidade de deletar um pedido //
+    async function handleDeleteOrder() {
+        await api.delete(`orders/${selectOrder.id}`)
+            .then((_) => {
+                getOrders()
+                setSelectOrder({} as OrderData)
+                toast.success("Pedido Excluído")
+            })
+            .catch(_ => {
+                return toast.error("Não foi possível executar essa ação")
+            })
     }
 
     async function handleFinishOrder() {
-        await api.put(`orders/${selectOrder.id}`, {
-            ...selectOrder,
-            status: 'Pronto',
-        }).then(_ => {
-            getOrders()
-            setSelectOrder({} as OrderData)
-            toast.success("Pedido finalizado!")
-        }).catch(_ => toast.error('Não foi possível finalizar o pedido'))
-    }
+        const message = status === 'Aguardando' ? 'Preparando...' : 'Pedido finalizado'
+        const newStatus = status === 'Aguardando' ? 'Preparando' : 'Pronto'
 
-    async function handleDeleteOrder() {
-        try {
-            await api.delete(`orders/${selectOrder.id}`)
-                .then(_ => {
-                    getOrders()
-                    setSelectOrder({} as OrderData)
-                    toast.success("Pedido excluído!")
-                })
-        } catch (_) {
-            return toast.error('Erro durante o processamento!')
-        }
-    }
-
-    async function handlePrepareOrder() {
-        await api.put(`orders/${selectOrder.id}`, {
+        await api.patch(`orders/${selectOrder.id}`, {
             ...selectOrder,
-            status: 'Preparando'
+            status: newStatus
         })
-            .then(_ => {
-                toast('Preparando...')
+            .then(res => {
+                const { id } = res.data
+                const newOrderList = ordersList.filter(order => order.id !== id && order)
+
+                setOrdersList(newOrderList)
                 setSelectOrder({} as OrderData)
-                getOrders()
+                toast.success(message)
             })
             .catch(_ => toast.error('Erro durante o processamento'))
+
+
     }
 
     return (
@@ -217,7 +216,7 @@ export default function Orders() {
                                                 <ButtonUpdateStatus
                                                     status={status}
                                                     disabled={!isOrderFinished || status === 'Pronto'}
-                                                    onClick={status === 'Aguardando' ? (handlePrepareOrder) : (handleFinishOrder)}
+                                                    onClick={() => handleFinishOrder()}
                                                 />
                                             </div>
 

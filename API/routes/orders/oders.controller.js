@@ -65,14 +65,14 @@ orders.post('/', (req, res) => {
     res.status(200).json({ "id": id });
 });
 
-orders.put('/:id', (req, res) => {
+orders.patch('/:id', (req, res) => {
     const id = Number(req.params.id)
-    
+
     try {
         const isExist = ordersJson.find(order => order.id === id && true)
 
         if (!isExist) {
-            return res.status(404).send('Usuário não encontrado')
+            return res.status(404).send('Pedido não encontrado')
         }
 
         const data = req.body
@@ -98,6 +98,37 @@ orders.put('/:id', (req, res) => {
 
     } catch {
         res.status(500).send('Erro durante o processamento!')
+    }
+})
+
+orders.delete('/:id', (req, res) => {
+    const id = Number(req.params.id)
+
+    console.log(id)
+
+    try {
+        const isExist = ordersJson.find(order => order.id === id && true)
+
+        if (!isExist) {
+            return res.status(404)
+        }
+
+        const newOrdersList = ordersJson.filter(order => order.id !== id && order)
+        
+        const jsonString = JSON.stringify(newOrdersList, null, 2);
+
+        fs.writeFile('./routes/orders/orders.json', jsonString, err => {
+            if (err) {
+                console.log('Error writing file', err)
+            } else {
+                console.log('Successfully wrote file')
+            }
+        });
+    
+        res.status(200).json({ "id": id });
+
+    } catch {
+        res.status(500).send('Erro interno, por favor tente novamente')
     }
 })
 

@@ -87,7 +87,7 @@ export function Step2() {
         await Step2Schema.validate({ ...updatedOrder }, { abortEarly: false })
             .then(_ => {
                 if (id) {
-                    api.put(`orders/${id}`, updatedOrder)
+                    api.patch(`orders/${id}`, updatedOrder)
                         .then(_ => {
                             toast.success(`Pedido atualizado!`, {
                                 draggable: true,
