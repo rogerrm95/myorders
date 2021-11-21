@@ -1,171 +1,29 @@
 [
   {
-    "id": 3000,
-    "waiter": "José de Alencar",
-    "client": "Roger Marques",
-    "desk": 5,
-    "people": 1,
-    "status": "waiting",
-    "createdAt": "2021-11-02T16:33:11.069Z",
-    "finishedAt": null,
     "items": [
       {
-        "name": "Sorvete de Pote - Laranja",
+        "name": "Lasanha ao Fugo - Frango",
         "anotation": "",
-        "amount": 2,
-        "price": "96,00"
+        "amount": 1,
+        "price": "34,90",
+        "description": "É um fato conhecido de todos que um leitor se distrairá com o conteúdo de texto legível de uma página quando estiver examinando sua diagramação. ",
+        "isDone": true
       },
       {
-        "name": "Sorvete de ameixa",
+        "name": "Lasanha ao Fugo - Frango",
         "anotation": "",
         "amount": 1,
-        "price": "35,00"
-      }
-    ]
-  },
-  {
-    "items": [
-      {
-        "name": "Arroz doce",
-        "anotation": "",
-        "amount": 1,
-        "price": "20,00"
-      }
-    ],
-    "waiter": "José de Alencar",
-    "client": "Tulio Soares",
-    "desk": "5",
-    "people": "1",
-    "status": "waiting",
-    "createdAt": "2021-11-02T17:07:02.964Z",
-    "id": 3001
-  },
-  {
-    "items": [
-      {
-        "name": "Torta de Frango c/ Catupiry",
-        "anotation": "",
-        "amount": 1,
-        "price": "79,00"
-      }
-    ],
-    "waiter": "José de Alencar",
-    "client": "Roger",
-    "desk": "13",
-    "people": "2",
-    "status": "finished",
-    "createdAt": "2021-11-02T17:17:14.259Z",
-    "id": 3002,
-    "finishedAt": "2021-11-02T19:45:22.171Z"
-  },
-  {
-    "items": [
-      {
-        "name": "Lasanha de Peixe - Média",
-        "anotation": "",
-        "amount": 2,
-        "price": "89"
-      },
-      {
-        "name": "Suco de Beterraba",
-        "anotation": "sem açucar",
-        "amount": 1,
-        "price": "40"
-      },
-      {
-        "name": "Suco de maçã",
-        "anotation": "",
-        "amount": 1,
-        "price": "89"
-      },
-      {
-        "name": "Bolo de Pote - Brigadeiro",
-        "anotation": "",
-        "amount": 2,
-        "price": "15"
+        "price": "34,90",
+        "description": "É um fato conhecido de todos que um leitor se distrairá com o conteúdo de texto legível de uma página quando estiver examinando sua diagramação. ",
+        "isDone": true
       }
     ],
     "waiter": "Roger Marques",
-    "client": "Ester Meireles",
-    "desk": "02",
-    "people": "02",
-    "status": "done",
-    "createdAt": "2021-11-05T00:52:24.654Z",
-    "id": 3003
-  },
-  {
-    "items": [
-      {
-        "name": "Lasanha ao Fugo - Frango",
-        "anotation": "",
-        "amount": 2,
-        "price": "34,90"
-      },
-      {
-        "name": "Suco Del Vale - Uva - 500ml",
-        "anotation": "",
-        "amount": 2,
-        "price": "8,90"
-      }
-    ],
-    "waiter": "Samanta Fernandes",
-    "client": "Rogerio Marques",
+    "client": "Julia de souza",
     "desk": "01",
-    "people": "2",
-    "status": "preparing",
-    "createdAt": "2021-11-07T19:55:16.594Z",
-    "id": 3004
-  },
-  {
-    "items": [
-      {
-        "name": "Lasanha ao Fugo - Frango",
-        "anotation": "",
-        "amount": 1,
-        "price": "34,90"
-      },
-      {
-        "name": "Suco Del Vale - Uva - 500ml",
-        "anotation": "sem açucar",
-        "amount": 3,
-        "price": "8,90"
-      },
-      {
-        "name": "Sundae de Ovomaltine - Pequeno",
-        "anotation": "",
-        "amount": 2,
-        "price": "12,50"
-      }
-    ],
-    "waiter": "José de Alencar Freitas",
-    "client": "Sarah",
-    "desk": "02",
-    "people": "3",
-    "status": "waiting",
-    "createdAt": "2021-11-07T20:17:58.970Z",
-    "id": 3005
-  },
-  {
-    "items": [
-      {
-        "name": "Macarronada Italiana",
-        "anotation": "",
-        "amount": 2,
-        "price": "25,80"
-      },
-      {
-        "name": "Founde de Chocolate - c/ Morangos ",
-        "anotation": "",
-        "amount": 1,
-        "price": "50,50"
-      }
-    ],
-    "waiter": "Samanta Fernandes",
-    "client": "Sergio Moralles",
-    "desk": "6",
-    "people": "2",
-    "status": "done",
-    "createdAt": "2021-11-07T23:23:49.720Z",
-    "id": 3006
+    "people": "01",
+    "status": "Preparando",
+    "createdAt": "2021-11-20T23:47:16.543Z",
+    "id": 11132
   }
 ]
