@@ -1,11 +1,13 @@
 import { FormEvent, useState } from 'react'
 // Components //
-import { InputLogin } from '../../../components/MyOrders/Inputs/Login'
+import { Input } from '../../../components/MyOrders/Inputs/General'
 import { Button } from '../../../components/MyOrders/Button'
 import { HeaderHomePage as Header } from '../../../components/MyOrders/HeaderHomePage'
 // Images & Icons //
-import { FiMail, FiLock, FiLogIn } from 'react-icons/fi'
+import { FiLogIn } from 'react-icons/fi'
 import ChefImage from '../../../assets/chef.png'
+import EmailIcon from '../../../assets/icons/mail.svg'
+import PasswordIcon from '../../../assets/icons/lock.svg'
 // Styles //
 import { Container, Footer } from './styles'
 import { LoginSchema } from './schema'
@@ -57,24 +59,22 @@ export default function Login() {
                 </h1>
 
                 <form onSubmit={handleLogin}>
-                    <InputLogin
+                    <Input
                         label='E-mail'
-                        Icon={FiMail}
-                        colorIcon="#FFF"
+                        imageSrc={EmailIcon}
                         type='email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="nome_usuario@example.com.br" />
-                    <InputLogin
+                    <Input
                         label='Senha'
-                        Icon={FiLock}
-                        colorIcon="#FFF"
+                        imageSrc={PasswordIcon}
                         type='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="**************" />
 
-                    <Button type="submit" color='#FFF' backgroundColor="#E84A5F">
+                    <Button type="submit" color='#FFF' backgroundColor="#45545A">
                         <span>
                             Entrar
                             <FiLogIn size='24' color='#FFF' />

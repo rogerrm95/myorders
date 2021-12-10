@@ -49,7 +49,7 @@ export const Container = styled.div`
         filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.1));
 
         h1 {
-            color: var(--red-500);
+            color: var(--primary);
             font-size: 2.5rem;
         }
 

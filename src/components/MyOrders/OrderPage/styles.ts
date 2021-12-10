@@ -19,7 +19,7 @@ export const Header = styled.header`
     height: 4rem;
 
     button {
-        background-color: var(--red-500);
+        background-color: var(--primary);
         height: 3rem;
         width: 3rem;
         border-radius: 8px;
@@ -35,7 +35,7 @@ export const Header = styled.header`
     }
 
     h2 {
-        color: var(--red-500);
+        color: var(--primary);
     }
 
     img {

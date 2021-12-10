@@ -32,7 +32,7 @@ export const Container = styled.div<ContainerProps>`
             font: 1.5rem normal Roboto, sans-serif;
             border-bottom: 2px solid  #45545A;
 
-            caret-color: var(--red-500);
+            caret-color: var(--primary);
 
             &::placeholder{
                 color: var(--placeholder);
