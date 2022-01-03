@@ -34,5 +34,32 @@
     "createdAt": "2021-11-21T18:29:59.641Z",
     "id": 11379,
     "finishedAt": "2021-11-21T19:19:05.872Z"
+  },
+  {
+    "items": [
+      {
+        "name": "Sundae de Ovomaltine - Pequeno",
+        "anotation": "",
+        "amount": 2,
+        "price": "12,50",
+        "description": "Sundae Artesanal",
+        "isDone": false
+      },
+      {
+        "name": "Founde de Chocolate - c/ Morangos ",
+        "anotation": "",
+        "amount": 1,
+        "price": "50,50",
+        "description": "Fondue",
+        "isDone": true
+      }
+    ],
+    "waiter": "Samanta Fernandes",
+    "client": "Paulo Silas",
+    "desk": "10",
+    "people": "2",
+    "status": "Preparando",
+    "createdAt": "2022-01-03T22:49:10.928Z",
+    "id": 14520
   }
 ]

@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     :root {
-    --background: #D6D6D6;
+    --background: #F1F1F1;
     --white: #FFF;
     --grey-light: #E0E0E0;
     --placeholder: #E0E0E0;

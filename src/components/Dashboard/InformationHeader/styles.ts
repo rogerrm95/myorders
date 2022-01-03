@@ -39,6 +39,7 @@ export const Container = styled.header`
         max-height: 150px;
     }
 
+    // Media Queries //
     @media(max-width: 1200px){
         grid-template-columns: 2fr 1fr;
 
@@ -59,5 +60,4 @@ export const Container = styled.header`
             display: none;
         }
     }
-
 `
