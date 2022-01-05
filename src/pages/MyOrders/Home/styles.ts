@@ -50,3 +50,78 @@ export const Container = styled.div`
         filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.1));
     }
 `
+
+export const NotificationBox = styled.div`
+    //background: var(--placeholder);
+    position: relative;
+
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+    
+    hr {
+        height: 2px;
+        background: var(--red-500);
+        border: none;
+    }
+
+    // Indicador //
+    &::after{
+        content: '';
+        position: absolute;
+        right: 50%;
+        top: 0px;
+        width: 0;
+        height: 0;
+
+        border-style: solid;
+        border-width: 16px 16px 0 16px;
+        border-color:var(--red-500) transparent transparent transparent;
+    }
+
+    .info {
+        height: 9rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4rem;
+
+        p {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+
+            span {
+                font-size: 4rem;
+                font-weight: bold;
+            }
+
+            img {
+                margin-top: -0.5rem;
+            }
+        }
+    }
+
+    .warning {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding-bottom: 1rem;
+        
+        svg {
+            margin-right: 1rem;
+        }
+    }
+`
