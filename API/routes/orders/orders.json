@@ -43,7 +43,7 @@
         "amount": 2,
         "price": "12,50",
         "description": "Sundae Artesanal",
-        "isDone": false
+        "isDone": true
       },
       {
         "name": "Founde de Chocolate - c/ Morangos ",
@@ -52,13 +52,29 @@
         "price": "50,50",
         "description": "Fondue",
         "isDone": true
+      },
+      {
+        "name": "Suco Del Vale - Uva - 500ml",
+        "anotation": "",
+        "amount": 2,
+        "price": "8,90",
+        "description": "Suco de Lata",
+        "isDone": true
+      },
+      {
+        "name": "Ravioli de Abóbora com Gorgonzola",
+        "anotation": "",
+        "amount": 1,
+        "price": "54,50",
+        "description": "Originaria da Ilha da Sicília, possui recheio de abóbora e gorgonzola.",
+        "isDone": true
       }
     ],
     "waiter": "Samanta Fernandes",
     "client": "Paulo Silas",
     "desk": "10",
     "people": "2",
-    "status": "Preparando",
+    "status": "Pronto",
     "createdAt": "2022-01-03T22:49:10.928Z",
     "id": 14520
   }

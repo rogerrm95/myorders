@@ -9,15 +9,27 @@ import HatImage from '../../../assets/icons/chef-hat.png'
 import PlusIcon from '../../../assets/icons/plus.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import HatIcon from '../../../assets/icons/hat.svg'
-import HandIcon from '../../../assets/icons/hand.png'
-import {FiAlertCircle} from 'react-icons/fi'
+import { FiAlertTriangle } from 'react-icons/fi'
 // Styles //
 import { Container, NotificationBox } from './styles'
+import { useEffect, useState } from 'react'
+import { useOrders } from '../../../hooks/useOrders'
 
 // VERIFICAR SE O USUÁRIO ESTÁ AUTENTICADO //
 // SENÃO ESTIVER, O REDIRECIONAR PARA A PÁGINA DE LOGIN //
 
 export default function Home() {
+
+    const { getOrdersByStatus } = useOrders()
+    const [amountOrdersToService, setAmountOrdersToService] = useState(0)
+
+    // Exibe para o usuário a quantidade de pedidos que se encontram prontos para serem servidos //
+    useEffect(() => {
+        const orders = getOrdersByStatus('Pronto')
+
+        setAmountOrdersToService(orders.length)
+    }, [getOrdersByStatus])
+
     return (
         <Container>
             <Header />
@@ -37,30 +49,30 @@ export default function Home() {
             </section>
 
             <main>
-                <ItemMenu image={PlateImage} path='/order/new' title="Nova Comanda" legend="Criar um novo pedido" icon={PlusIcon} />
-                <ItemMenu image={ScreenIcon}  path='/orders' title="Gerenciar pedidos" legend="Gerenciar os pedidos de hoje" icon={RefreshIcon}/>
-                <ItemMenu image={HatImage} path='/admin/home' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon}/>
-
-                <NotificationBox>
-                    <hr />
-
-                    <div className='info'>
-                        <p>Pedidos <br /> Finalizados</p>
-
-                        <div className='orders-done'>
-                            <span>05</span>
-                            <img src={HandIcon} alt="Mão servindo" />
-                        </div>
-                    </div>
-
-                    <div className='warning'>
-                        <FiAlertCircle size={20} color='#6E787C'/>
-                        <span>
-                            Há pedidos aguardando para serem entregue na cozinha
-                        </span>
-                    </div>
+                <NotificationBox hasOrders={!!amountOrdersToService}>
+                    {
+                        amountOrdersToService < 1 ? 
+                        (
+                            <>
+                                <FiAlertTriangle color='#95A3A9' size={20} />
+                                <span>Não há pedidos a serem retirados</span>
+                            </>
+                        ) : 
+                        (
+                            <>
+                                <FiAlertTriangle color='#FFF' size={20} />
+                                <span>Você possui {amountOrdersToService} prato(s) para retirada</span>
+                            </>
+                        )
+                    }
                 </NotificationBox>
-            </main>
-        </Container>
+
+                <div className='menu-group'>
+                    <ItemMenu image={PlateImage} path='/order/new' title="Nova Comanda" legend="Criar um novo pedido" icon={PlusIcon} />
+                    <ItemMenu image={ScreenIcon} path='/orders' title="Gerenciar pedidos" legend="Gerenciar os pedidos de hoje" icon={RefreshIcon} />
+                    <ItemMenu image={HatImage} path='/admin/home' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} />
+                </div>
+            </main >
+        </Container >
     )
 }

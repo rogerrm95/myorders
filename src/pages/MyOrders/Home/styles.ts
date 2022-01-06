@@ -42,86 +42,39 @@ export const Container = styled.div`
         flex-direction: column;
         align-items: stretch;
         margin: 0 1.5rem;
-        padding: 2rem 1.5rem 1.5rem 1.5rem;
-        gap: 2rem;
 
         background-color: var(--white);
         border-radius: 25px 25px 0 0;
         filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.1));
     }
+
+    .menu-group {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2rem;
+
+        padding: 1rem 1.5rem 1.5rem 1.5rem;
+    }
 `
 
-export const NotificationBox = styled.div`
-    //background: var(--placeholder);
-    position: relative;
+type NotificationBoxProps = {
+    hasOrders: boolean
+}
 
+export const NotificationBox = styled.div<NotificationBoxProps>`
+    background-color: ${props => props.hasOrders ? "var(--red-500)" : "var(--primary)"};
 
-    flex: 1;
     display: flex;
-    flex-direction: column;
-    
-    
-    hr {
-        height: 2px;
-        background: var(--red-500);
-        border: none;
-    }
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: inherit;
 
-    // Indicador //
-    &::after{
-        content: '';
-        position: absolute;
-        right: 50%;
-        top: 0px;
-        width: 0;
-        height: 0;
-
-        border-style: solid;
-        border-width: 16px 16px 0 16px;
-        border-color:var(--red-500) transparent transparent transparent;
-    }
-
-    .info {
-        height: 9rem;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 4rem;
-
-        p {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        div {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-top: 1rem;
-
-            span {
-                font-size: 4rem;
-                font-weight: bold;
-            }
-
-            img {
-                margin-top: -0.5rem;
-            }
-        }
-    }
-
-    .warning {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        padding-bottom: 1rem;
-        
-        svg {
-            margin-right: 1rem;
-        }
+    span {
+        color: ${props => props.hasOrders ? "#FFF" : "#95A3A9"};
+        font-weight: ${props => props.hasOrders ? "700" : "500"};
+        font-size: 0.85rem;
+        margin-left: 1rem;
     }
 `
