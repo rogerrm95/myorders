@@ -1,16 +1,20 @@
 /* eslint-disable eqeqeq */
+// Hook //
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
-import { createBrowserHistory } from 'history'
-import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify'
-import { api } from "../../../../services/api";
-// Hook //
 import { useStepper } from "../../../../hooks/useStepper";
+import { useUsers } from "../../../../hooks/useUsers";
+import { useOrders } from "../../../../hooks/useOrders";
+// Utils //
+import { createBrowserHistory } from 'history'
+import { CalculateValueTotal } from "../../../../utils/CalculateValueTotal";
+import { toast } from 'react-toastify'
+import { Step2Schema } from "./schema";
 // Components //
 import { Button } from "../../Button";
 import { Input } from "../../Inputs/General";
 import { SummaryList } from "../../SummaryList";
+import { Select } from "../../Select";
 // Icons //
 import { FiCheck } from "react-icons/fi";
 import UserIcon from '../../../../assets/icons/person.svg'
@@ -19,10 +23,6 @@ import NumberIcon from '../../../../assets/icons/number.svg'
 import WaiterIcon from '../../../../assets/icons/waiter.svg'
 // Styles //
 import { Container } from './styles'
-import { Step2Schema } from "./schema";
-import { Select } from "../../Select";
-import { useOrders } from "../../../../hooks/useOrders";
-import { CalculateValueTotal } from "../../../../utils/CalculateValueTotal";
 
 type UsersData = {
     id: number,
@@ -33,27 +33,26 @@ type UsersData = {
 
 export function Step2() {
     const { order } = useStepper()
+    const { orders, newOrder, updateOrder, getOrders } = useOrders()
+    const { getAllUsers } = useUsers()
     const { id }: any = useParams()
-    const { push } = useHistory()
-    const { getOrders, orders } = useOrders()
-
+    const { push }: any = useHistory()
+    
     const [client, setClient] = useState(order.client)
     const [desk, setDesk] = useState(order.desk)
     const [people, setPeople] = useState(order.people)
     const [waiter, setWaiter] = useState(order.waiter)
-
     const [users, setUsers] = useState([] as UsersData[])
+    
 
     useEffect(() => {
-        async function getUsers() {
-            const data = await api.get<UsersData[]>('users')
-                .then(res => res.data)
-
+        async function loadWaiters() {
+            const data = await getAllUsers()
             setUsers(data)
         }
 
-        getUsers()
-    }, [])
+        loadWaiters()
+    }, [getAllUsers])
 
     async function handleUpdateOrder() {
         const oldValue = CalculateValueTotal(order.items)
@@ -70,11 +69,10 @@ export function Step2() {
             })
             createBrowserHistory()
             push('/home')
-
             return
         }
 
-        const updatedOrder = {
+        const orderData = {
             ...order,
             waiter,
             client,
@@ -84,36 +82,25 @@ export function Step2() {
         }
 
         // Validação dos dados //
-        await Step2Schema.validate({ ...updatedOrder }, { abortEarly: false })
+        await Step2Schema.validate({ ...orderData }, { abortEarly: false })
             .then(_ => {
                 if (id) {
-                    api.patch(`orders/${id}`, updatedOrder)
+                    updateOrder(orderData, id)
                         .then(_ => {
-                            toast.success(`Pedido atualizado!`, {
-                                draggable: true,
-                                position: 'top-right',
-                                autoClose: 4000,
-                                closeOnClick: true,
-                                pauseOnHover: false,
-                            })
+                            toast.success(`Pedido atualizado! Nº ${id}`)
                             getOrders()
                             createBrowserHistory()
                             push('/home')
-                        })
+                        }).catch(error => toast.error("Não foi possível executar ação, tente novamente"))
                 } else {
-                    api.post('orders/', { ...updatedOrder, createdAt: new Date() })
-                        .then(res => {
-                            toast.success(`Pedido realizado! Nº ${res.data.id}`, {
-                                draggable: true,
-                                position: 'top-right',
-                                autoClose: 4000,
-                                closeOnClick: true,
-                                pauseOnHover: false,
-                            })
+                    newOrder({ ...orderData, createdAt: String(new Date()) })
+                        .then((res: any) => {
+                            toast.success(`Pedido realizado! Nº ${res.id}`)
                             getOrders()
                             createBrowserHistory()
                             push('/home')
                         })
+                        .catch(_ => toast.error('Não foi possível criar o pedido'))
                 }
             })
             .catch(err => {
@@ -137,14 +124,16 @@ export function Step2() {
                     label='Mesa'
                     imageSrc={DeskIcon}
                     value={order.desk}
-                    onChange={(e) => setDesk(e.target.value)}
+                    type='number'
+                    onChange={(e) => setDesk(Number(e.target.value))}
                     placeholder='Informar o Nº da mesa'
                     gridAreaName='desk' />
                 <Input
                     label='Quantidade *'
                     imageSrc={NumberIcon}
                     value={order.people}
-                    onChange={(e) => setPeople(e.target.value)}
+                    type='number'
+                    onChange={(e) => setPeople(Number(e.target.value))}
                     placeholder='Informar o Nº de pessoas'
                     gridAreaName='qtdPeople' />
                 <Select

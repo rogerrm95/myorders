@@ -10,7 +10,7 @@ type ActiveOrdersProps = {
 }
 
 type Order = {
-    id: number,
+    id: string,
     client: string,
     desk: number,
 }

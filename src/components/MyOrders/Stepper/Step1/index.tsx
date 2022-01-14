@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { CalculateValueTotal } from '../../../../utils/CalculateValueTotal'
-// Hook //
+// Hooks //
 import { useStepper } from '../../../../hooks/useStepper'
+import { useEffect, useState } from 'react'
+import { useFoods } from '../../../../hooks/useFoods'
 // Images //
 import { FiChevronRight, FiPlus } from 'react-icons/fi'
-import FoodInService from '../../../../assets/icons/plate-in-service.svg'
-import Note from '../../../../assets/icons/note.svg'
-import Number from '../../../../assets/icons/number.svg'
+import FoodInServiceIcon from '../../../../assets/icons/plate-in-service.svg'
+import NoteIcon from '../../../../assets/icons/note.svg'
+import NumberIcon from '../../../../assets/icons/number.svg'
 // Components //
 import { Button } from '../../Button'
 import { Input } from '../../Inputs/General'
 import { ItemList } from '../../ItemList'
-// Styles //
-import { Box, Summary } from './styles'
 // Schema - Validação //
 import { Step1Schema } from './schema'
 import { AutoComplete } from '../../Inputs/AutoComplete'
-import { api } from '../../../../services/api'
+// Styles //
+import { Box, Summary } from './styles'
 
 type Food = {
     id: number,
@@ -30,6 +30,7 @@ type Food = {
 // Etapa 1: Adicionar itens ao pedido //
 export function Step1() {
     const { order, onNextPage, updateOrder } = useStepper()
+    const { getAllFoods } = useFoods()
 
     const [foods, setFoods] = useState([] as Food[]) // Lista dos itens vindo da API //
     const [food, setFood] = useState({} as Food)
@@ -38,17 +39,11 @@ export function Step1() {
     const [total, setTotal] = useState('0')
     const [hasClean, setHasClean] = useState(false)
 
-
     // Irá buscar todos os pratos cadastrados no sistema //
     // Pratos indisponíveis não serão listados //
     useEffect(() => {
         async function getAPIAllFoods() {
-            const data = await api.get<Food[]>('/foods').then(res => {
-                const list = res.data
-
-                return list.filter((item: any) => item.isActive && item)
-            })
-
+            const data = await getAllFoods(true)
             setFoods(data)
         }
 
@@ -109,7 +104,7 @@ export function Step1() {
             <form>
                 <AutoComplete
                     gridAreaName='food'
-                    imageSrc={FoodInService}
+                    imageSrc={FoodInServiceIcon}
                     placeholder='Selecione os pratos ou bebidas...'
                     items={foods}
                     onSelectedChange={setFood}
@@ -117,7 +112,7 @@ export function Step1() {
 
                 <Input
                     gridAreaName="obs"
-                    imageSrc={Note}
+                    imageSrc={NoteIcon}
                     label="Observação"
                     type='text'
                     value={anotation}
@@ -125,7 +120,7 @@ export function Step1() {
                     placeholder="Ex: Retirar cebolha, sem sal e etc... " />
 
                 <Input
-                    imageSrc={Number}
+                    imageSrc={NumberIcon}
                     gridAreaName="unit"
                     label="Quantidade"
                     type='number'

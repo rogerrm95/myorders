@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { useOrders } from '../../../hooks/useOrders'
 // Components //
 import { HeaderHomePage as Header } from '../../../components/MyOrders/HeaderHomePage'
 import { ItemMenu } from '../../../components/MyOrders/ItemMenu'
@@ -12,8 +14,6 @@ import HatIcon from '../../../assets/icons/hat.svg'
 import { FiAlertTriangle } from 'react-icons/fi'
 // Styles //
 import { Container, NotificationBox } from './styles'
-import { useEffect, useState } from 'react'
-import { useOrders } from '../../../hooks/useOrders'
 
 // VERIFICAR SE O USUÁRIO ESTÁ AUTENTICADO //
 // SENÃO ESTIVER, O REDIRECIONAR PARA A PÁGINA DE LOGIN //
@@ -21,6 +21,7 @@ import { useOrders } from '../../../hooks/useOrders'
 export default function Home() {
 
     const { getOrdersByStatus } = useOrders()
+    const { newOrder, updateOrder, orders } = useOrders()
     const [amountOrdersToService, setAmountOrdersToService] = useState(0)
 
     // Exibe para o usuário a quantidade de pedidos que se encontram prontos para serem servidos //
@@ -30,10 +31,15 @@ export default function Home() {
         setAmountOrdersToService(orders.length)
     }, [getOrdersByStatus])
 
+    // Funcional //
+    async function loadUsers() {
+        // await updateOrder(orders[0], '5xa').then(_ => {})
+        // await newOrder(orders[0])
+    }
+
     return (
         <Container>
             <Header />
-
             <section>
                 <article>
                     <h1>
@@ -43,6 +49,10 @@ export default function Home() {
                     <p>
                         Selecione um dos menus e mão na massa.
                     </p>
+
+                    <button onClick={loadUsers}>
+                        Criar Comida
+                    </button>
                 </article>
 
                 <img src={WaiterImage} alt="Garçom" />
@@ -51,19 +61,19 @@ export default function Home() {
             <main>
                 <NotificationBox hasOrders={!!amountOrdersToService}>
                     {
-                        amountOrdersToService < 1 ? 
-                        (
-                            <>
-                                <FiAlertTriangle color='#95A3A9' size={20} />
-                                <span>Não há pedidos a serem retirados</span>
-                            </>
-                        ) : 
-                        (
-                            <>
-                                <FiAlertTriangle color='#FFF' size={20} />
-                                <span>Você possui {amountOrdersToService} prato(s) para retirada</span>
-                            </>
-                        )
+                        amountOrdersToService < 1 ?
+                            (
+                                <>
+                                    <FiAlertTriangle color='#95A3A9' size={20} />
+                                    <span>Não há pedidos a serem retirados</span>
+                                </>
+                            ) :
+                            (
+                                <>
+                                    <FiAlertTriangle color='#FFF' size={20} />
+                                    <span>Você possui {amountOrdersToService} prato(s) para retirada</span>
+                                </>
+                            )
                     }
                 </NotificationBox>
 

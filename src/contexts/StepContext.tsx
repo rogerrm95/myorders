@@ -1,45 +1,32 @@
 import { createContext, ReactNode, useState } from 'react'
-import { api } from '../services/api'
+import { useOrders } from '../hooks/useOrders'
+import { OrderType, ItemType } from '../types/Order'
 
 interface StepContextProviderProps {
     children: ReactNode
 }
 
 interface StepContextData {
-    order: OrderData,
+    order: Order,
     currentPage: number,
-    getOrderById: (id: number) => Promise<void>,
+    loadOrderData: (id: string) => Promise<void>,
     onNextPage: () => void,
     onPreviousPage: () => void,
-    updateOrder: (item: Item[]) => void
+    updateOrder: (item: ItemType[]) => void
 }
 
-type OrderData = {
-    items: Item[],
-    client: string,
-    desk: string
-    people: string,
-    waiter: string,
-}
-
-type Item = {
-    name: string,
-    amount: number,
-    anotation?: string,
-    price: string
-}
+type Order = Pick<OrderType, "items" | "client" | "desk" | "people" | "waiter">
 
 export const StepContext = createContext<StepContextData>({} as StepContextData)
 
 export function StepProvider({ children }: StepContextProviderProps) {
-    const [order, setOrder] = useState({} as OrderData)
+    const { getOrderById } = useOrders()
+    const [order, setOrder] = useState({} as Order)
     const [currentPage, setCurrentPage] = useState(1)
 
     // Buscar o pedido pelo ID e salva no Contexto //
-    async function getOrderById(id: number) {
-        const response = await api.get<OrderData>(`orders/${id}`)
-            .then(res => res.data)
-
+    async function loadOrderData(id: string) {
+        const response = await getOrderById(id)
         setOrder(response)
     }
 
@@ -53,8 +40,7 @@ export function StepProvider({ children }: StepContextProviderProps) {
         setCurrentPage(currentPage - 1)
     }
 
-    function updateOrder(item: Item[]){
-
+    function updateOrder(item: ItemType[]) {
         setOrder({
             ...order,
             items: item
@@ -62,7 +48,7 @@ export function StepProvider({ children }: StepContextProviderProps) {
     }
 
     return (
-        <StepContext.Provider value={{ order, currentPage, onNextPage, onPreviousPage, getOrderById, updateOrder }}>
+        <StepContext.Provider value={{ order, currentPage, onNextPage, onPreviousPage, loadOrderData, updateOrder }}>
             {
                 children
             }
