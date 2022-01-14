@@ -2,8 +2,6 @@
 import { useEffect, useState } from 'react'
 import { useOrders } from '../../../hooks/useOrders'
 import { toast } from 'react-toastify'
-import { api } from '../../../services/api'
-import { AxiosError } from 'axios'
 // Utils //
 import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
 import StatusList from '../../../utils/statusList'
@@ -108,7 +106,7 @@ export default function Orders() {
                 toast.success('Item Finalizado')
                 setSelectOrder({ ...selectOrder, items: itemsUptaded })
             })
-            .catch((error: AxiosError) => toast.error(error.message))
+            .catch((_) => toast.error("Erro durante o processamento"))
     }
 
     // Funcionalidade de deletar um pedido //

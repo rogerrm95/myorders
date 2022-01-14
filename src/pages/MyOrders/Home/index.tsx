@@ -21,7 +21,6 @@ import { Container, NotificationBox } from './styles'
 export default function Home() {
 
     const { getOrdersByStatus } = useOrders()
-    const { newOrder, updateOrder, orders } = useOrders()
     const [amountOrdersToService, setAmountOrdersToService] = useState(0)
 
     // Exibe para o usuário a quantidade de pedidos que se encontram prontos para serem servidos //
@@ -30,12 +29,6 @@ export default function Home() {
 
         setAmountOrdersToService(orders.length)
     }, [getOrdersByStatus])
-
-    // Funcional //
-    async function loadUsers() {
-        // await updateOrder(orders[0], '5xa').then(_ => {})
-        // await newOrder(orders[0])
-    }
 
     return (
         <Container>
@@ -49,10 +42,6 @@ export default function Home() {
                     <p>
                         Selecione um dos menus e mão na massa.
                     </p>
-
-                    <button onClick={loadUsers}>
-                        Criar Comida
-                    </button>
                 </article>
 
                 <img src={WaiterImage} alt="Garçom" />

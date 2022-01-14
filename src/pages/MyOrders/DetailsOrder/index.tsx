@@ -1,63 +1,49 @@
+// Hook //
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
+import { useOrders } from "../../../hooks/useOrders";
+// Utils //
+import { CalculateValueTotal } from "../../../utils/CalculateValueTotal";
 import { createBrowserHistory } from 'history'
+import { OrderType } from '../../../types/Order'
 import { toast } from "react-toastify";
-import { api } from "../../../services/api";
 // Components //
 import { Input } from "../../../components/MyOrders/Inputs/General";
 import { OrderPage } from "../../../components/MyOrders/OrderPage";
 import { Button } from "../../../components/MyOrders/Button";
 import { SummaryList } from "../../../components/MyOrders/SummaryList";
+import { Spinner } from "../../../components/MyOrders/Spinner";
 // Icons //
 import { FiCheck } from "react-icons/fi";
 import UserIcon from '../../../assets/icons/person.svg'
 import DeskIcon from '../../../assets/icons/desk.svg'
 import NumberIcon from '../../../assets/icons/number.svg'
 import WaiterIcon from '../../../assets/icons/waiter.svg'
-// Utils //
-import { CalculateValueTotal } from "../../../utils/CalculateValueTotal";
 // Styles //
 import { Container } from "./styles";
-import { Spinner } from "../../../components/MyOrders/Spinner";
 
-type OrdersData = {
-    id: string,
-    status: 'Pronto' | 'Preparando' | 'Aguardando' | 'Encerrado',
-    client: string,
-    desk: number,
-    people: number,
-    waiter: string,
-    price: string,
-    items: Order[]
-}
-
-type Order = {
-    name: string,
-    note?: string,
-    amount: number,
-    price: string
-}
+interface OrderData extends OrderType { }
 
 export default function DetailsOrder() {
     const { id }: any = useParams()
     const { push } = useHistory()
+    const { getOrderById, updateOrder } = useOrders()
 
-    const [order, setOrder] = useState({} as OrdersData)
+    const [order, setOrder] = useState({} as OrderData)
     const [total, setTotal] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        async function getOrderById() {
+        async function getOrderInfo() {
             try {
                 setIsLoading(true)
-                const data = await api.get<OrdersData>(`orders/${id}`)
-                    .then(res => res.data)
+                const data = await getOrderById(id).then(res => res)
 
                 // Soma todos os valores de cada item pedido //
                 // Converte o valor pra PT-BR //
-                const amountAtToPay = CalculateValueTotal(data.items)
+                const amountToPay = CalculateValueTotal(data.items)
 
-                setTotal(amountAtToPay)
+                setTotal(amountToPay)
                 setOrder(data)
                 setIsLoading(false)
             } catch {
@@ -65,23 +51,23 @@ export default function DetailsOrder() {
             }
         }
 
-        getOrderById()
-    }, [id])
+        getOrderInfo()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, getOrderById])
 
     // Finaliza um pedido - Apenas os marcados como "Prontos" //
     async function handleFinishOrder() {
         try {
             if (order.status === 'Pronto') {
-                await api.patch(`orders/${id}`, {
-                    ...order,
-                    status: 'Encerrado',
-                    finishedAt: new Date()
-                })
+
+                await updateOrder({ ...order, status: "Encerrado", finishedAt: new Date() }, order.id)
                     .then(_ => {
                         toast.success('Pedido encerrado!')
                         createBrowserHistory()
                         push('/home')
                     })
+            } else {
+                toast.warning('Existem pratos para serem entregues!')
             }
         } catch {
             toast.error('Ops, ocorreu um erro durante o processamento!')

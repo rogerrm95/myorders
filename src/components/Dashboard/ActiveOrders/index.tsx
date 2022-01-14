@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
+// Icons //
 import { IconType } from "react-icons"
+// Hook //
 import { useOrders } from "../../../hooks/useOrders"
+// Styles //
 import { Container } from './styles'
 
 type ActiveOrdersProps = {

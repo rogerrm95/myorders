@@ -48,7 +48,7 @@ export function Step1() {
         }
 
         getAPIAllFoods()
-    }, [])
+    }, [getAllFoods])
 
     // Calculará o preço total do pedido //
     useEffect(() => {
