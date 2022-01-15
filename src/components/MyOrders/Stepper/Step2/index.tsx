@@ -52,7 +52,8 @@ export function Step2() {
         }
 
         loadWaiters()
-    }, [getAllUsers])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     async function handleUpdateOrder() {
         const oldValue = CalculateValueTotal(order.items)

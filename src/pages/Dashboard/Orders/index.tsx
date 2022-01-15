@@ -51,7 +51,7 @@ export default function Orders() {
     useEffect(() => {
         const data = getOrdersByStatus(status)
         setOrdersList(data)
-    }, [getOrdersByStatus, status])
+    }, [status])
 
     // Se todos os items estiverem prontos, botão Finalizar ficará ativo //
     useEffect(() => {

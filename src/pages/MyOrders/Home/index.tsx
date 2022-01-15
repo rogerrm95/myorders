@@ -28,7 +28,7 @@ export default function Home() {
         const orders = getOrdersByStatus('Pronto')
 
         setAmountOrdersToService(orders.length)
-    }, [getOrdersByStatus])
+    }, [])
 
     return (
         <Container>
