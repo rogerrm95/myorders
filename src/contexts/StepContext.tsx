@@ -9,7 +9,7 @@ interface StepContextProviderProps {
 interface StepContextData {
     order: Order,
     currentPage: number,
-    loadOrderData: (id: string) => Promise<void>,
+    loadOrderData: (id: string) => void,
     onNextPage: () => void,
     onPreviousPage: () => void,
     updateOrder: (item: ItemType[]) => void
@@ -26,7 +26,7 @@ export function StepProvider({ children }: StepContextProviderProps) {
 
     // Buscar o pedido pelo ID e salva no Contexto //
     async function loadOrderData(id: string) {
-        const response = await getOrderById(id)
+        const response = await getOrderById(id) as Order
         setOrder(response)
     }
 

@@ -17,8 +17,8 @@ interface OrderContextProviderProps {
 interface OrderContextData {
     orders: Order[],
     deleteOrder: (id: string) => Promise<void>,
-    getOrdersByStatus: (status: string) => Order[],
-    getOrderById: (id: string) => Promise<Order>,
+    getOrdersByStatus: (status: string) => Promise<Order[]>,
+    getOrderById: (id: string) => Promise<Order | undefined>,
     getOrders: () => Promise<void>,
     newOrder: (order: any) => Promise<object>,
     updateOrder: (order: any, id: string) => Promise<void>
@@ -57,24 +57,6 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         setOrders(response)
     }
 
-    // GET - PEDIDOS POR ID//
-    async function getOrderById(id: string) {
-        try {
-            const data = await Fauna.query<Order>(
-                q.Get(
-                    q.Match(
-                        q.Index('order_by_id'), id
-                    )
-                )
-            ).then((res: any) => res.data)
-
-            return data
-        } catch (_) {
-            toast.error('Não foi possível localizar o pedido')
-            push('/home')
-        }
-    }
-
     // DELETE - PEDIDO //
     async function deleteOrder(id: string) {
         const refOrder = await Fauna.query(
@@ -109,7 +91,10 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
                 q.Collection('orders'),
                 { data }
             )
-        ).then(_ => data)
+        ).then(_ => {
+            getOrders()
+            return data
+        })
 
         return response
     }
@@ -128,11 +113,29 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
                 {
                     data: { ...order }
                 })
-        )
+        ).then(_ => getOrders())
     }
 
-    function getOrdersByStatus(status: string) {
-        getOrders()
+    async function getOrderById(id: string) {
+        await getOrders()
+
+        try {
+            const data = orders.find(order => order.id === id && order)
+
+            if (!data) {
+                toast.error('Não foi possível localizar o pedido')
+                push('/home')
+            }
+
+            return data
+        } catch (_) {
+            toast.error('Não foi possível localizar o pedido')
+            push('/home')
+        }
+    }
+
+    async function getOrdersByStatus(status: string) {
+        await getOrders()
 
         const list = orders.filter(order => order.status === status && order)
 

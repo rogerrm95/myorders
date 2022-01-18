@@ -26,7 +26,7 @@ export function NavMenuItem({ name, href, Icon, alt = 'Ícone' }: NavMenuItemPro
     }, [href, location.pathname])
 
     return (
-        <Container to={href} className={isActive ? 'active' : ''}>
+        <Container to={href} className={isActive ? 'active' : ''} >
             <Icon size='24' />
             <p>{name}</p>
         </Container>

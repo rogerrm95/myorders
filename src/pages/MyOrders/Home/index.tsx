@@ -20,15 +20,18 @@ import { Container, NotificationBox } from './styles'
 
 export default function Home() {
 
-    const { getOrdersByStatus } = useOrders()
+    const { getOrdersByStatus, orders } = useOrders()
     const [amountOrdersToService, setAmountOrdersToService] = useState(0)
 
     // Exibe para o usuário a quantidade de pedidos que se encontram prontos para serem servidos //
     useEffect(() => {
-        const orders = getOrdersByStatus('Pronto')
+        (async () => {
+            const doneOrders = await getOrdersByStatus('Pronto')
 
-        setAmountOrdersToService(orders.length)
-    }, [])
+            setAmountOrdersToService(doneOrders.length)
+        })()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orders])
 
     return (
         <Container>

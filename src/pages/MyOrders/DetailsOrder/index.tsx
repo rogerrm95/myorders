@@ -22,14 +22,14 @@ import WaiterIcon from '../../../assets/icons/waiter.svg'
 // Styles //
 import { Container } from "./styles";
 
-interface OrderData extends OrderType { }
+interface Order extends OrderType { }
 
 export default function DetailsOrder() {
     const { id }: any = useParams()
     const { push } = useHistory()
     const { getOrderById, updateOrder } = useOrders()
 
-    const [order, setOrder] = useState({} as OrderData)
+    const [order, setOrder] = useState({} as Order)
     const [total, setTotal] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
@@ -37,7 +37,7 @@ export default function DetailsOrder() {
         async function getOrderInfo() {
             try {
                 setIsLoading(true)
-                const data = await getOrderById(id).then(res => res)
+                const data = await getOrderById(id) as Order
 
                 // Soma todos os valores de cada item pedido //
                 // Converte o valor pra PT-BR //
