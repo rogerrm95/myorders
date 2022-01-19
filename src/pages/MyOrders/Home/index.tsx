@@ -31,7 +31,7 @@ export default function Home() {
             setAmountOrdersToService(doneOrders.length)
         })()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orders])
+    }, [getOrdersByStatus])
 
     return (
         <Container>

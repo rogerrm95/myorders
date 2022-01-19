@@ -135,7 +135,6 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
 
     async function getOrdersByStatus(status: string) {
-        await getOrders()
 
         const list = orders.filter(order => order.status === status && order)
 
