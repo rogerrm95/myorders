@@ -33,6 +33,7 @@ export default function DetailsOrder() {
     const [total, setTotal] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
+
     useEffect(() => {
         async function getOrderInfo() {
             try {
@@ -47,7 +48,7 @@ export default function DetailsOrder() {
                 setOrder(data)
                 setIsLoading(false)
             } catch {
-                push('/home')
+                push('/')
             }
         }
 
@@ -64,7 +65,7 @@ export default function DetailsOrder() {
                     .then(_ => {
                         toast.success('Pedido encerrado!')
                         createBrowserHistory()
-                        push('/home')
+                        push('/')
                     })
             } else {
                 toast.warning('Existem pratos para serem entregues!')

@@ -19,18 +19,18 @@ import { Container, NotificationBox } from './styles'
 // SENÃO ESTIVER, O REDIRECIONAR PARA A PÁGINA DE LOGIN //
 
 export default function Home() {
+    const { getOrdersByStatus } = useOrders()
 
-    const { getOrdersByStatus, orders } = useOrders()
     const [amountOrdersToService, setAmountOrdersToService] = useState(0)
 
-    // Exibe para o usuário a quantidade de pedidos que se encontram prontos para serem servidos //
     useEffect(() => {
-        (async () => {
-            const doneOrders = await getOrdersByStatus('Pronto')
+        async function loadQtdFinishedOrders() {
+            const qtdOrders = await getOrdersByStatus('Pronto')
 
-            setAmountOrdersToService(doneOrders.length)
-        })()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+            qtdOrders && setAmountOrdersToService(qtdOrders.length)
+        }
+
+        loadQtdFinishedOrders()
     }, [getOrdersByStatus])
 
     return (

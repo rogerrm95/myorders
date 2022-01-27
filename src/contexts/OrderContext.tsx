@@ -1,12 +1,10 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 import { useHistory } from "react-router";
 import { uid } from 'uid/secure'
+import { api } from '../services/api';
 // Toastfy //
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// FaunaDB //
-import { query as q } from 'faunadb'
-import { Fauna } from './../services/fauna'
 // Types //
 import { OrderType as Order } from '../types/Order'
 
@@ -17,7 +15,7 @@ interface OrderContextProviderProps {
 interface OrderContextData {
     orders: Order[],
     deleteOrder: (id: string) => Promise<void>,
-    getOrdersByStatus: (status: string) => Promise<Order[]>,
+    getOrdersByStatus: (status: string) => Order[] | [],
     getOrderById: (id: string) => Promise<Order | undefined>,
     getOrders: () => Promise<void>,
     newOrder: (order: any) => Promise<object>,
@@ -31,52 +29,26 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
 
     const [orders, setOrders] = useState<Order[]>([])
 
-    useEffect(() => {
-        getOrders()
-    }, [])
-
     // GET - PEDIDOS //
     async function getOrders() {
-
-        // GET - Pedidos //
-        const response: Order[] = await Fauna.query<any>(
-            q.Map(
-                q.Paginate(
-                    q.Match(
-                        q.Index('all_orders')
-                    )
-                ),
-                q.Lambda('ordersRef',
-                    q.Get(
-                        q.Var('ordersRef')
-                    )
-                )
-            )
-        ).then(res => res.data.map((item: any) => item.data))
+        const response: Order[] = await api.get('/orders')
+            .then(res => res.data)
+            .catch(error => console.log('ERRO'))
 
         setOrders(response)
     }
 
     // DELETE - PEDIDO //
     async function deleteOrder(id: string) {
-        const refOrder = await Fauna.query(
-            q.Get(
-                q.Match(
-                    q.Index('order_by_id'), id
-                )
-            )
-        ).then((res: any) => res.ref.value.id)
-
-        await Fauna.query(
-            q.Delete(
-                q.Ref(q.Collection('orders'), refOrder)
-            )
-        ).then(_ => {
-            getOrders()
-            toast.success("Pedido Excluído")
-        }).catch(() => {
-            return toast.error("Não foi possível executar essa ação")
-        })
+        await api.delete(`/orders/${id}`)
+            .then(res => {
+                getOrders()
+                console.log(res.data.message)
+                //toast.success("Pedido Excluído")
+            })
+            .catch((error) => {
+                return toast.error(error.response.data.message)
+            })
     }
 
     // POST - PEDIDO //
@@ -86,59 +58,42 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
             id: `${order.desk}${uid(2)}`, // Número da mesa + 2 caracteres randomicos //
         }
 
-        const response = await Fauna.query(
-            q.Create(
-                q.Collection('orders'),
-                { data }
-            )
-        ).then(_ => {
-            getOrders()
-            return data
-        })
+        const response = await api.post('/orders', data)
+            .then(res => res.data)
+            .catch(error => toast.error(error.response.data.message))
 
         return response
     }
 
     // UPDATE - PEDIDO //
-    async function updateOrder(order: Order, id: string) {
-        await Fauna.query(
-            q.Update(
-                q.Select("ref",
-                    q.Get(
-                        q.Match(
-                            q.Index("order_by_id"), id
-                        )
-                    )
-                ),
-                {
-                    data: { ...order }
-                })
-        ).then(_ => getOrders())
+    async function updateOrder(order: any, id: string) {
+        await api.patch(`/orders/${id}`, order)
+            .then(_ => getOrders())
+            .catch(error => toast.error(error.response.data.message))
     }
 
     async function getOrderById(id: string) {
-        await getOrders()
-
         try {
             const data = orders.find(order => order.id === id && order)
 
             if (!data) {
                 toast.error('Não foi possível localizar o pedido')
-                push('/home')
+                push('/')
             }
 
             return data
         } catch (_) {
             toast.error('Não foi possível localizar o pedido')
-            push('/home')
         }
     }
 
-    async function getOrdersByStatus(status: string) {
+    function getOrdersByStatus(status: string) {
+        if (orders) {
+            const list = orders.filter(order => order.status === status && order)
 
-        const list = orders.filter(order => order.status === status && order)
-
-        return list
+            return list
+        }
+        return []
     }
 
     return (

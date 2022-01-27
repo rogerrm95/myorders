@@ -49,12 +49,13 @@ export default function Orders() {
 
     // Carrega a lista de pedidos de acordo com o status //
     useEffect(() => {
-        (
-            async () => {
-                const data = await getOrdersByStatus(status)
-                setOrdersList(data)
-            }
-        )()
+        async function loadOrdersByStatus() {
+            const data = await getOrdersByStatus(status)
+            console.log(data)
+            data.length > 0 ? setOrdersList(data) : setOrdersList([])
+        }
+
+        loadOrdersByStatus()
     }, [status])
 
     // Se todos os items estiverem prontos, botão Finalizar ficará ativo //

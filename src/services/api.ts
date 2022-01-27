@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://infinite-thicket-91741.herokuapp.com',
+  baseURL: process.env.REACT_APP_AUTH_API_URL,
 });

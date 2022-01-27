@@ -37,22 +37,32 @@ export function Step2() {
     const { getAllUsers } = useUsers()
     const { id }: any = useParams()
     const { push }: any = useHistory()
-    
+
     const [client, setClient] = useState(order.client)
     const [desk, setDesk] = useState(order.desk)
     const [people, setPeople] = useState(order.people)
     const [waiter, setWaiter] = useState(order.waiter)
     const [users, setUsers] = useState([] as UsersData[])
-    
 
+    // Carregar os atentendes //
     useEffect(() => {
         async function loadWaiters() {
             const data = await getAllUsers()
-            setUsers(data)
+
+            const listOfUsers = data.map(user => {
+                return {
+                    id: user.id,
+                    name: user.name,
+                    lastname: user.lastname,
+                    job: user.job
+                }
+            })
+
+            setUsers(listOfUsers)
         }
 
         loadWaiters()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     async function handleUpdateOrder() {
@@ -89,19 +99,17 @@ export function Step2() {
                     updateOrder(orderData, id)
                         .then(_ => {
                             toast.success(`Pedido atualizado! Nº ${id}`)
-                            getOrders()
                             createBrowserHistory()
-                            push('/home')
-                        }).catch(error => toast.error("Não foi possível executar ação, tente novamente"))
+                            push('/')
+                        }).catch(error => toast.error("Não foi possível executar ação, tente novamente - 1"))
                 } else {
                     newOrder({ ...orderData, createdAt: String(new Date()) })
                         .then((res: any) => {
                             toast.success(`Pedido realizado! Nº ${res.id}`)
-                            getOrders()
                             createBrowserHistory()
-                            push('/home')
+                            push('/')
                         })
-                        .catch(_ => toast.error('Não foi possível criar o pedido'))
+                        .catch(_ => toast.error('Não foi possível executar ação, tente novamente - 2'))
                 }
             })
             .catch(err => {

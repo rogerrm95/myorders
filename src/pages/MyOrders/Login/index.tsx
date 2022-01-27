@@ -1,4 +1,8 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
+import { useAuth } from '../../../hooks/useAuth'
+// Utils //
+import { toast } from 'react-toastify'
+import { LoginSchema } from './schema'
 // Components //
 import { Input } from '../../../components/MyOrders/Inputs/General'
 import { Button } from '../../../components/MyOrders/Button'
@@ -10,29 +14,32 @@ import EmailIcon from '../../../assets/icons/mail.svg'
 import PasswordIcon from '../../../assets/icons/lock.svg'
 // Styles //
 import { Container, Footer } from './styles'
-import { LoginSchema } from './schema'
-import { toast } from 'react-toastify'
 
 export default function Login() {
+    const { signIn } = useAuth()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     // Realiza o Login do usuário //
-    async function handleLogin(e: FormEvent){
+    async function handleLogin(e: FormEvent) {
         e.preventDefault()
-        const user = {email, password}
 
-        await LoginSchema.validate({...user}, {abortEarly: false})
-            .then(_ => {
-                // Função de Logar o usuário //
-                // api.get('/autenticate', user)
-                toast.success('Login Aceito')
-            })
-            .catch(err => {
-                err.errors.map((error: string) => (
-                    toast.warning(error)
-                ))
-            })
+        try {
+            const user = { email, password }
+
+            await LoginSchema.validate({ ...user }, { abortEarly: false })
+                .then(_ => {
+                    signIn(user)
+                })
+                .catch(err => {
+                    err.errors.map((error: string) => (
+                        toast.error(error)
+                    ))
+                })
+        } catch {
+            return toast.error('Erro durante o processamento')
+        }
     }
 
     return (

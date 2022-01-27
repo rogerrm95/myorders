@@ -42,11 +42,13 @@ export function Step1() {
     // Irá buscar todos os pratos cadastrados no sistema //
     // Pratos indisponíveis não serão listados //
     useEffect(() => {
-        (async () => {
+        async function loadListOfFoods() {
             const data = await getAllFoods(true)
             setFoods(data)
-        })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        }
+
+        loadListOfFoods()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Calculará o preço total do pedido //

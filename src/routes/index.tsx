@@ -1,4 +1,8 @@
-import { Switch, Route, Redirect } from 'react-router-dom'
+// Hooks //
+import { useEffect, useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
+import { api } from '../services/api'
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 // Pages //
 // Garçom //
 import DetailsOrder from '../pages/MyOrders/DetailsOrder'
@@ -11,24 +15,53 @@ import Orders from '../pages/MyOrders/Orders'
 import Dashboard from '../pages/Dashboard/Home'
 import AdminOrders from '../pages/Dashboard/Orders'
 import AdminFoods from '../pages/Dashboard/Foods'
+import { useOrders } from '../hooks/useOrders'
 
 export default function Routes() {
+    const { push } = useHistory()
+
+    const [isLogged, setIsLogged] = useState(false)
+    const { getOrders } = useOrders()
+
+    useEffect(() => {
+        async function verifyAuthorization() {
+            const dataJSON = localStorage.getItem('@my-orders')
+
+            if (!dataJSON) return push('/login')
+
+            const data = JSON.parse(dataJSON)
+            api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+
+            await api.get('/')
+                .then(_ => {
+                    getOrders()
+                    setIsLogged(true)
+                })
+                .catch(_ => {
+                    setIsLogged(false)
+                    push('/login')
+                })
+        }
+
+        verifyAuthorization()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLogged])
+
+    !isLogged && <Redirect to={'/login'} push />
+
     return (
         <Switch>
-            <Route path='/' exact render={() => (
-                <Redirect to='/login' />
-            )} />
-            <Route path='/home' component={Home} />
-            <Route component={Login} path='/login' />
+            <Route component={Home} path='/' exact />
+            <Route component={Login} path='/login' exact />
             <Route component={Orders} path='/orders' exact />
-            <Route component={NewOrder} path='/order/new' />
-            <Route component={EditOrder} path='/orders/edit/:id' />
-            <Route component={DetailsOrder} path='/orders/details/:id' />
+            <Route component={NewOrder} path='/order/new' exact />
+            <Route component={EditOrder} path='/orders/edit/:id' exact />
+            <Route component={DetailsOrder} path='/orders/details/:id' exact />
 
+            <Route component={Dashboard} path='/admin/home' exact />
+            <Route component={AdminOrders} path='/admin/pedidos' exact />
+            <Route component={AdminFoods} path='/admin/pratos' exact />
 
-            <Route component={Dashboard} path='/admin/home' />
-            <Route component={AdminOrders} path='/admin/pedidos' />
-            <Route component={AdminFoods} path='/admin/pratos' />
         </Switch>
     )
 }
