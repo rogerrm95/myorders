@@ -1,9 +1,9 @@
+import { api } from '../services/api'
 // Hooks //
 import { useEffect, useState } from 'react'
-import { useAuth } from '../hooks/useAuth'
-import { api } from '../services/api'
+import { useOrders } from '../hooks/useOrders'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
-// Pages //
+// PAGES //
 // Garçom //
 import DetailsOrder from '../pages/MyOrders/DetailsOrder'
 import EditOrder from '../pages/MyOrders/EditOrder'
@@ -15,7 +15,6 @@ import Orders from '../pages/MyOrders/Orders'
 import Dashboard from '../pages/Dashboard/Home'
 import AdminOrders from '../pages/Dashboard/Orders'
 import AdminFoods from '../pages/Dashboard/Foods'
-import { useOrders } from '../hooks/useOrders'
 
 export default function Routes() {
     const { push } = useHistory()
@@ -23,6 +22,8 @@ export default function Routes() {
     const [isLogged, setIsLogged] = useState(false)
     const { getOrders } = useOrders()
 
+    // Verifica se o usuário está autorizado; //
+    // Senão estiver, o redireciona para a página de login //
     useEffect(() => {
         async function verifyAuthorization() {
             const dataJSON = localStorage.getItem('@my-orders')
@@ -61,7 +62,6 @@ export default function Routes() {
             <Route component={Dashboard} path='/admin/home' exact />
             <Route component={AdminOrders} path='/admin/pedidos' exact />
             <Route component={AdminFoods} path='/admin/pratos' exact />
-
         </Switch>
     )
 }

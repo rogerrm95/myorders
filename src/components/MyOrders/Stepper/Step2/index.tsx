@@ -33,7 +33,7 @@ type UsersData = {
 
 export function Step2() {
     const { order } = useStepper()
-    const { orders, newOrder, updateOrder, getOrders } = useOrders()
+    const { orders, newOrder, updateOrder } = useOrders()
     const { getAllUsers } = useUsers()
     const { id }: any = useParams()
     const { push }: any = useHistory()
@@ -105,7 +105,7 @@ export function Step2() {
                 } else {
                     newOrder({ ...orderData, createdAt: String(new Date()) })
                         .then((res: any) => {
-                            toast.success(`Pedido realizado! Nº ${res.id}`)
+                            toast.success(`Pedido realizado! Nº ${res.data.id}`)
                             createBrowserHistory()
                             push('/')
                         })
