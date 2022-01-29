@@ -23,6 +23,7 @@ import NumberIcon from '../../../../assets/icons/number.svg'
 import WaiterIcon from '../../../../assets/icons/waiter.svg'
 // Styles //
 import { Container } from './styles'
+import { Spinner } from "../../Spinner";
 
 type UsersData = {
     id: number,
@@ -43,6 +44,7 @@ export function Step2() {
     const [people, setPeople] = useState(order.people)
     const [waiter, setWaiter] = useState(order.waiter)
     const [users, setUsers] = useState([] as UsersData[])
+    const [isLoading, setIsLoading] = useState(false)
 
     // Carregar os atentendes //
     useEffect(() => {
@@ -66,6 +68,7 @@ export function Step2() {
     }, [])
 
     async function handleUpdateOrder() {
+        setIsLoading(true)
         const oldValue = CalculateValueTotal(order.items)
         const value = orders.filter(order => order.id == id && order).map(item => CalculateValueTotal(item.items))
 
@@ -106,6 +109,7 @@ export function Step2() {
                     newOrder({ ...orderData, createdAt: String(new Date()) })
                         .then((res: any) => {
                             toast.success(`Pedido realizado! Nº ${res.data.id}`)
+                            setIsLoading(false)
                             createBrowserHistory()
                             push('/')
                         })
@@ -113,6 +117,7 @@ export function Step2() {
                 }
             })
             .catch(err => {
+                setIsLoading(false)
                 err.errors.map((error: string) => (
                     toast.warning(error)
                 ))
@@ -158,7 +163,15 @@ export function Step2() {
             </div>
 
             <Button onClick={handleUpdateOrder} backgroundColor="#10A610">
-                Finalizar pedido <FiCheck size={24} />
+                {
+                    isLoading ? (
+                        <Spinner size={8} color='#FFF' speed={0.5} />
+                    ) : (
+                        <>
+                            Finalizar pedido <FiCheck size={24} />
+                        </>
+                    )
+                }
             </Button>
         </Container>
     )

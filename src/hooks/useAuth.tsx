@@ -22,8 +22,8 @@ export const useAuth = () => {
         localStorage.setItem('@my-orders', JSON.stringify(data))
 
         setUser(data)
-        setIsLoading(false)
         setIsSigned(true)
+        setIsLoading(false)
         push('/')
     }
 

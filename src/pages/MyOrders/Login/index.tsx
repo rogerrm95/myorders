@@ -14,9 +14,10 @@ import EmailIcon from '../../../assets/icons/mail.svg'
 import PasswordIcon from '../../../assets/icons/lock.svg'
 // Styles //
 import { Container, Footer } from './styles'
+import { Spinner } from '../../../components/MyOrders/Spinner'
 
 export default function Login() {
-    const { signIn } = useAuth()
+    const { signIn, isLoading } = useAuth()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -82,10 +83,16 @@ export default function Login() {
                         placeholder="**************" />
 
                     <Button type="submit" color='#FFF' backgroundColor="#45545A">
-                        <span>
-                            Entrar
-                            <FiLogIn size='24' color='#FFF' />
-                        </span>
+                        {
+                            isLoading ? (
+                                <Spinner color='#fff' size={8}/>
+                            ) : (
+                                <span>
+                                    Entrar
+                                    <FiLogIn size='24' color='#FFF' />
+                                </span>
+                            )
+                        }
                     </Button>
                 </form>
 

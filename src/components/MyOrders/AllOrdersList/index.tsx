@@ -23,16 +23,18 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
     // Capta a URL //
     const { location } = useHistory()
     const [list, setList] = useState([] as Order[])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         const data = orders.map(order => order)
         setList(data)
-    },[orders])
-    
-    // Exibirá um loading caso a lista ainda não tenha sido carregada//
-    if (list.length !== orders.length) {
-        return <Spinner size={64} />
-    }
+
+        return () => {
+            setIsLoading(false)
+        }
+    }, [orders])
+
+    if (isLoading) return <Spinner size={24} speed={0.5} />
 
     return (
         <Container {...rest}>

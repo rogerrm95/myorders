@@ -1,6 +1,6 @@
 import { api } from '../services/api'
 // Hooks //
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useOrders } from '../hooks/useOrders'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 // PAGES //
@@ -65,10 +65,8 @@ export default function Routes() {
             <Route component={Dashboard} path='/admin/home' exact />
             <Route component={AdminOrders} path='/admin/pedidos' exact />
             <Route component={AdminFoods} path='/admin/pratos' exact />
-
-            {
-                // <Route component={notFound} path='*'/>
-            }
+            
+            <Route path='*' component={Home}/>
         </Switch>
     )
 }

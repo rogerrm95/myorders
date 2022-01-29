@@ -22,13 +22,9 @@ export default function Home() {
 
     // Exibe a quantidade de pedidos disponíveis para retirada //
     useEffect(() => {
-        async function loadQtdFinishedOrders() {
-            const qtdOrders = await getOrdersByStatus('Pronto')
+        const qtdOrders = getOrdersByStatus('Pronto')
+        qtdOrders && setAmountOrdersToService(qtdOrders.length)
 
-            qtdOrders && setAmountOrdersToService(qtdOrders.length)
-        }
-
-        loadQtdFinishedOrders()
     }, [getOrdersByStatus])
 
     return (

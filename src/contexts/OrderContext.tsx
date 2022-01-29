@@ -28,7 +28,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     const { push } = useHistory()
 
     const [orders, setOrders] = useState<Order[]>([])
-
+    
     // GET - PEDIDOS //
     async function getOrders() {
         const response: Order[] = await api.get('/orders')
