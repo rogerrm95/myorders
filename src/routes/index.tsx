@@ -3,6 +3,7 @@ import { api } from '../services/api'
 import { useEffect } from 'react'
 import { useOrders } from '../hooks/useOrders'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 // PAGES //
 // Garçom //
 import DetailsOrder from '../pages/MyOrders/DetailsOrder'
@@ -15,12 +16,11 @@ import Orders from '../pages/MyOrders/Orders'
 import Dashboard from '../pages/Dashboard/Home'
 import AdminOrders from '../pages/Dashboard/Orders'
 import AdminFoods from '../pages/Dashboard/Foods'
-import { useAuth } from '../hooks/useAuth'
 
 export default function Routes() {
     const { push } = useHistory()
     const { getOrders } = useOrders()
-    const { signOut, setIsSigned, isSigned } = useAuth()
+    const { signOut, isSigned, setIsSigned } = useAuth()
 
     // Verifica se o usuário está autorizado; //
     // Senão estiver, o redireciona para a página de login //
@@ -39,7 +39,6 @@ export default function Routes() {
                     setIsSigned(true)
                 })
                 .catch(_ => {
-                    setIsSigned(false)
                     signOut()
                 })
         }
@@ -48,6 +47,7 @@ export default function Routes() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSigned])
 
+    // Se não estiver logado, redireciona para tela de login //
     !isSigned && <Redirect to={'/login'} push />
 
     return (
@@ -65,8 +65,8 @@ export default function Routes() {
             <Route component={Dashboard} path='/admin/home' exact />
             <Route component={AdminOrders} path='/admin/pedidos' exact />
             <Route component={AdminFoods} path='/admin/pratos' exact />
-            
-            <Route path='*' component={Home}/>
+
+            <Route path='*' component={isSigned ? Home : Login} />
         </Switch>
     )
 }

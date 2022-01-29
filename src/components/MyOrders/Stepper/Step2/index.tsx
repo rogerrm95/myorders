@@ -7,7 +7,6 @@ import { useUsers } from "../../../../hooks/useUsers";
 import { useOrders } from "../../../../hooks/useOrders";
 // Utils //
 import { createBrowserHistory } from 'history'
-import { CalculateValueTotal } from "../../../../utils/CalculateValueTotal";
 import { toast } from 'react-toastify'
 import { Step2Schema } from "./schema";
 // Components //
@@ -15,6 +14,7 @@ import { Button } from "../../Button";
 import { Input } from "../../Inputs/General";
 import { SummaryList } from "../../SummaryList";
 import { Select } from "../../Select";
+import { Spinner } from "../../Spinner";
 // Icons //
 import { FiCheck } from "react-icons/fi";
 import UserIcon from '../../../../assets/icons/person.svg'
@@ -23,7 +23,6 @@ import NumberIcon from '../../../../assets/icons/number.svg'
 import WaiterIcon from '../../../../assets/icons/waiter.svg'
 // Styles //
 import { Container } from './styles'
-import { Spinner } from "../../Spinner";
 
 type UsersData = {
     id: number,
@@ -34,7 +33,7 @@ type UsersData = {
 
 export function Step2() {
     const { order } = useStepper()
-    const { orders, newOrder, updateOrder } = useOrders()
+    const { newOrder, updateOrder } = useOrders()
     const { getAllUsers } = useUsers()
     const { id }: any = useParams()
     const { push }: any = useHistory()
@@ -69,44 +68,52 @@ export function Step2() {
 
     async function handleUpdateOrder() {
         setIsLoading(true)
-        const oldValue = CalculateValueTotal(order.items)
-        const value = orders.filter(order => order.id == id && order).map(item => CalculateValueTotal(item.items))
+        const isEverythingDone = order.items.filter(item => !item.isDone && item)
 
         // Se não houver alterações nos itens do pedido, não irá mudar o status para Aguardando // 
-        if (value[0] === oldValue) {
-            toast.success(`Pedido atualizado!`, {
-                draggable: true,
-                position: 'top-right',
-                autoClose: 4000,
-                closeOnClick: true,
-                pauseOnHover: false,
-            })
-            createBrowserHistory()
-            push('/home')
+        if (isEverythingDone.length === 0) {
+            const data = {
+                ...order,
+                waiter,
+                client,
+                desk,
+                people,
+            }
+
+            updateOrder(data, id)
+                .then(_ => {
+                    toast.success(`Pedido atualizado! Nº ${id}`)
+                    setIsLoading(false)
+                    createBrowserHistory()
+                    push('/')
+                })
+                .catch(error => toast.error("Não foi possível executar ação, tente novamente - 1"))
+            
             return
         }
 
-        const orderData = {
+        const data = {
             ...order,
             waiter,
             client,
             desk,
             people,
-            status: 'Aguardando',
+            status: 'Aguardando'
         }
 
         // Validação dos dados //
-        await Step2Schema.validate({ ...orderData }, { abortEarly: false })
+        await Step2Schema.validate({ ...data }, { abortEarly: false })
             .then(_ => {
                 if (id) {
-                    updateOrder(orderData, id)
+                    updateOrder(data, id)
                         .then(_ => {
                             toast.success(`Pedido atualizado! Nº ${id}`)
+                            setIsLoading(false)
                             createBrowserHistory()
                             push('/')
                         }).catch(error => toast.error("Não foi possível executar ação, tente novamente - 1"))
                 } else {
-                    newOrder({ ...orderData, createdAt: String(new Date()) })
+                    newOrder({ ...data, createdAt: String(new Date()) })
                         .then((res: any) => {
                             toast.success(`Pedido realizado! Nº ${res.data.id}`)
                             setIsLoading(false)
@@ -139,7 +146,7 @@ export function Step2() {
                     imageSrc={DeskIcon}
                     value={order.desk}
                     type='number'
-                    onChange={(e) => setDesk(Number(e.target.value))}
+                    onChange={(e) => setDesk(parseInt(e.target.value))}
                     placeholder='Informar o Nº da mesa'
                     gridAreaName='desk' />
                 <Input
@@ -147,7 +154,7 @@ export function Step2() {
                     imageSrc={NumberIcon}
                     value={order.people}
                     type='number'
-                    onChange={(e) => setPeople(Number(e.target.value))}
+                    onChange={(e) => setPeople(2)}
                     placeholder='Informar o Nº de pessoas'
                     gridAreaName='qtdPeople' />
                 <Select

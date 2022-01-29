@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useHistory } from 'react-router'
+
 import { api } from "../services/api"
 
 export const useAuth = () => {
@@ -17,6 +18,10 @@ export const useAuth = () => {
 
         const data = await api.post('/authenticate', user)
             .then(res => res.data)
+            .catch(error => {
+                setIsLoading(false)
+                throw error.response.data.message
+            })
 
         api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
         localStorage.setItem('@my-orders', JSON.stringify(data))

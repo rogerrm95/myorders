@@ -33,7 +33,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     async function getOrders() {
         const response: Order[] = await api.get('/orders')
             .then(res => res.data)
-            .catch(error => console.log('ERRO'))
+            .catch(error => toast.error(error.response.data.message))
 
         setOrders(response)
     }

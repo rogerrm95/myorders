@@ -7,6 +7,7 @@ import { LoginSchema } from './schema'
 import { Input } from '../../../components/MyOrders/Inputs/General'
 import { Button } from '../../../components/MyOrders/Button'
 import { HeaderHomePage as Header } from '../../../components/MyOrders/HeaderHomePage'
+import { Spinner } from '../../../components/MyOrders/Spinner'
 // Images & Icons //
 import { FiLogIn } from 'react-icons/fi'
 import ChefImage from '../../../assets/chef.png'
@@ -14,7 +15,6 @@ import EmailIcon from '../../../assets/icons/mail.svg'
 import PasswordIcon from '../../../assets/icons/lock.svg'
 // Styles //
 import { Container, Footer } from './styles'
-import { Spinner } from '../../../components/MyOrders/Spinner'
 
 export default function Login() {
     const { signIn, isLoading } = useAuth()
@@ -31,7 +31,7 @@ export default function Login() {
 
             await LoginSchema.validate({ ...user }, { abortEarly: false })
                 .then(_ => {
-                    signIn(user)
+                    signIn(user).catch(error => toast.error(error))
                 })
                 .catch(err => {
                     err.errors.map((error: string) => (
