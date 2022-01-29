@@ -15,12 +15,12 @@ import Orders from '../pages/MyOrders/Orders'
 import Dashboard from '../pages/Dashboard/Home'
 import AdminOrders from '../pages/Dashboard/Orders'
 import AdminFoods from '../pages/Dashboard/Foods'
+import { useAuth } from '../hooks/useAuth'
 
 export default function Routes() {
     const { push } = useHistory()
-
-    const [isLogged, setIsLogged] = useState(false)
     const { getOrders } = useOrders()
+    const { signOut, setIsSigned, isSigned } = useAuth()
 
     // Verifica se o usuário está autorizado; //
     // Senão estiver, o redireciona para a página de login //
@@ -36,24 +36,27 @@ export default function Routes() {
             await api.get('/')
                 .then(_ => {
                     getOrders()
-                    setIsLogged(true)
+                    setIsSigned(true)
                 })
                 .catch(_ => {
-                    setIsLogged(false)
-                    push('/login')
+                    setIsSigned(false)
+                    signOut()
                 })
         }
 
         verifyAuthorization()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLogged])
+    }, [isSigned])
 
-    !isLogged && <Redirect to={'/login'} push />
+    !isSigned && <Redirect to={'/login'} push />
 
     return (
         <Switch>
             <Route component={Home} path='/' exact />
-            <Route component={Login} path='/login' exact />
+
+            {
+                !isSigned && <Route component={Login} path='/login' exact />
+            }
             <Route component={Orders} path='/orders' exact />
             <Route component={NewOrder} path='/order/new' exact />
             <Route component={EditOrder} path='/orders/edit/:id' exact />
@@ -62,6 +65,10 @@ export default function Routes() {
             <Route component={Dashboard} path='/admin/home' exact />
             <Route component={AdminOrders} path='/admin/pedidos' exact />
             <Route component={AdminFoods} path='/admin/pratos' exact />
+
+            {
+                // <Route component={notFound} path='*'/>
+            }
         </Switch>
     )
 }

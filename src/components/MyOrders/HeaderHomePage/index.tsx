@@ -1,31 +1,52 @@
+// Hooks //
+import { useState } from 'react'
+import { useAuth } from '../../../hooks/useAuth'
 // Icons & Image //
 import { FiLogOut } from 'react-icons/fi'
 import Logo from '../../../assets/logo-full.png'
-
-import { Header } from './styles' // Styles //
+// Styles //
+import { Header } from './styles'
 
 export function HeaderHomePage() {
+    const { signOut } = useAuth()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [username, setUsername] = useState<string | null>(() => {
+        const storageJSON = localStorage.getItem('@my-orders')
 
-    const isVisible = false // Temporário //
+        if (storageJSON) {
+            const storage = JSON.parse(storageJSON)
+
+            return `${storage.name} ${storage.lastname}`
+        }
+
+        return null
+    })
+
+    function handleLogout() {
+        setUsername(null)
+        signOut()
+    }
 
     return (
         <Header>
             <img src={Logo} alt="My orders" />
 
             {
-                isVisible && (
-                    <div>
+                !!username && (
+                    <>
                         <p>
-                            Olá, <br />Roger Marques
+                            Bem-vindo, <br />
+                            <strong>{username}</strong>
                         </p>
 
-                        <a href='/'>
-                            Sair
+                        <button onClick={handleLogout}>
+                            <span>Sair</span>
                             <FiLogOut size='16' />
-                        </a>
-                    </div>
+                        </button>
+                    </>
                 )
             }
+
         </Header>
     )
 }

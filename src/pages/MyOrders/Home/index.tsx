@@ -15,14 +15,12 @@ import { FiAlertTriangle } from 'react-icons/fi'
 // Styles //
 import { Container, NotificationBox } from './styles'
 
-// VERIFICAR SE O USUÁRIO ESTÁ AUTENTICADO //
-// SENÃO ESTIVER, O REDIRECIONAR PARA A PÁGINA DE LOGIN //
-
 export default function Home() {
     const { getOrdersByStatus } = useOrders()
 
     const [amountOrdersToService, setAmountOrdersToService] = useState(0)
 
+    // Exibe a quantidade de pedidos disponíveis para retirada //
     useEffect(() => {
         async function loadQtdFinishedOrders() {
             const qtdOrders = await getOrdersByStatus('Pronto')

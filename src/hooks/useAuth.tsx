@@ -5,6 +5,7 @@ import { api } from "../services/api"
 export const useAuth = () => {
     const { push } = useHistory()
     const [isLoading, setIsLoading] = useState(false)
+    const [isSigned, setIsSigned] = useState(false)
     const [user, setUser] = useState(() => {
         const data = localStorage.getItem('@my-orders')
 
@@ -17,13 +18,21 @@ export const useAuth = () => {
         const data = await api.post('/authenticate', user)
             .then(res => res.data)
 
-            api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
-            localStorage.setItem('@my-orders', JSON.stringify(data))
+        api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+        localStorage.setItem('@my-orders', JSON.stringify(data))
 
         setUser(data)
         setIsLoading(false)
+        setIsSigned(true)
         push('/')
     }
 
-    return { signIn, user, isLoading }
+    function signOut() {
+        setIsSigned(false)
+        localStorage.removeItem('@my-orders')
+        api.defaults.headers.common['Authorization'] = ''
+        push('/login')
+    }
+
+    return { signIn, signOut, setIsSigned, user, isSigned, isLoading }
 }

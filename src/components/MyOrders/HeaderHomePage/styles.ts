@@ -1,34 +1,50 @@
 import styled from 'styled-components'
-
+// Continuar ... //
 export const Header = styled.header`
     flex: 1;
     display: flex;
-    justify-content: flex-start;
+    justify-content: stretch;
     width: 100%;
+
 
     img {
         width: 250px;
         height: 120px;
+    }   
+    
+    p {
+        margin: 1rem 0.5rem;
+        font-family: Roboto, sans-serif;
+        font-size: 0.85rem;
+        
+        strong {
+            font-size: 1rem;
+        }
     }
 
-    div {
-        width: 100%;
+    button {
         display: flex;
-        justify-content: space-between;
-        margin: 1rem 1.5rem;
+        margin: 1rem 0 auto auto;
+        background: transparent;
 
-        p, a {
-            font-family: Roboto, sans-serif;
+        transition: 0.3s filter;
+
+        cursor: pointer;
+        color: var(--red-500);
+        
+        span {
+            color: var(--red-500);
             font-weight: 700;
+            font-size: 1.1rem;
         }
 
-        a {
-            display: flex;
-            color: var(--red-500);
+        svg {
+            margin-left: 0.5rem;
+            padding: 0.15rem;
+        }
 
-            svg {
-                margin-left: 0.5rem;
-            }
+        &:hover {
+            filter: brightness(0.85);
         }
     }
 `
