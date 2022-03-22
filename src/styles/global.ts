@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     --white: #FFF;
     --grey-light: #E0E0E0;
     --placeholder: #E0E0E0;
+    --input-border: #E9ECEC;
 
     --primary: #45545A;
     --secondary: #6E787C;

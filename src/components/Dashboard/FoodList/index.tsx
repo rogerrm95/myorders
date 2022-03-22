@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react'
-import { useFoods } from '../../../hooks/useFoods'
-import { Container } from './styles'
+import { useFoods } from '../../../hooks/useFoods' // Hook //
+import { FiEdit, FiTrash2 } from 'react-icons/fi' // Icones //
+import { Container } from './styles' // Styles //
+import {category as categoryList} from '../../../utils/categoryList'
+// Componentes //
+import { Modal } from '../Modal'
+import { Input } from '../Inputs/Input'
+import { InputCash } from '../Inputs/InputCash'
+import { Select } from '../Inputs/Select'
 
 type FoodListProps = {
     category: string,
@@ -14,8 +21,10 @@ type Foods = {
 }
 
 export function FoodList({ category }: FoodListProps) {
-    const [foods, setFoods] = useState<Foods[]>([] as Foods[])
     const { getAllFoods } = useFoods()
+    const [foods, setFoods] = useState<Foods[]>([] as Foods[])
+    const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(true)
+    const [DeleteFoodModalIsOpen, setDeleteFoodModalIsOpen] = useState(true)
 
     useEffect(() => {
         getFoodsByCategory()
@@ -53,12 +62,41 @@ export function FoodList({ category }: FoodListProps) {
                             <td className={!food.isActive ? 'not-available' : ''}>
                                 {food.isActive ? 'Ativo' : 'Indisponível'}
                             </td>
-                            
-                            <td>Carregando...</td>
+                            <td>
+                                <div className='button-actions'>
+                                    <button className='btn-edit'>
+                                        <FiEdit size={20} color='#FFF' />
+                                    </button>
+                                    <button className='btn-delete'>
+                                        <FiTrash2 size={20} color='#FFF' />
+                                    </button>
+                                </div>
+                            </td>
                         </tr>
                     ))
                 }
             </tbody>
+
+            {
+                newFoodModalIsOpen && (
+                    <Modal title='Cadastrar novo item'>
+                        <form action="submit">
+                            <Input label='Nome' placeholder='Nome do produto...'/>
+                            <InputCash label='Preço' placeholder='00,00'/>
+                            <Select 
+                                label='Categoria'
+                                options={categoryList}
+                                placeholder='Selecionar categoria...'/>
+
+                            {
+                                // FAZER: Radio e TextArea //
+                            }
+                        </form>
+                    </Modal>
+                )
+            }
+
+
         </Container>
     )
 }

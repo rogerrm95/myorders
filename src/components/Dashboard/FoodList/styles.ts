@@ -62,4 +62,29 @@ export const Container = styled.table`
             color: var(--red-500);
         }
     }
+
+    .button-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+
+        button {
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: filter 0.3s ;
+
+            &.btn-edit{
+                background-color: var(--blue-500);
+            }
+
+            &.btn-delete{
+                background-color: var(--red-500);
+            }
+
+            &:hover{
+                filter: brightness(0.85) ;
+            }
+        }
+    }
 `
