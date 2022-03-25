@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
+import { EventHandler, FormEvent, useEffect, useState } from 'react'
 import { useFoods } from '../../../hooks/useFoods' // Hook //
 import { FiEdit, FiTrash2 } from 'react-icons/fi' // Icones //
 import { Container } from './styles' // Styles //
-import {category as categoryList} from '../../../utils/categoryList'
+import { category as categoryList } from '../../../utils/categoryList'
 // Componentes //
 import { Modal } from '../Modal'
 import { Input } from '../Inputs/Input'
 import { InputCash } from '../Inputs/InputCash'
 import { Select } from '../Inputs/Select'
+import { TextArea } from '../Inputs/TextArea'
 
 type FoodListProps = {
     category: string,
@@ -24,7 +25,12 @@ export function FoodList({ category }: FoodListProps) {
     const { getAllFoods } = useFoods()
     const [foods, setFoods] = useState<Foods[]>([] as Foods[])
     const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(true)
-    const [DeleteFoodModalIsOpen, setDeleteFoodModalIsOpen] = useState(true)
+
+    // Novo Item de Menu //
+    const [name, setName] = useState('')
+    const [price, setPrice] = useState('')
+    const [categorySelected, setCategorySelected] = useState('')
+    const [description, setDescription] = useState('')
 
     useEffect(() => {
         getFoodsByCategory()
@@ -81,16 +87,24 @@ export function FoodList({ category }: FoodListProps) {
                 newFoodModalIsOpen && (
                     <Modal title='Cadastrar novo item'>
                         <form action="submit">
-                            <Input label='Nome' placeholder='Nome do produto...'/>
-                            <InputCash label='Preço' placeholder='00,00'/>
-                            <Select 
-                                label='Categoria'
-                                options={categoryList}
-                                placeholder='Selecionar categoria...'/>
+                            <Input label='Nome' onChange={(e) => setName(e.target.value)}/>
+                            <InputCash label='Preço' onChange={(e) => setPrice(e.target.value)}/>
+                            <Select label='Categorias' options={categoryList} onSelectChange={(e) => setCategorySelected(e)}/>
+                            <TextArea
+                                label='Descrição'
+                                hasMaxCaracters
+                                maxLength={500}
+                                placeholder='Descrição do item...'
+                                onChange={(e) => setDescription(e.target.value)}
+                            />
 
                             {
-                                // FAZER: Radio e TextArea //
+                                // Radio Group //
+                                // Botões //
+                                // Separar o Modal //
+                                // Modal Excluir pedido //
                             }
+
                         </form>
                     </Modal>
                 )

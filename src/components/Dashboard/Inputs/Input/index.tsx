@@ -21,7 +21,7 @@ export function Input({ label, ...rest }: InputProps) {
                 {label}
             </span>
 
-            <input {...rest} />
+            <input ref={inputRef} {...rest} />
         </Container>
     )
 }

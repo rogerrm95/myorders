@@ -5,6 +5,8 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
+    width: 100%;
+    position: relative;
 
     & > span {
         color: var(--primary);
@@ -44,6 +46,36 @@ export const Container = styled.div`
 
         &:hover {
             filter: brightness(0.95) ;
+        }
+    }
+
+    .options {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+        
+        position: absolute;
+        left: 0;
+        top: 4.5rem;
+        width: 95%;
+
+        background-color: var(--background);
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+
+        li {
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            padding-left: 0.5rem;
+
+            cursor: pointer;
+
+            :hover{
+                color: var(--white);
+                background: var(--primary);
+            }
         }
     }
 `
