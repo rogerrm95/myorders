@@ -31,9 +31,10 @@ export const Container = styled.div`
         transition: filter 0.2s ;
 
         span {
-            font: 1rem 500 'Roboto', sans-serif;
+            font-family: "Roboto", sans-serif;
+            font-weight: 500;
             color: var(--secondary);
-            opacity: 0.75;
+            opacity: 0.5;
         }
 
         svg {

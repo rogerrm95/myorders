@@ -12,11 +12,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({ color = '#FFF', backgroundColor = '#000', height = 4, children, ...rest }: ButtonProps) {
     return (
         <Container color={color} bgColor={backgroundColor} height={height} {...rest}>
-            <span>
+            <p>
                 {
                     children
                 }
-            </span>
+            </p>
         </Container>
     )
 }

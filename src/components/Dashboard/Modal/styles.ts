@@ -51,8 +51,11 @@ export const Modal = styled.div`
 
     section {
         width: 100%;
-        padding: 2rem;
+        padding: 1.5rem 2rem;
         margin-top: 3rem;
         margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 `

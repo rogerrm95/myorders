@@ -1,14 +1,9 @@
-import { EventHandler, FormEvent, useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
 import { useFoods } from '../../../hooks/useFoods' // Hook //
 import { FiEdit, FiTrash2 } from 'react-icons/fi' // Icones //
 import { Container } from './styles' // Styles //
-import { category as categoryList } from '../../../utils/categoryList'
-// Componentes //
-import { Modal } from '../Modal'
-import { Input } from '../Inputs/Input'
-import { InputCash } from '../Inputs/InputCash'
-import { Select } from '../Inputs/Select'
-import { TextArea } from '../Inputs/TextArea'
+import { NewFoodModal } from '../Modal/NewFood'
 
 type FoodListProps = {
     category: string,
@@ -24,13 +19,9 @@ type Foods = {
 export function FoodList({ category }: FoodListProps) {
     const { getAllFoods } = useFoods()
     const [foods, setFoods] = useState<Foods[]>([] as Foods[])
-    const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(true)
+    const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(false)
 
-    // Novo Item de Menu //
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
-    const [categorySelected, setCategorySelected] = useState('')
-    const [description, setDescription] = useState('')
+    const [activeFoodUpdating, setActiveFoodUpdating] = useState({} as any)
 
     useEffect(() => {
         getFoodsByCategory()
@@ -70,7 +61,10 @@ export function FoodList({ category }: FoodListProps) {
                             </td>
                             <td>
                                 <div className='button-actions'>
-                                    <button className='btn-edit'>
+                                    <button className='btn-edit' onClick={() => {
+                                        setActiveFoodUpdating(food)
+                                        setNewModalFoodIsOpen(!newFoodModalIsOpen)
+                                    }}>
                                         <FiEdit size={20} color='#FFF' />
                                     </button>
                                     <button className='btn-delete'>
@@ -85,28 +79,7 @@ export function FoodList({ category }: FoodListProps) {
 
             {
                 newFoodModalIsOpen && (
-                    <Modal title='Cadastrar novo item'>
-                        <form action="submit">
-                            <Input label='Nome' onChange={(e) => setName(e.target.value)}/>
-                            <InputCash label='Preço' onChange={(e) => setPrice(e.target.value)}/>
-                            <Select label='Categorias' options={categoryList} onSelectChange={(e) => setCategorySelected(e)}/>
-                            <TextArea
-                                label='Descrição'
-                                hasMaxCaracters
-                                maxLength={500}
-                                placeholder='Descrição do item...'
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-
-                            {
-                                // Radio Group //
-                                // Botões //
-                                // Separar o Modal //
-                                // Modal Excluir pedido //
-                            }
-
-                        </form>
-                    </Modal>
+                    <NewFoodModal onModalClose={(e) => setNewModalFoodIsOpen(e)} values={activeFoodUpdating} />
                 )
             }
 

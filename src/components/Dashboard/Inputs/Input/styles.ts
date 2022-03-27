@@ -21,7 +21,8 @@ export const Container = styled.div`
         caret-color: var(--primary);
 
         &::placeholder {
-            color: var(--placeholder);
+            color: var(--secondary);
+            opacity: 0.5;
             font: 1rem normal Roboto, sans-serif;
         }
     }

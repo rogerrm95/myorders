@@ -27,12 +27,17 @@ export const Container = styled.div`
         height: 10rem;
         padding: 0.5rem;
         resize: none;
-
+        
         caret-color: var(--primary);
         background: var(--background);
         border: 1px solid var(--input-border);
         border-radius: 4px;
         line-height: 1.5rem;
         font-size: 0.9rem;
+
+        &::placeholder{
+            color: var(--secondary);
+            opacity: 0.5;
+        }
     }
 `

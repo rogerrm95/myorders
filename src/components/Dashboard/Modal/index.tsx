@@ -1,20 +1,12 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { Overlay, Modal as StyledModal } from './styles'
 
 interface ModalProps {
     children: ReactNode,
     title: string
 }
-
+// Modal - Estrutura //
 export function Modal({ children, title }: ModalProps) {
-
-    const [isOpen, setIsOpen] = useState(false)
-
-    function closeModal() {
-        setIsOpen(false)
-    }
-
-
     return (
         <Overlay>
             <StyledModal>

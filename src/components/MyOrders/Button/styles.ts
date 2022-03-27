@@ -14,11 +14,10 @@ export const Container = styled.button<ContainerProps>`
     height: ${props => props.height ? `${props.height}rem` : `4rem`};
     width: 100%;
     border-radius: 8px;
-    margin-top: 1.5rem;
     background-color: ${props => props.bgColor ? props.bgColor : "#000"};
     transition: filter 0.3s;
 
-    span {
+    p, span {
         font-size: 1.5rem;
         display: flex;
         justify-content: center;

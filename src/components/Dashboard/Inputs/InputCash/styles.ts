@@ -35,7 +35,8 @@ export const Container = styled.div`
             background: none;
 
             &::placeholder {
-                color: var(--placeholder);
+                color: var(--secondary);
+                opacity: 0.5;
                 font: 1rem normal Roboto, sans-serif;
             }
         }

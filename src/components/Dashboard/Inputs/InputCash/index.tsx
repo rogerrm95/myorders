@@ -23,7 +23,7 @@ export function InputCash({ label, ...rest }: InputCashProps) {
 
             <div className="input-cash">
                 <span>R$</span>
-                <input placeholder="00,00" ref={inputRef} {...rest} />
+                <input ref={inputRef} {...rest} />
             </div>
         </Container>
     )
