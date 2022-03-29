@@ -19,7 +19,13 @@ export function Select({ label, options, placeholder = 'Selecionar...', value, o
 
     // Verifica se há valor selecionado - senão reseta o field //
     useEffect(() => {
-        !options.includes(value) && setSelectedOption(value)
+        const indexSelectedOption = options.find(option => value === option)
+
+         if (indexSelectedOption) {
+            setSelectedOption(indexSelectedOption)
+        } else {
+            setSelectedOption('')
+        } 
     }, [value])
 
     // Foca no input ao clicar no Label e abre as opções //
@@ -30,7 +36,6 @@ export function Select({ label, options, placeholder = 'Selecionar...', value, o
     function closeSelect() {
         setIsSelectedOption(!isSelectedOption)
     }
-
 
     return (
         <Container onClick={closeSelect}>

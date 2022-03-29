@@ -49,7 +49,19 @@ export const FoodList = styled.section`
     align-self: flex-start;
     width: 100%;
 
-    h1 {
-        font-size: 2rem;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        button {
+            align-self: flex-end;
+            color: var(--green-250);
+            font-size: 0.9rem;
+        }
     }
 `

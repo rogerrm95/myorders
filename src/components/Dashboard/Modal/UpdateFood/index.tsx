@@ -1,11 +1,12 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { ButtonGroup, Form, XButton } from "./styles"; // Styles //
 // Utils //
 import { category as categoryList } from '../../../../utils/categoryList'
 import { toast } from "react-toastify";
 import { api } from "../../../../services/api";
 // Schema - Validação //
-import { NewFoodSchema } from './schema'
+import { UpdateFoodSchema } from './schema'
 // Icones //
 import { BiEraser } from "react-icons/bi";
 import { FiCheck, FiX } from "react-icons/fi";
@@ -19,11 +20,20 @@ import { Select } from "../../Inputs/Select";
 import { TextArea } from "../../Inputs/TextArea";
 import { Spinner } from "../../../MyOrders/Spinner";
 
-interface NewFoodModalProps {
+interface UpdateFoodModalProps {
     onModalClose: (hasCloseModal: boolean) => void,
+    values?: Food
 }
 
-export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
+type Food = {
+    name: string,
+    price: string,
+    category: string,
+    description: string,
+    isActive: string
+}
+
+export function UpdateFoodModal({ onModalClose, values }: UpdateFoodModalProps) {
 
     // Novo Item de Menu //
     const [name, setName] = useState('')
@@ -34,33 +44,64 @@ export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    async function handleSaveItemOfMenu() {
+    useEffect(() => {
         setIsLoading(true)
+
+        if (values) {
+            const formatedPriceToNumber = Number(values.price.replace(',', '.'))
+            const formatedPrice = formatedPriceToNumber.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2
+            })
+
+            setName(values.name)
+            setPrice(formatedPrice)
+            setCategorySelected(values.category)
+            setDescription(values.description)
+            setStatus(values.isActive ? 'Disponível' : 'Indisponível')
+
+            setIsLoading(false)
+        }
+
+        console.log(values)
+    }, [values])
+
+    async function handleSaveItemOfMenu() {
+        // setIsLoading(true)
         const data = {
             name,
-            price: price.replace('.', ','),
+            price,
             category: categorySelected,
             description,
             isActive: status === 'Indisponível' ? false : true
         }
 
+        const regexMoney = /(\d*)+(,\d{2})/g
+        const isValidPrice = price.match(regexMoney)
+
         // Validação dos dados //
-        await NewFoodSchema.validate({...data, price})
-            .then(async () => {
-                // Enviando os dados para o back-end //
-                await api.post('/foods', data )
-                    .then(() => {
-                        handleResetFields()
-                        closeModal()
-                        setIsLoading(false)
-                        toast.success('Produto adicionado')
-                    }).catch((_) => toast.error("Erro inesperado, tente novamente"))
-            }).catch(err => {
-                err.errors.map((error: string) => (
-                    toast.warning(error)
-                ))
-                setIsLoading(false)
-            })
+        if (!isValidPrice) {
+            return toast.error('Informe um valor válido 0,00')
+        }
+
+        console.log(data)
+        // Criar uma rota no back-end //
+
+/*         await UpdateFoodSchema.validate(data)
+        .then(async () => {
+            // Enviando os dados para o back-end //
+            await api.post('/foods', data)
+                .then(() => {
+                    handleResetFields()
+                    closeModal()
+                    setIsLoading(false)
+                    toast.success('Produto adicionado')
+                }).catch((_) => toast.error("Erro inesperado, tente novamente"))
+        }).catch(err => {
+            err.errors.map((error: string) => (
+                toast.warning(error)
+            ))
+            setIsLoading(false)
+        }) */
     }
 
     function handleResetFields() {
@@ -87,7 +128,6 @@ export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
                     <InputCash
                         label='Preço'
                         placeholder="00,00"
-                        type='number'
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                     />

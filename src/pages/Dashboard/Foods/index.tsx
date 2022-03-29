@@ -15,9 +15,15 @@ import JuiceImage from '../../../assets/icons/categories/juice.svg'
 import DessertImage from '../../../assets/icons/categories/desserts.svg'
 
 import { Categories, Container, FoodList } from './styles' // Styles //
+import { NewFoodModal } from '../../../components/Dashboard/Modal/NewFood'
 
 export default function Foods() {
     const [categoryActive, setCategoryActive] = useState("Pratos Principais")
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    function handleOpenModal(){
+        setIsModalOpen(!isModalOpen)
+    }
 
     return (
         <Container>
@@ -35,7 +41,7 @@ export default function Foods() {
                 <Categories>
                     <h1>Categorias</h1>
                     <ul>
-                        <CategoryIcon label="Prato Principal" icon={MainPlateImage} onSelect={(value) => setCategoryActive(value)} />
+                        <CategoryIcon label="Pratos Principais" icon={MainPlateImage} onSelect={(value) => setCategoryActive(value)} />
                         <CategoryIcon label="Lanches" icon={SnackImage} onSelect={(value) => setCategoryActive(value)} />
                         <CategoryIcon label="Carnes" icon={MeatImage} onSelect={(value) => setCategoryActive(value)} />
                         <CategoryIcon label="Saladas" icon={SaladImage} onSelect={(value) => setCategoryActive(value)} />
@@ -47,12 +53,21 @@ export default function Foods() {
 
                 <FoodList>
 
-                    <h1>{categoryActive}</h1>
+                    <div className='header'>
+                        <h1>{categoryActive}</h1>
+                        <button onClick={handleOpenModal}> + Novo </button>
+                    </div>
 
                     <FoodTable category={categoryActive} />
 
                 </FoodList>
             </main>
+
+            {
+                isModalOpen && (
+                    <NewFoodModal onModalClose={(e) => setIsModalOpen(e)}/>
+                )
+            }
 
         </Container>
     )

@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { useFoods } from '../../../hooks/useFoods' // Hook //
 import { FiEdit, FiTrash2 } from 'react-icons/fi' // Icones //
 import { Container } from './styles' // Styles //
-import { NewFoodModal } from '../Modal/NewFood'
+import { UpdateFoodModal } from '../Modal/UpdateFood'
+import { DeleteFoodModal } from '../Modal/DeleteFood'
 
 type FoodListProps = {
     category: string,
@@ -19,17 +20,17 @@ type Foods = {
 export function FoodList({ category }: FoodListProps) {
     const { getAllFoods } = useFoods()
     const [foods, setFoods] = useState<Foods[]>([] as Foods[])
-    const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(false)
-
     const [activeFoodUpdating, setActiveFoodUpdating] = useState({} as any)
+    // Modal //
+    const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(false)
+    const [deleteFoodModalIsOpen, setDeleteModalFoodIsOpen] = useState(false)
 
     useEffect(() => {
         getFoodsByCategory()
     }, [category])
 
     async function getFoodsByCategory() {
-        const data = (await getAllFoods()).filter(foods => foods.category === category)
-
+        const data = await getAllFoods().then(data => data.filter(foods => foods.category === category))
         setFoods(data)
     }
 
@@ -67,7 +68,7 @@ export function FoodList({ category }: FoodListProps) {
                                     }}>
                                         <FiEdit size={20} color='#FFF' />
                                     </button>
-                                    <button className='btn-delete'>
+                                    <button className='btn-delete' onClick={() => setDeleteModalFoodIsOpen(!deleteFoodModalIsOpen)}>
                                         <FiTrash2 size={20} color='#FFF' />
                                     </button>
                                 </div>
@@ -79,7 +80,13 @@ export function FoodList({ category }: FoodListProps) {
 
             {
                 newFoodModalIsOpen && (
-                    <NewFoodModal onModalClose={(e) => setNewModalFoodIsOpen(e)} values={activeFoodUpdating} />
+                    <UpdateFoodModal onModalClose={(e) => setNewModalFoodIsOpen(e)} values={activeFoodUpdating} />
+                )
+            }
+
+            {
+                deleteFoodModalIsOpen && (
+                    <DeleteFoodModal onModalClose={(e) => setDeleteModalFoodIsOpen(e)}/>
                 )
             }
 

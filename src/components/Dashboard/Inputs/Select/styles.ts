@@ -60,6 +60,7 @@ export const Container = styled.div`
         left: 0;
         top: 4.5rem;
         width: 95%;
+        z-index: 999;
 
         background-color: var(--background);
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);

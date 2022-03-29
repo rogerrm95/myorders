@@ -16,7 +16,13 @@ export function Radio({ label, options, value, onSelectChange }: SelectProps) {
 
     // Verifica se há valor selecionado - senão reseta o radio //
     useEffect(() => {
-        !options.includes(value) && setIndexActive(0)
+        const indexSelectedOption = options.indexOf(value)
+
+         if (indexSelectedOption >= 0) {
+            setIndexActive(indexSelectedOption)
+        } else {
+            setIndexActive(0)
+        } 
     }, [value])
 
 

@@ -1,8 +1,9 @@
 export const category: string[] = [
-    'Prato Principal',
+    'Pratos Principais',
     'Lanches',
     'Carnes',
     'Saladas',
     'Acompanhamentos',
-    'Bebidas'
+    'Bebidas',
+    'Sobremesas'
 ]
