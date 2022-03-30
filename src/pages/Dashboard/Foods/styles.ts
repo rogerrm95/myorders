@@ -1,14 +1,17 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    flex: 1;
-
+/*     flex: 1;
     display: flex;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    height: 100vh ; */
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: 15rem 1fr;
 
     background-color: var(--background);
+    overflow: hidden;
 
     main {
         height: 100%;
@@ -16,13 +19,10 @@ export const Container = styled.div`
         flex-direction: column;
         align-items: center;
         gap: 2rem;
-        padding: 2rem;
-        margin: auto;
+        padding: 1.25rem;
 
-        max-width: 1160px; /*Temporario*/
+        overflow: scroll;
     }
-
-    
 `
 
 export const Categories = styled.section`

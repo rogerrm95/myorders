@@ -20,7 +20,7 @@ import { AutoComplete } from '../../Inputs/AutoComplete'
 import { Box, Summary } from './styles'
 
 type Food = {
-    id: number,
+    id: number | string,
     name: string,
     price: string,
     category: string,

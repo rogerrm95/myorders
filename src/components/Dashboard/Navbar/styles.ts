@@ -6,7 +6,6 @@ export const Container = styled.aside`
     flex: 1;
 
     width: 100%;
-    max-width: 230px;
     height: 100%;
     background-color: #2A363B;
 

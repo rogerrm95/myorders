@@ -17,7 +17,7 @@ interface AutoCompleteProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 type Content = {
-    id: number,
+    id: number | string,
     name: string,
     price: string,
     category: string,

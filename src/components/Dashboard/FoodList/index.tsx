@@ -11,6 +11,7 @@ type FoodListProps = {
 }
 
 type Foods = {
+    id: number | string,
     name: string,
     description: string,
     price: string,
@@ -36,48 +37,52 @@ export function FoodList({ category }: FoodListProps) {
 
     return (
         <Container>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Preço</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Preço</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {
-                    foods.map((food, index) => (
-                        <tr key={index}>
-                            <td>{food.name}</td>
-                            <td>
-                                <span>
-                                    {food.description}
-                                </span>
-                            </td>
-                            <td>R$ {food.price}</td>
-                            <td className={!food.isActive ? 'not-available' : ''}>
-                                {food.isActive ? 'Ativo' : 'Indisponível'}
-                            </td>
-                            <td>
-                                <div className='button-actions'>
-                                    <button className='btn-edit' onClick={() => {
-                                        setActiveFoodUpdating(food)
-                                        setNewModalFoodIsOpen(!newFoodModalIsOpen)
-                                    }}>
-                                        <FiEdit size={20} color='#FFF' />
-                                    </button>
-                                    <button className='btn-delete' onClick={() => setDeleteModalFoodIsOpen(!deleteFoodModalIsOpen)}>
-                                        <FiTrash2 size={20} color='#FFF' />
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))
-                }
-            </tbody>
-
+                <tbody>
+                    {
+                        foods.map((food, index) => (
+                            <tr key={index}>
+                                <td>{food.name}</td>
+                                <td>
+                                    <span>
+                                        {food.description}
+                                    </span>
+                                </td>
+                                <td>R$ {food.price}</td>
+                                <td className={!food.isActive ? 'not-available' : ''}>
+                                    {food.isActive ? 'Ativo' : 'Indisponível'}
+                                </td>
+                                <td>
+                                    <div className='button-actions'>
+                                        <button className='btn-edit' onClick={() => {
+                                            setActiveFoodUpdating(food)
+                                            setNewModalFoodIsOpen(!newFoodModalIsOpen)
+                                        }}>
+                                            <FiEdit size={20} color='#FFF' />
+                                        </button>
+                                        <button className='btn-delete' onClick={() => {
+                                            setDeleteModalFoodIsOpen(!deleteFoodModalIsOpen)
+                                            setActiveFoodUpdating(food)
+                                        }}>
+                                            <FiTrash2 size={20} color='#FFF' />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
             {
                 newFoodModalIsOpen && (
                     <UpdateFoodModal onModalClose={(e) => setNewModalFoodIsOpen(e)} values={activeFoodUpdating} />
@@ -86,7 +91,7 @@ export function FoodList({ category }: FoodListProps) {
 
             {
                 deleteFoodModalIsOpen && (
-                    <DeleteFoodModal onModalClose={(e) => setDeleteModalFoodIsOpen(e)}/>
+                    <DeleteFoodModal onModalClose={(e) => setDeleteModalFoodIsOpen(e)} id={activeFoodUpdating.id} />
                 )
             }
 

@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useFoods } from "../../../../hooks/useFoods";
 import { ButtonGroup, Form, XButton } from "./styles"; // Styles //
 // Utils //
 import { category as categoryList } from '../../../../utils/categoryList'
 import { toast } from "react-toastify";
-import { api } from "../../../../services/api";
 // Schema - Validação //
 import { NewFoodSchema } from './schema'
 // Icones //
@@ -24,6 +24,7 @@ interface NewFoodModalProps {
 }
 
 export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
+    const {createNewFood} = useFoods()
 
     // Novo Item de Menu //
     const [name, setName] = useState('')
@@ -37,6 +38,7 @@ export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
     async function handleSaveItemOfMenu() {
         setIsLoading(true)
         const data = {
+            id: '',
             name,
             price: price.replace('.', ','),
             category: categorySelected,
@@ -44,11 +46,22 @@ export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
             isActive: status === 'Indisponível' ? false : true
         }
 
+        console.log(price)
+
+        const regexMoney = /(\d*)+(,\d{2})/g
+        const isValidPrice = data.price.match(regexMoney)
+
+        // Validação dos dados //
+        if (!isValidPrice) {
+            setIsLoading(false)
+            return toast.error('Informe um valor válido 0,00')
+        }
+
         // Validação dos dados //
         await NewFoodSchema.validate({...data, price})
             .then(async () => {
                 // Enviando os dados para o back-end //
-                await api.post('/foods', data )
+                createNewFood(data)
                     .then(() => {
                         handleResetFields()
                         closeModal()

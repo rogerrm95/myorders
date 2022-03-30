@@ -3,7 +3,7 @@ import { Container } from './styles'
 
 type SuggestionItemProps = {
     suggestion: {
-        id: number
+        id: number | string,
         name: string,
         price: string,
         category: string

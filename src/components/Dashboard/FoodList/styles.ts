@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
-export const Container = styled.table`
-    width: 100%;
-    border-collapse: collapse;
+export const Container = styled.div`
+
+    overflow-x: auto;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+    }
 
     td, th {
         padding: 1rem 0;
-        width: 160px;
+        width: 10rem;
         border-bottom: 1px solid var(--primary) ;
         text-align: left;
+        line-height: 1.25rem;
 
         /* Preço, Status e Ações */
         &:nth-child(3), :nth-child(4), :nth-child(5){
@@ -17,7 +24,7 @@ export const Container = styled.table`
 
         /* Nome */
         &:nth-child(1) {
-            width: 260px;
+            width: 300px;
             padding: 1rem 0;
         }
 

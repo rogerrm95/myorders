@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { useFoods } from "../../../../hooks/useFoods";
 import { ButtonGroup, Form, XButton } from "./styles"; // Styles //
 // Utils //
 import { category as categoryList } from '../../../../utils/categoryList'
 import { toast } from "react-toastify";
-import { api } from "../../../../services/api";
 // Schema - Validação //
 import { UpdateFoodSchema } from './schema'
 // Icones //
@@ -26,6 +26,7 @@ interface UpdateFoodModalProps {
 }
 
 type Food = {
+    id: string | number,
     name: string,
     price: string,
     category: string,
@@ -34,6 +35,7 @@ type Food = {
 }
 
 export function UpdateFoodModal({ onModalClose, values }: UpdateFoodModalProps) {
+    const { updateFood } = useFoods()
 
     // Novo Item de Menu //
     const [name, setName] = useState('')
@@ -41,6 +43,7 @@ export function UpdateFoodModal({ onModalClose, values }: UpdateFoodModalProps) 
     const [categorySelected, setCategorySelected] = useState('')
     const [description, setDescription] = useState('')
     const [status, setStatus] = useState('')
+    const [id, setId] = useState<number | string>('')
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -58,16 +61,17 @@ export function UpdateFoodModal({ onModalClose, values }: UpdateFoodModalProps) 
             setCategorySelected(values.category)
             setDescription(values.description)
             setStatus(values.isActive ? 'Disponível' : 'Indisponível')
+            setId(values.id)
 
             setIsLoading(false)
         }
-
-        console.log(values)
     }, [values])
 
     async function handleSaveItemOfMenu() {
-        // setIsLoading(true)
+        setIsLoading(true)
+
         const data = {
+            id,
             name,
             price,
             category: categorySelected,
@@ -75,33 +79,30 @@ export function UpdateFoodModal({ onModalClose, values }: UpdateFoodModalProps) 
             isActive: status === 'Indisponível' ? false : true
         }
 
+        // Validação dos dados //
         const regexMoney = /(\d*)+(,\d{2})/g
         const isValidPrice = price.match(regexMoney)
 
-        // Validação dos dados //
         if (!isValidPrice) {
             return toast.error('Informe um valor válido 0,00')
         }
 
-        console.log(data)
-        // Criar uma rota no back-end //
-
-/*         await UpdateFoodSchema.validate(data)
-        .then(async () => {
-            // Enviando os dados para o back-end //
-            await api.post('/foods', data)
-                .then(() => {
-                    handleResetFields()
-                    closeModal()
-                    setIsLoading(false)
-                    toast.success('Produto adicionado')
-                }).catch((_) => toast.error("Erro inesperado, tente novamente"))
-        }).catch(err => {
-            err.errors.map((error: string) => (
-                toast.warning(error)
-            ))
-            setIsLoading(false)
-        }) */
+        await UpdateFoodSchema.validate(data)
+            .then(async () => {
+                // Enviando os dados para o back-end //
+                updateFood(data)
+                    .then(() => {
+                        handleResetFields()
+                        closeModal()
+                        setIsLoading(false)
+                        toast.success('Produto adicionado')
+                    }).catch((_) => toast.error("Erro inesperado, tente novamente"))
+            }).catch(err => {
+                err.errors.map((error: string) => (
+                    toast.warning(error)
+                ))
+                setIsLoading(false)
+            })
     }
 
     function handleResetFields() {
