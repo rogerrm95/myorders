@@ -16,6 +16,7 @@ import Orders from '../pages/MyOrders/Orders'
 import Dashboard from '../pages/Dashboard/Home'
 import AdminOrders from '../pages/Dashboard/Orders'
 import AdminFoods from '../pages/Dashboard/Foods'
+import Users from '../pages/Dashboard/Users'
 
 export default function Routes() {
     const { push } = useHistory()
@@ -65,6 +66,7 @@ export default function Routes() {
             <Route component={Dashboard} path='/admin/home' exact />
             <Route component={AdminOrders} path='/admin/pedidos' exact />
             <Route component={AdminFoods} path='/admin/pratos' exact />
+            <Route component={Users} path='/admin/usuarios' exact />
 
             <Route path='*' component={isSigned ? Home : Login} />
         </Switch>

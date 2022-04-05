@@ -1,17 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-/*     flex: 1;
-    display: flex;
-    width: 100%;
-    height: 100vh ; */
     height: 100vh;
 
     display: grid;
     grid-template-columns: 15rem 1fr;
+    overflow: hidden;
 
     background-color: var(--background);
-    overflow: hidden;
 
     main {
         height: 100%;
