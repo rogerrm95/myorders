@@ -52,6 +52,7 @@ export default function Users() {
                                 </button>
                             </li>
                         </ul>
+
                     </UserListStyled>
 
                     <UserInfoStyled>
@@ -76,26 +77,53 @@ export default function Users() {
                             <div className='user-sales'>
                                 <h2>Histórico de Vendas</h2>
 
-                                <UserHistorySalesStyled>
-                                    <tr>
-                                        <th>Pedido</th>
-                                        <th>Descrição</th>
-                                        <th>Data</th>
-                                        <th>Valor</th>
-                                    </tr>
-
-                                    <tr>
-                                        <td>235f</td>
-                                        <td>
-                                            1 - Pizza de Calabresa + Queijo / 
-                                            20 - Esfiha de queijo / 
-                                            1 Suco de uva - 500ml / 
-                                            1 Caipirinha de Maracuja - Voodka
-                                        </td>
-                                        <td>01/10/2021 ás 21:15</td>
-                                        <td>R$ 89,50</td>
-                                    </tr>
-                                </UserHistorySalesStyled>
+                                <div style={{ overflowX: 'auto', height: '200px' }}>
+                                    <UserHistorySalesStyled>
+                                        <thead>
+                                            <tr>
+                                                <th>Pedido</th>
+                                                <th>Descrição</th>
+                                                <th>Data</th>
+                                                <th>Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td className='order'>235f</td>
+                                                <td className='description'>
+                                                    1 - Pizza de Calabresa + Queijo /
+                                                    20 - Esfiha de queijo /
+                                                    1 Suco de uva - 500ml /
+                                                    1 Caipirinha de Maracuja - Voodka
+                                                </td>
+                                                <td className='date'>01/10/2021 <br/> ás 21:15</td>
+                                                <td className='total'>R$ 89,50</td>
+                                            </tr>
+                                            <tr>
+                                                <td className='order'>235f</td>
+                                                <td className='description'>
+                                                    1 - Pizza de Calabresa + Queijo /
+                                                    20 - Esfiha de queijo /
+                                                    1 Suco de uva - 500ml /
+                                                    1 Caipirinha de Maracuja - Voodka
+                                                </td>
+                                                <td className='date'>01/10/2021 <br/> ás 21:15</td>
+                                                <td className='total'>R$ 89,50</td>
+                                            </tr>
+                                            <tr>
+                                                <td className='order'>235f</td>
+                                                <td className='description'>
+                                                    1 - Pizza de Calabresa + Queijo /
+                                                    20 - Esfiha de queijo /
+                                                    1 Suco de uva - 500ml /
+                                                    1 Caipirinha de Maracuja - Voodka
+                                                </td>
+                                                <td className='date'>01/10/2021 <br/> ás 21:15</td>
+                                                <td className='total'>R$ 89,50</td>
+                                            </tr>
+                                        </tbody>
+                                    </UserHistorySalesStyled>
+                                </div>
                             </div>
                         </article>
                     </UserInfoStyled>

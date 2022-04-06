@@ -27,6 +27,24 @@ export const Container = styled.div`
         grid-template-columns: 192px 1fr;
         gap: 1.25rem;
     }
+
+    /* SCROLL-BAR */
+    & ::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    & ::-webkit-scrollbar-track {
+        background: var(--placeholder);
+    }
+    
+    & ::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 8px;
+    }
+
+    & ::-webkit-scrollbar-thumb:hover {
+        background: #040404; 
+    }
 `
 
 export const UserListStyled = styled.aside`
@@ -48,6 +66,8 @@ export const UserListStyled = styled.aside`
         box-shadow: -1px 1px 12px rgba(0, 0, 0, 0.1);
         background: var(--white);
 
+        overflow-y: auto;
+
         li {
             position: relative;
             display: grid;
@@ -57,7 +77,7 @@ export const UserListStyled = styled.aside`
             "nome botao"
             "cargo botao";
             gap: 0.5rem;
-            height: 60px;
+            height: 63px;
 
             cursor: pointer;
             
@@ -117,7 +137,7 @@ export const UserListStyled = styled.aside`
 
         hr {
             opacity: 0.25;
-            margin: 0.5rem 1.5rem;
+            margin: 0.5rem 1rem;
         }
     }
 `
@@ -179,22 +199,48 @@ export const UserInfoStyled = styled.div`
             }
         }
     }
-` 
+`
 
 export const UserHistorySalesStyled = styled.table`
     border-collapse: collapse;
+    width: 100%;  
 
-    th {
+    thead th {
         border-bottom: 0.5px solid var(--secondary);
-        padding-bottom: 0.5rem;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    tbody td {
+        padding: 0.5rem;
     }
 
     th, td {
-        text-align: left;
-        flex-wrap: wrap;
+        text-align: center;
     }
 
-    td:not(:first-of-type) {
-        font-size: 0.75rem;
+    tr {
+        td:nth-child(1), th:nth-child(1){
+            width: 10%;
+        }
+
+        td:nth-child(1) {
+            font-size: 0.85rem;
+        }
+
+        td:nth-child(2), th:nth-child(2){
+            width: 65%;
+            text-align: left;
+        }
+
+        td:nth-child(2) {
+            line-height: 1rem;
+            font-size: 0.65rem;
+        }
+
+        td:nth-child(3), td:nth-child(4) {
+            font-size: 0.65rem;
+            width: 10%;
+        }
     }
 `
