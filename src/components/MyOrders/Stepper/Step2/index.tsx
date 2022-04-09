@@ -21,15 +21,10 @@ import UserIcon from '../../../../assets/icons/person.svg'
 import DeskIcon from '../../../../assets/icons/desk.svg'
 import NumberIcon from '../../../../assets/icons/number.svg'
 import WaiterIcon from '../../../../assets/icons/waiter.svg'
+// Types //
+import User from "../../../../types/User";
 // Styles //
 import { Container } from './styles'
-
-type UsersData = {
-    id: number,
-    name: string,
-    lastname: string,
-    job: string
-}
 
 export function Step2() {
     const { order } = useStepper()
@@ -42,7 +37,7 @@ export function Step2() {
     const [desk, setDesk] = useState(order.desk)
     const [people, setPeople] = useState(order.people)
     const [waiter, setWaiter] = useState(order.waiter)
-    const [users, setUsers] = useState([] as UsersData[])
+    const [userList, setUserList] = useState([] as User[])
     const [isLoading, setIsLoading] = useState(false)
 
     // Carregar os atentendes //
@@ -50,16 +45,7 @@ export function Step2() {
         async function loadWaiters() {
             const data = await getAllUsers()
 
-            const listOfUsers = data.map(user => {
-                return {
-                    id: user.id,
-                    name: user.name,
-                    lastname: user.lastname,
-                    job: user.job
-                }
-            })
-
-            setUsers(listOfUsers)
+            console.log(data)
         }
 
         loadWaiters()
@@ -158,7 +144,7 @@ export function Step2() {
                     placeholder='Informar o Nº de pessoas'
                     gridAreaName='qtdPeople' />
                 <Select
-                    options={users}
+                    options={userList}
                     imageSrc={WaiterIcon}
                     gridAreaName='waiter'
                     value={waiter}

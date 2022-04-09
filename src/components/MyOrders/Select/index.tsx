@@ -1,21 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { FaAngleDown } from 'react-icons/fa'
+// Types //
+import User from "../../../types/User";
 // Styles //
 import { Container, ImageBox } from "./style";
 
 interface SelectProps {
-    options: UsersData[],
+    options: User[],
     value: string,
     imageSrc?: string,
     gridAreaName?: string,
     setWaiter: (value: string) => void,
-}
-
-type UsersData = {
-    id: number,
-    name: string,
-    lastname: string
 }
 
 // Select personalizado //

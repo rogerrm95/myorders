@@ -53,6 +53,7 @@ export const UserListStyled = styled.aside`
 
     display: flex;
     flex-direction: column;
+
     gap: 1rem;
     
     ul {
@@ -70,15 +71,16 @@ export const UserListStyled = styled.aside`
 
         li {
             position: relative;
+
             display: grid;
             grid-template-columns: 1fr 28px;
-            grid-template-rows: 1fr 1fr;
+            grid-template-rows: 1fr 16px;
             grid-template-areas:
             "nome botao"
             "cargo botao";
-            gap: 0.5rem;
-            height: 63px;
 
+            height: 100%;
+            max-height: 48px;
             cursor: pointer;
             
             transition: filter 0.2s;
@@ -92,8 +94,8 @@ export const UserListStyled = styled.aside`
                 position: absolute;
                 left: -1rem;
                 height: 100%;
-                width: 3px;
-                background-color: var(--primary) ;
+                width: 8px;
+                background-color: var(--primary);
             }
         }
 
@@ -110,10 +112,13 @@ export const UserListStyled = styled.aside`
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
 
+            z-index: 9999;
         }
 
         span {
             grid-area: cargo;
+            align-self: flex-end;
+
             font-size: 10px;
             color: var(--secondary);
             opacity: 0.75;
@@ -140,6 +145,11 @@ export const UserListStyled = styled.aside`
             margin: 0.5rem 1rem;
         }
     }
+
+    .loading {
+        flex: 1;
+        align-self: center;
+    }
 `
 
 export const UserInfoStyled = styled.div`
@@ -165,9 +175,9 @@ export const UserInfoStyled = styled.div`
         overflow-y: hidden;
 
         .user {
+            flex: 1;
             display: flex;
-            gap: 1.25rem;
-            height: 172px;
+            justify-content: space-between;
 
             svg, img {
                 border-radius: 25px;
@@ -178,9 +188,12 @@ export const UserInfoStyled = styled.div`
         }
 
         .user-info {
+            flex: 1;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 5rem;
+            grid-template-rows: repeat(4, 32px);
+            -webkit-column-gap: 10rem;
+            column-gap: 10rem;
 
             & span {
                 font-size: 0.8rem;

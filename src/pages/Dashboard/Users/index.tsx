@@ -1,16 +1,51 @@
-import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { Fragment, useEffect, useState } from 'react'
+import { api } from '../../../services/api'
 // Componentes //
 import { InformationHeader } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
+import { NewFoodModal } from '../../../components/Dashboard/Modal/NewFood'
+import { Spinner } from '../../../components/MyOrders/Spinner'
 // Imagens //
 import HeroImage from '../../../assets/user-hero-image.svg'
-import { Container, UserListStyled, UserInfoStyled, UserHistorySalesStyled } from './styles' // Styles //
-import { NewFoodModal } from '../../../components/Dashboard/Modal/NewFood'
 import { FiSkipForward } from 'react-icons/fi'
-import { FaUserSlash } from 'react-icons/fa'
+// Types //
+import User from '../../../types/User'
+// Styles //
+import { Container, UserListStyled, UserInfoStyled, UserHistorySalesStyled } from './styles'
+import CalculateAgeOfAnything from '../../../utils/CalculateAge'
+
+interface UserProps extends User {
+    age: string
+}
 
 export default function Users() {
+
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [userList, setUserList] = useState<User[]>([] as User[])
+    const [activeUser, setActiveUser] = useState<UserProps | null>(null)
+    // Dados do Usuário //
+
+
+    useEffect(() => {
+        loadUser()
+    })
+
+    async function loadUser() {
+        const data = await api.get('/users')
+            .then(res => {
+                return res.data
+            }).catch(error => {
+                toast.error(error.response.data.message)
+            })
+
+        setUserList(data)
+    }
+
+    function handleLoadInfoOfUser(user: User) {
+        const age = CalculateAgeOfAnything(user.birthday).toString()
+        setActiveUser({ ...user, age })
+    }
 
     function handleOpenModal() {
         setIsModalOpen(!isModalOpen)
@@ -32,25 +67,28 @@ export default function Users() {
                 <section>
                     <UserListStyled>
                         <h2>Usuários</h2>
+                        <ul onClick={loadUser}>
+                            {
+                                userList ? (
+                                    userList.map((user, index: number) => (
+                                        <Fragment key={index}>
+                                            <li onClick={() => handleLoadInfoOfUser(user)}>
+                                                <p>{`${user.name} ${user.lastname}`}</p>
+                                                <span>{user.job}</span>
+                                                <button>
+                                                    <FiSkipForward size={16} color='#FFF' />
+                                                </button>
+                                            </li>
 
-                        <ul>
-                            <li>
-                                <p>Amaury de Souza Junior</p>
-                                <span>Cargo: Cozinheiro Jr</span>
-                                <button>
-                                    <FiSkipForward size={16} color='#FFF' />
-                                </button>
-                            </li>
-
-                            <hr />
-
-                            <li>
-                                <p>Amaury de Souza</p>
-                                <span>Cargo: Cozinheiro Pl</span>
-                                <button>
-                                    <FiSkipForward size={16} color='#FFF' />
-                                </button>
-                            </li>
+                                            <hr />
+                                        </Fragment>
+                                    ))
+                                ) : (
+                                    <div className='loading'>
+                                        <Spinner />
+                                    </div>
+                                )
+                            }
                         </ul>
 
                     </UserListStyled>
@@ -60,18 +98,39 @@ export default function Users() {
 
                         <article>
                             <div className='user'>
-                                <FaUserSlash size={72} color='#45545A' />
+
+                                {
+                                /* <FaUserSlash size={72} color='#45545A' /> */
+                                //Continuar//
+                                }
 
                                 <div className='user-info'>
-                                    <span><strong>Nome:</strong></span>
-                                    <span><strong>Cargo:</strong></span>
-                                    <span><strong>Data de Nascimento:</strong></span>
-                                    <span><strong>Idade:</strong></span>
-                                    <span><strong>Telefone:</strong></span>
-                                    <span><strong>E-mail:</strong></span>
-                                    <span><strong>Sexo:</strong></span>
-                                    <span><strong>Total de Vendas:</strong></span>
+                                    <span><strong>Nome:</strong>
+                                        {activeUser && `${activeUser.name} ${activeUser.lastname}`}
+                                    </span>
+                                    <span><strong>Cargo:</strong>
+                                        {activeUser && activeUser.job}
+                                    </span>
+                                    <span><strong>Data de Nascimento:</strong>
+                                        {activeUser && activeUser.birthday}
+                                    </span>
+                                    <span><strong>Idade:</strong>
+                                        {activeUser && activeUser.age}
+                                    </span>
+                                    <span><strong>Telefone:</strong>
+                                        {activeUser && activeUser.phone}
+                                    </span>
+                                    <span><strong>E-mail:</strong>
+                                        {activeUser && activeUser.email}
+                                    </span>
+                                    <span><strong>Sexo:</strong>
+                                        {activeUser && activeUser.genre}
+                                    </span>
+                                    <span><strong>Total de Vendas:</strong>
+                                        {activeUser && activeUser.amountSales}
+                                    </span>
                                 </div>
+
                             </div>
 
                             <div className='user-sales'>
@@ -96,7 +155,7 @@ export default function Users() {
                                                     1 Suco de uva - 500ml /
                                                     1 Caipirinha de Maracuja - Voodka
                                                 </td>
-                                                <td className='date'>01/10/2021 <br/> ás 21:15</td>
+                                                <td className='date'>01/10/2021 <br /> ás 21:15</td>
                                                 <td className='total'>R$ 89,50</td>
                                             </tr>
                                             <tr>
@@ -107,7 +166,7 @@ export default function Users() {
                                                     1 Suco de uva - 500ml /
                                                     1 Caipirinha de Maracuja - Voodka
                                                 </td>
-                                                <td className='date'>01/10/2021 <br/> ás 21:15</td>
+                                                <td className='date'>01/10/2021 <br /> ás 21:15</td>
                                                 <td className='total'>R$ 89,50</td>
                                             </tr>
                                             <tr>
@@ -118,7 +177,7 @@ export default function Users() {
                                                     1 Suco de uva - 500ml /
                                                     1 Caipirinha de Maracuja - Voodka
                                                 </td>
-                                                <td className='date'>01/10/2021 <br/> ás 21:15</td>
+                                                <td className='date'>01/10/2021 <br /> ás 21:15</td>
                                                 <td className='total'>R$ 89,50</td>
                                             </tr>
                                         </tbody>

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useHistory } from 'react-router'
+import { toast } from "react-toastify"
 
 import { api } from "../services/api"
 
@@ -20,7 +21,7 @@ export const useAuth = () => {
             .then(res => res.data)
             .catch(error => {
                 setIsLoading(false)
-                throw error.response.data.message
+                toast.error(error.response.data.message)
             })
 
         api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
