@@ -45,6 +45,20 @@ export const Container = styled.div`
     & ::-webkit-scrollbar-thumb:hover {
         background: #040404; 
     }
+
+    .new-user-button {
+        padding: 0.75rem;
+        font-size: 1.5rem;
+        color: var(--green-250);
+
+        background: transparent;
+        transition: filter 0.4s;
+
+        &:hover{
+            text-decoration: underline;
+            filter: brightness(0.85);
+        }
+    } 
 `
 
 export const UserListStyled = styled.aside`
@@ -179,14 +193,6 @@ export const UserInfoStyled = styled.div`
             flex: 1;
             display: flex;
             justify-content: space-between;
-
-            svg, img {
-                border-radius: 25px;
-                border: 4px solid rgba(69, 84, 90);
-                opacity: 0.25;
-                padding: 1rem;
-                margin-right: 2rem;
-            }
         }
 
         .user-info {
@@ -258,15 +264,6 @@ export const UserInfoStyled = styled.div`
         div {
             opacity: 0.5;
         }
-    }
-
-    /* Media Queries */
-    @media(max-width: 1260px) {
-
-        svg, img {
-            display: none;
-        }
-
     }
 `
 

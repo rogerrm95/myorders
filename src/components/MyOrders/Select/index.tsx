@@ -8,24 +8,30 @@ import { Container, ImageBox } from "./style";
 
 interface SelectProps {
     options: User[],
-    value: string,
+    value: {
+        id: number,
+        name: string
+    },
     imageSrc?: string,
     gridAreaName?: string,
-    setWaiter: (value: string) => void,
+    onSelectChange: (value: {id: number, name: string}) => void
 }
 
 // Select personalizado //
-export function Select({ gridAreaName, imageSrc, value, options, setWaiter, ...rest }: SelectProps) {
-    const [selected, setSelected] = useState(value)
+export function Select({ gridAreaName, imageSrc, value, options, onSelectChange, ...rest }: SelectProps) {
+    const [selectedWaiter, setSelectedWaiter] = useState(value)
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
-        setWaiter(selected)
-    }, [selected])
+        onSelectChange(selectedWaiter)
+    }, [selectedWaiter])
 
     // Armazena no state o valor correspondente ao que o usuário clicou //
     function handleSelectOption(index: number) {
-        setSelected(`${options[index].name} ${options[index].lastname}`)
+        setSelectedWaiter({
+            id: options[index].id,
+            name: `${options[index].name} ${options[index].lastname}`
+        })
     }
 
     return (
@@ -37,7 +43,7 @@ export function Select({ gridAreaName, imageSrc, value, options, setWaiter, ...r
             <button className='select-button' type='button' >
                 <p>
                     {
-                        selected ? selected : "Selecionar atendente..."
+                        selectedWaiter ? selectedWaiter.name : "Selecionar atendente..."
                     }
                 </p>
 

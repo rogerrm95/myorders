@@ -95,7 +95,7 @@ export default function DetailsOrder() {
                             <Input label='Nome' imageSrc={UserIcon} readOnly value={order.client} gridAreaName='user' />
                             <Input label='Mesa' imageSrc={DeskIcon} readOnly value={order.desk} gridAreaName='desk' />
                             <Input label='Quantidade' imageSrc={NumberIcon} readOnly value={order.people} gridAreaName='qtdPeople' />
-                            <Input label='Atendente' imageSrc={WaiterIcon} readOnly value={order.waiter} gridAreaName='waiter' />
+                            <Input label='Atendente' imageSrc={WaiterIcon} readOnly value={order.waiter.name} gridAreaName='waiter' />
                         </form>
 
                         <div>

@@ -21,7 +21,10 @@ import { Container, Items, Order, Details, NoOrders } from './styles'
 type OrderData = {
     id: string,
     client: string,
-    waiter: string,
+    waiter: {
+        id: number,
+        name: string
+    },
     createdAt: string,
     desk: number,
     items: Item[] | []
@@ -204,7 +207,7 @@ export default function Orders() {
                                                 </h2>
 
                                                 <p>Cliente: <strong>{selectOrder.client}</strong></p>
-                                                <p>Atendente: <strong>{selectOrder.waiter}</strong></p>
+                                                <p>Atendente: <strong>{selectOrder.waiter.name}</strong></p>
                                                 <span>Data de abertura: <strong>11/09 ás 12:01</strong></span>
                                             </div>
 

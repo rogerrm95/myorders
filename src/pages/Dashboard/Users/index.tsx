@@ -1,7 +1,11 @@
 import { toast } from 'react-toastify'
 import { Fragment, useEffect, useState } from 'react'
 import { api } from '../../../services/api'
+// Hook //
+import { useOrders } from '../../../hooks/useOrders'
 // Componentes //
+import { DeleteUserModal } from '../../../components/Dashboard/Modal/DeleteUser'
+import { NewUserModal } from '../../../components/Dashboard/Modal/NewUser'
 import { InformationHeader } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
 import { Spinner } from '../../../components/MyOrders/Spinner'
@@ -9,7 +13,6 @@ import { UpdateUserModal } from '../../../components/Dashboard/Modal/UpdateUser'
 // Imagens //
 import HeroImage from '../../../assets/user-hero-image.svg'
 import { FiSkipForward } from 'react-icons/fi'
-import { FaUserSlash } from 'react-icons/fa'
 // Utils //
 import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
 import CalculateAgeOfAnything from '../../../utils/CalculateAge'
@@ -18,7 +21,6 @@ import FormartHours from '../../../utils/FormartHours'
 import User from '../../../types/User'
 // Styles //
 import { Container, UserListStyled, UserInfoStyled, UserHistorySalesStyled } from './styles'
-import { useOrders } from '../../../hooks/useOrders'
 
 interface UserProps extends User {
     age: string,
@@ -39,12 +41,13 @@ type DateProps = {
 
 export default function Users() {
     const { getOrdersByWaiter } = useOrders()
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    // Modais //
+    const [isModalNewUserOpen, setIsModalNewUserOpen] = useState(false)
+    const [isModalUpdateUserOpen, setIsModalUpdateUserOpen] = useState(false)
+    const [isModalDeleteUserOpen, setIsModalDeleteUserOpen] = useState(false)
+    // Dados do Usuário //
     const [userList, setUserList] = useState<User[]>([] as User[])
     const [activeUser, setActiveUser] = useState<UserProps | null>(null)
-    // Dados do Usuário //
-
 
     useEffect(() => {
         loadUser()
@@ -61,12 +64,11 @@ export default function Users() {
         setUserList(data)
     }
 
+    // Carregar os dados do usuário selecionado //
     function handleLoadInfoOfUser(user: User) {
         const age = CalculateAgeOfAnything(user.birthday).toString()
-        const genre = user.genre === "F" ? 'Feminino' : 'Masculino'
-        const fullname = `${user.name} ${user.lastname}`
 
-        const orders = getOrdersByWaiter(fullname)
+        const orders = getOrdersByWaiter(user.id)
 
         const sales = orders.map(order => {
             const id = order.id
@@ -83,11 +85,7 @@ export default function Users() {
             }
         })
 
-        setActiveUser({ ...user, age, genre, sales })
-    }
-
-    function handleOpenModal() {
-        setIsModalOpen(!isModalOpen)
+        setActiveUser({ ...user, age, sales })
     }
 
     return (
@@ -137,9 +135,6 @@ export default function Users() {
 
                         <article className={`${!activeUser ? 'empty' : ''}`}>
                             <div className='user'>
-
-                                <FaUserSlash size={72} color='#45545A' />
-
 
                                 <div className='user-info'>
                                     <span><strong>Nome:</strong>
@@ -202,10 +197,10 @@ export default function Users() {
                             </div>
 
                             <div className='user-actions'>
-                                <button disabled={!activeUser ? true : false} onClick={()=> setIsModalOpen(true)}>
+                                <button disabled={!activeUser ? true : false} onClick={() => setIsModalUpdateUserOpen(true)}>
                                     Editar
                                 </button>
-                                <button disabled={!activeUser ? true : false}>
+                                <button disabled={!activeUser ? true : false} onClick={() => setIsModalDeleteUserOpen(true)}>
                                     Excluir
                                 </button>
                             </div>
@@ -213,14 +208,35 @@ export default function Users() {
                     </UserInfoStyled>
                 </section>
 
+                <button className='new-user-button' onClick={() => setIsModalNewUserOpen(true)}>
+                   + Clique aqui para criar um novo usuário
+                </button>
+
             </main>
 
             {
-                isModalOpen && (
-                    <UpdateUserModal onModalClose={(e) => setIsModalOpen(e)} id={activeUser?.id}/>
+                isModalUpdateUserOpen && (
+                    <UpdateUserModal
+                        id={activeUser?.id}
+                        userSeleted={activeUser}
+                        onModalClose={(e) => setIsModalUpdateUserOpen(e)}
+                    />
                 )
             }
 
-        </Container>
-    )
-}
+            {
+                isModalNewUserOpen && (
+                    <NewUserModal onModalClose={(e) => setIsModalNewUserOpen(e)} />
+                )
+            }
+
+            {
+                isModalDeleteUserOpen && activeUser &&(
+                    <DeleteUserModal 
+                        id={activeUser.id}
+                        onModalClose={(e) => setIsModalDeleteUserOpen(e)}/>
+                        )
+            }
+                    </Container>
+                )
+            }

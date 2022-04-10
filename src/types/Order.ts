@@ -1,6 +1,6 @@
 export interface OrderType {
     id: string,
-    waiter: string,
+    waiter: WaiterType,
     client: string,
     desk: number,
     price: string | number,
@@ -18,4 +18,9 @@ export interface ItemType {
     price: string,
     amount: number,
     isDone: boolean
+}
+
+export interface WaiterType {
+    id: number,
+    name: string
 }

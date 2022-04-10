@@ -4,7 +4,7 @@ import { ButtonGroup, Form, XButton } from "./styles"; // Styles //
 // Utils //
 import { toast } from "react-toastify";
 // Schema - Validação //
-import { UpdateUserSchema } from './schema'
+import { NewUserSchema } from './schema'
 // Icones //
 import { BiEraser } from "react-icons/bi";
 import { FiCheck, FiX } from "react-icons/fi";
@@ -17,31 +17,19 @@ import { Spinner } from "../../../MyOrders/Spinner";
 import { InputDate } from "../../Inputs/InputDate";
 
 interface UpdateUserProps {
-    id: string | number | undefined,
-    userSeleted: any | UserData,
     onModalClose: (hasCloseModal: boolean) => void,
 }
+export function NewUserModal({ onModalClose }: UpdateUserProps) {
+    const { createUser } = useUsers()
 
-type UserData = {
-    name: string,
-    birthday: string,
-    genre: string,
-    password: string,
-    email: string,
-    phone: string,
-    job: string,
-}
-
-export function UpdateUserModal({ id, userSeleted,onModalClose }: UpdateUserProps) {
-    const { updateUser } = useUsers()
     // Dados do usuário //
-    const [name, setName] = useState(`${userSeleted.name} ${userSeleted.lastname}`)
-    const [birthday, setBirthday] = useState(userSeleted.birthday)
-    const [genre, setGenre] = useState(userSeleted.genre)
+    const [name, setName] = useState('')
+    const [birthday, setBirthday] = useState('')
+    const [genre, setGenre] = useState('')
     const [password, setPassword] = useState('')
-    const [email, setEmail] = useState(userSeleted.email)
-    const [phone, setPhone] = useState(userSeleted.phone)
-    const [job, setJob] = useState(userSeleted.job)
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+    const [job, setJob] = useState('')
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -52,7 +40,6 @@ export function UpdateUserModal({ id, userSeleted,onModalClose }: UpdateUserProp
         const lastname = fullName.join(' ') // Pega o restante do array e junta numa string //
 
         const data = {
-            id,
             name: firstName,
             lastname: lastname,
             birthday,
@@ -60,13 +47,16 @@ export function UpdateUserModal({ id, userSeleted,onModalClose }: UpdateUserProp
             phone: phone ? phone : null,
             job,
             email,
-            password
+            password,
+            isActive: true,
+            amountSales: 0,
+            id: 0
         }
 
         // Validação dos dados //
-        await UpdateUserSchema.validate(data)
+        await NewUserSchema.validate(data)
             .then(() => {
-                updateUser(data).then(_ => {
+                createUser(data).then(_ => {
                     setIsLoading(false)
                     onModalClose(false)
                     handleResetFields()

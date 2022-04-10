@@ -148,7 +148,7 @@ export function Step2() {
                     imageSrc={WaiterIcon}
                     gridAreaName='waiter'
                     value={waiter}
-                    setWaiter={setWaiter} />
+                    onSelectChange={setWaiter} />
             </form>
 
             <div>

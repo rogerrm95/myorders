@@ -18,7 +18,7 @@ interface OrderContextData {
     getOrdersByStatus: (status: string) => Order[] | [],
     getOrderById: (id: string) => Promise<Order | undefined>,
     getOrders: () => Promise<void>,
-    getOrdersByWaiter: (waiter: string) => Order[],
+    getOrdersByWaiter: (waiterRef: number) => Order[],
     newOrder: (order: any) => Promise<object>,
     updateOrder: (order: any, id: string) => Promise<void>
 }
@@ -27,9 +27,8 @@ export const OrderContext = createContext<OrderContextData>({} as OrderContextDa
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
     const { push } = useHistory()
-
     const [orders, setOrders] = useState<Order[]>([])
-    
+
     // GET - PEDIDOS //
     async function getOrders() {
         const response: Order[] = await api.get('/orders')
@@ -39,40 +38,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         setOrders(response)
     }
 
-    // DELETE - PEDIDO //
-    async function deleteOrder(id: string) {
-        await api.delete(`/orders/${id}`)
-            .then(res => {
-                getOrders()
-                console.log(res.data.message)
-                //toast.success("Pedido Excluído")
-            })
-            .catch((error) => {
-                return toast.error(error.response.data.message)
-            })
-    }
-
-    // POST - PEDIDO //
-    async function newOrder(order: Order) {
-        const data = {
-            ...order,
-            id: `${order.desk}${uid(2)}`, // Número da mesa + 2 caracteres randomicos //
-        }
-
-        const response = await api.post('/orders', data)
-            .then(res => res.data)
-            .catch(error => toast.error(error.response.data.message))
-
-        return response
-    }
-
-    // UPDATE - PEDIDO //
-    async function updateOrder(order: any, id: string) {
-        await api.patch(`/orders/${id}`, order)
-            .then(_ => getOrders())
-            .catch(error => toast.error(error.response.data.message))
-    }
-
+    // GET - ORDER BY ID //
     async function getOrderById(id: string) {
         try {
             const data = orders.find(order => order.id === id && order)
@@ -88,6 +54,19 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         }
     }
 
+    // GET - ORDER BY WAITER //
+    function getOrdersByWaiter(waiterRef: number) {
+        const ordersFiltered = orders.filter(order => order.waiter.id === +waiterRef)
+
+        if (ordersFiltered.length === 0) return []
+
+        const activeOrder = ordersFiltered.filter(order => !order.finishedAt)
+        const finishedOrder = ordersFiltered.filter(order => order.finishedAt)
+
+        return activeOrder.concat(finishedOrder)
+    }
+
+    // GET - ORDER BY STATUS //
     function getOrdersByStatus(status: string) {
         if (orders) {
             const list = orders.filter(order => order.status === status && order)
@@ -97,26 +76,52 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         return []
     }
 
-    function getOrdersByWaiter(waiter: string) {
-        const ordersFiltered = orders.filter(order => order.waiter === waiter)
+    // POST - ORDER //
+    async function newOrder(order: Order) {
+        const data = {
+            ...order,
+            id: `${order.desk}${uid(2)}`, // Número da mesa + 2 caracteres randomicos //
+        }
 
-        return ordersFiltered
+        const response = await api.post('/orders', data)
+            .then(res => res.data)
+            .catch(error => toast.error(error.response.data.message))
+
+        return response
     }
 
+    // UPDATE - ORDER //
+    async function updateOrder(order: any, id: string) {
+        await api.patch(`/orders/${id}`, order)
+            .then(_ => getOrders())
+            .catch(error => toast.error(error.response.data.message))
+    }
 
+    // DELETE - ORDER //
+    async function deleteOrder(id: string) {
+        await api.delete(`/orders/${id}`)
+            .then(res => {
+                getOrders()
+                console.log(res.data.message)
+                //toast.success("Pedido Excluído")
+            })
+            .catch((error) => {
+                return toast.error(error.response.data.message)
+            })
+    }
 
     return (
-        <OrderContext.Provider 
-            value={{ 
-                orders, 
-                deleteOrder, 
-                getOrdersByStatus, 
-                getOrderById, 
+        <OrderContext.Provider
+            value={{
+                orders,
+                deleteOrder,
+                getOrdersByStatus,
+                getOrderById,
                 getOrders,
-                getOrdersByWaiter, 
-                newOrder, 
-                updateOrder 
-                }}>
+                getOrdersByWaiter,
+                newOrder,
+                updateOrder
+            }}>
             {
                 children
             }
