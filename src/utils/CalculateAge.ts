@@ -6,7 +6,8 @@ export default function CalculateAgeOfAnything(birthday: string) {
     const year = +birthday.split('/')[2]
 
     let age = dateNow.getFullYear() - year
-
+    
+    // Verifica se o usuário já fez aniversário, se não fez diminui -1 a idade //
     if (month > dateNow.getMonth() && (month === dateNow.getMonth() + 1 && day > dateNow.getDate())) {
         age = --age
     }
