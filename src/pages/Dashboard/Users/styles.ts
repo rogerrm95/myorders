@@ -49,7 +49,7 @@ export const Container = styled.div`
 
 export const UserListStyled = styled.aside`
     width: 100%;
-    height: 440px;
+    height: 500px;
 
     display: flex;
     flex-direction: column;
@@ -68,6 +68,7 @@ export const UserListStyled = styled.aside`
         background: var(--white);
 
         overflow-y: auto;
+        z-index: 1;
 
         li {
             position: relative;
@@ -154,7 +155,7 @@ export const UserListStyled = styled.aside`
 
 export const UserInfoStyled = styled.div`
     width: 100%;
-    height: 440px;
+    height: 500px;
 
     display: flex;
     flex-direction: column;
@@ -184,6 +185,7 @@ export const UserInfoStyled = styled.div`
                 border: 4px solid rgba(69, 84, 90);
                 opacity: 0.25;
                 padding: 1rem;
+                margin-right: 2rem;
             }
         }
 
@@ -193,10 +195,14 @@ export const UserInfoStyled = styled.div`
             grid-template-columns: 1fr 1fr;
             grid-template-rows: repeat(4, 32px);
             -webkit-column-gap: 10rem;
-            column-gap: 10rem;
+            column-gap: 2rem;
 
-            & span {
+            span {
                 font-size: 0.8rem;
+            }
+
+            span > strong {
+                margin-right: 0.25rem;
             }
         }
 
@@ -211,6 +217,56 @@ export const UserInfoStyled = styled.div`
                 font-size: 1.25rem;
             }
         }
+
+        .user-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+
+            button {
+                width: 100%;
+                padding: 0.75rem;
+                border-radius: 4px;
+                font-size: 0.85rem;
+
+                transition: filter 0.3s;
+
+                &:nth-child(1) {
+                    background: var(--blue-500);
+                    color: #FFF;
+                }
+
+                &:nth-child(2) {
+                    background: var(--red-500);
+                    color: #FFF;
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+                }
+
+                :hover:not(:disabled){
+                    filter: brightness(0.85)
+                }
+            }
+        }
+
+    }
+
+    .empty {
+        div {
+            opacity: 0.5;
+        }
+    }
+
+    /* Media Queries */
+    @media(max-width: 1260px) {
+
+        svg, img {
+            display: none;
+        }
+
     }
 `
 

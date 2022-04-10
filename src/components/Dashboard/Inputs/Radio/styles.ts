@@ -15,8 +15,8 @@ export const Container = styled.div`
    
    ul {
        display: grid;
-       grid-template-columns: 1fr 1fr;
-       place-items: center;
+       grid-template-columns: 125px 125px;
+       justify-content: center ;
        gap: 1rem;
        height: 2rem;
 

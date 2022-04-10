@@ -10,7 +10,7 @@ export function Modal({ children, title }: ModalProps) {
     return (
         <Overlay>
             <StyledModal>
-                <header>
+                <header className='header'>
                     <h2>
                         {
                             title
@@ -18,7 +18,7 @@ export function Modal({ children, title }: ModalProps) {
                     </h2>
                 </header>
 
-                <section>
+                <section className='section'>
                     {
                         children
                     }

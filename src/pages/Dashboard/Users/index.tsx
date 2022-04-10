@@ -4,22 +4,41 @@ import { api } from '../../../services/api'
 // Componentes //
 import { InformationHeader } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
-import { NewFoodModal } from '../../../components/Dashboard/Modal/NewFood'
 import { Spinner } from '../../../components/MyOrders/Spinner'
+import { UpdateUserModal } from '../../../components/Dashboard/Modal/UpdateUser'
 // Imagens //
 import HeroImage from '../../../assets/user-hero-image.svg'
 import { FiSkipForward } from 'react-icons/fi'
+import { FaUserSlash } from 'react-icons/fa'
+// Utils //
+import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
+import CalculateAgeOfAnything from '../../../utils/CalculateAge'
+import FormartHours from '../../../utils/FormartHours'
 // Types //
 import User from '../../../types/User'
 // Styles //
 import { Container, UserListStyled, UserInfoStyled, UserHistorySalesStyled } from './styles'
-import CalculateAgeOfAnything from '../../../utils/CalculateAge'
+import { useOrders } from '../../../hooks/useOrders'
 
 interface UserProps extends User {
-    age: string
+    age: string,
+    sales: Sales[]
+}
+
+type Sales = {
+    id: string,
+    description: string,
+    total: string,
+    date: DateProps | null
+}
+
+type DateProps = {
+    dateFormated: string,
+    hourFormated: string
 }
 
 export default function Users() {
+    const { getOrdersByWaiter } = useOrders()
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [userList, setUserList] = useState<User[]>([] as User[])
@@ -44,7 +63,27 @@ export default function Users() {
 
     function handleLoadInfoOfUser(user: User) {
         const age = CalculateAgeOfAnything(user.birthday).toString()
-        setActiveUser({ ...user, age })
+        const genre = user.genre === "F" ? 'Feminino' : 'Masculino'
+        const fullname = `${user.name} ${user.lastname}`
+
+        const orders = getOrdersByWaiter(fullname)
+
+        const sales = orders.map(order => {
+            const id = order.id
+            const total = CalculateValueTotal(order.items)
+
+            const date = order.finishedAt ? FormartHours(new Date(order.finishedAt)) : null
+
+            const description = order.items.map(order => {
+                return order.name
+            }).join(' / ')
+
+            return {
+                id, date, total, description
+            }
+        })
+
+        setActiveUser({ ...user, age, genre, sales })
     }
 
     function handleOpenModal() {
@@ -96,13 +135,11 @@ export default function Users() {
                     <UserInfoStyled>
                         <h2>Perfil</h2>
 
-                        <article>
+                        <article className={`${!activeUser ? 'empty' : ''}`}>
                             <div className='user'>
 
-                                {
-                                /* <FaUserSlash size={72} color='#45545A' /> */
-                                //Continuar//
-                                }
+                                <FaUserSlash size={72} color='#45545A' />
+
 
                                 <div className='user-info'>
                                     <span><strong>Nome:</strong>
@@ -147,42 +184,30 @@ export default function Users() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td className='order'>235f</td>
-                                                <td className='description'>
-                                                    1 - Pizza de Calabresa + Queijo /
-                                                    20 - Esfiha de queijo /
-                                                    1 Suco de uva - 500ml /
-                                                    1 Caipirinha de Maracuja - Voodka
-                                                </td>
-                                                <td className='date'>01/10/2021 <br /> ás 21:15</td>
-                                                <td className='total'>R$ 89,50</td>
-                                            </tr>
-                                            <tr>
-                                                <td className='order'>235f</td>
-                                                <td className='description'>
-                                                    1 - Pizza de Calabresa + Queijo /
-                                                    20 - Esfiha de queijo /
-                                                    1 Suco de uva - 500ml /
-                                                    1 Caipirinha de Maracuja - Voodka
-                                                </td>
-                                                <td className='date'>01/10/2021 <br /> ás 21:15</td>
-                                                <td className='total'>R$ 89,50</td>
-                                            </tr>
-                                            <tr>
-                                                <td className='order'>235f</td>
-                                                <td className='description'>
-                                                    1 - Pizza de Calabresa + Queijo /
-                                                    20 - Esfiha de queijo /
-                                                    1 Suco de uva - 500ml /
-                                                    1 Caipirinha de Maracuja - Voodka
-                                                </td>
-                                                <td className='date'>01/10/2021 <br /> ás 21:15</td>
-                                                <td className='total'>R$ 89,50</td>
-                                            </tr>
+                                            {
+                                                activeUser?.sales.map((sale, index) => (
+                                                    <tr key={index}>
+                                                        <td className='order'>{sale.id}</td>
+                                                        <td className='description'>{sale.description}</td>
+                                                        <td className='date'>
+                                                            {sale.date && `${sale.date?.dateFormated} \n ás ${sale.date?.hourFormated}`}
+                                                        </td>
+                                                        <td className='total'>R$ {sale.total}</td>
+                                                    </tr>
+                                                ))
+                                            }
                                         </tbody>
                                     </UserHistorySalesStyled>
                                 </div>
+                            </div>
+
+                            <div className='user-actions'>
+                                <button disabled={!activeUser ? true : false} onClick={()=> setIsModalOpen(true)}>
+                                    Editar
+                                </button>
+                                <button disabled={!activeUser ? true : false}>
+                                    Excluir
+                                </button>
                             </div>
                         </article>
                     </UserInfoStyled>
@@ -192,7 +217,7 @@ export default function Users() {
 
             {
                 isModalOpen && (
-                    <NewFoodModal onModalClose={(e) => setIsModalOpen(e)} />
+                    <UpdateUserModal onModalClose={(e) => setIsModalOpen(e)} id={activeUser?.id}/>
                 )
             }
 

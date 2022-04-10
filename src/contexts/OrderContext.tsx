@@ -18,6 +18,7 @@ interface OrderContextData {
     getOrdersByStatus: (status: string) => Order[] | [],
     getOrderById: (id: string) => Promise<Order | undefined>,
     getOrders: () => Promise<void>,
+    getOrdersByWaiter: (waiter: string) => Order[],
     newOrder: (order: any) => Promise<object>,
     updateOrder: (order: any, id: string) => Promise<void>
 }
@@ -96,8 +97,26 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         return []
     }
 
+    function getOrdersByWaiter(waiter: string) {
+        const ordersFiltered = orders.filter(order => order.waiter === waiter)
+
+        return ordersFiltered
+    }
+
+
+
     return (
-        <OrderContext.Provider value={{ orders, deleteOrder, getOrdersByStatus, getOrderById, getOrders, newOrder, updateOrder }}>
+        <OrderContext.Provider 
+            value={{ 
+                orders, 
+                deleteOrder, 
+                getOrdersByStatus, 
+                getOrderById, 
+                getOrders,
+                getOrdersByWaiter, 
+                newOrder, 
+                updateOrder 
+                }}>
             {
                 children
             }

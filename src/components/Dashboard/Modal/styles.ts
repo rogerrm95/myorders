@@ -14,7 +14,6 @@ export const Overlay = styled.div`
     justify-content: center;
 
 `
-
 export const Modal = styled.div`
     width: 100%;
     max-width: 600px;
@@ -25,10 +24,9 @@ export const Modal = styled.div`
 
     position: relative;
     display: flex;
-    justify-content: center;
-    
+    justify-content: center;    
 
-    header {
+    .header {
         width: 50%;
         position: absolute;
         top: -1.5rem;
@@ -49,7 +47,7 @@ export const Modal = styled.div`
         }
     }
 
-    section {
+    .section {
         width: 100%;
         padding: 1.5rem 2rem;
         margin-top: 3rem;

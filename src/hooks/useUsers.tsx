@@ -1,7 +1,7 @@
 import { api } from "../services/api"
 import { toast } from "react-toastify"
- // Type //
-import User from "../types/User"
+// Type //
+import User, { UserUpdateProps } from "../types/User"
 
 export const useUsers = () => {
 
@@ -17,5 +17,19 @@ export const useUsers = () => {
         return data
     }
 
-    return { getAllUsers }
+    // POST USER //
+
+
+    // PUT USER //
+    async function updateUser(user: any) {
+        const data: UserUpdateProps = user
+
+        await api.put('/users', data)
+            .then(_ => toast.success('Dados atualizados'))
+            .catch(error => toast.error(error.response.data.message))
+    }
+
+    // DELETE USER //
+
+    return { getAllUsers, updateUser }
 }

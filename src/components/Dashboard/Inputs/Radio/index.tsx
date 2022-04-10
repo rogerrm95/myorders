@@ -4,7 +4,6 @@ import { Container } from './styles'
 
 interface SelectProps {
     label: string,
-    placeholder?: string,
     options: string[],
     value: string,
     onSelectChange: (value: string) => void
@@ -22,6 +21,7 @@ export function Radio({ label, options, value, onSelectChange }: SelectProps) {
             setIndexActive(indexSelectedOption)
         } else {
             setIndexActive(0)
+            onSelectChange(options[0])
         } 
     }, [value])
 
