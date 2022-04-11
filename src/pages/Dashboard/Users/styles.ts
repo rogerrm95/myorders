@@ -269,12 +269,18 @@ export const UserInfoStyled = styled.div`
 
 export const UserHistorySalesStyled = styled.table`
     border-collapse: collapse;
-    width: 100%;  
+    width: 100%;
+    position: relative;
 
     thead th {
         border-bottom: 0.5px solid var(--secondary);
         padding: 0.5rem;
         font-size: 0.85rem;
+
+        /* Cabeçalho Fixo */
+        position: sticky;
+        top: 0;
+        background-color: var(--white);
     }
     
     tbody td {
