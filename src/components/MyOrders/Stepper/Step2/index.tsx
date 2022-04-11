@@ -44,13 +44,12 @@ export function Step2() {
     useEffect(() => {
         async function loadWaiters() {
             const data = await getAllUsers()
-
-            console.log(data)
+            setUserList(data)
         }
 
         loadWaiters()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    })
 
     async function handleUpdateOrder() {
         setIsLoading(true)
@@ -74,13 +73,16 @@ export function Step2() {
                     push('/')
                 })
                 .catch(error => toast.error("Não foi possível executar ação, tente novamente - 1"))
-            
+
             return
         }
 
         const data = {
             ...order,
-            waiter,
+            waiter: {
+                ...waiter,
+                id: +waiter.id
+            },
             client,
             desk,
             people,
