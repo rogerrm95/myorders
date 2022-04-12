@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.aside`
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex: 1;
 
     width: 100%;
     height: 100%;
@@ -15,6 +15,14 @@ export const Container = styled.aside`
         img {
             width: 168px;
             margin: 0.75rem 0;
+        }
+
+        svg {
+            display: none;
+        }
+
+        .logo-mini {
+            display: none;
         }
 
         hr {
@@ -46,6 +54,71 @@ export const Container = styled.aside`
         img {
             overflow: hidden;
             height: 200px;
+        }
+    }
+
+    @media(max-width: 768px){
+        flex-direction: column;
+        position: relative;
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1;
+
+            img {
+                width: 62px;
+            }
+
+            svg {
+                display: block;
+                cursor: pointer;
+                transition: filter 0.3s;
+
+                &:hover{
+                    filter: brightness(0.7) ;
+                }
+            }
+
+            hr {
+                display: none;
+            }
+
+            .logo-full {
+                display: none;
+            }
+
+            .logo-mini {
+                display: block;
+            }
+        }
+
+        nav {
+            display: none;
+        }
+
+        .menu-open {
+            display: flex;
+            align-items: center;
+
+            position: absolute;
+            left: 0;
+            top: 3rem;
+
+            width: 100%;
+            min-height: 22rem;
+
+            background-color: #2A363B;
+            z-index: 99999;
+
+            & > :last-child{
+                margin-top: 0;
+            }
+        }
+
+        footer {
+            display: none;
         }
     }
 `

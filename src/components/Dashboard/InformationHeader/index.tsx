@@ -8,7 +8,7 @@ type InformationHeaderProps = {
 
 export function InformationHeader({ title, heroImage, description }: InformationHeaderProps) {
     return (
-        <Container>
+        <Container className='information-header'>
             <h1>{title}</h1>
             <p>{description}</p>
             <img src={heroImage} alt="Hero" />

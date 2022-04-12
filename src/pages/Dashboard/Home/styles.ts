@@ -17,10 +17,10 @@ export const Container = styled.div`
         gap: 2rem;
         padding: 2rem;
         margin: auto;
+        overflow: auto;
 
-        @media(max-width: 1100px){
-            overflow: scroll;
-
+        @media(max-width: 768px){
+            
             /* SCROLL-BAR */
             ::-webkit-scrollbar {
                 width: 0.75rem;
@@ -39,6 +39,11 @@ export const Container = styled.div`
                 background: #040404; 
             }
         }
+    }
+
+    @media(max-width: 768px){
+        grid-template-columns: 1fr;
+        grid-template-rows: 5rem 1fr;
     }
 `
 

@@ -28,4 +28,22 @@ export const Container = styled(Link)`
     &.active > * {
         color: var(--red-500);
     }
+
+    @media(max-width: 768px){
+
+        flex-direction: row-reverse;
+
+        p {
+            font-size: 1.5rem;
+        }
+
+        &:hover{
+            background: ${darken(0.05, "#2A363B")};
+            padding: 0.5rem;
+            width: initial;
+            border-radius: 4px;
+
+            box-shadow: inset 1px 1px 20px var(--secondary);
+        }
+    }
 `

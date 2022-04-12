@@ -14,7 +14,7 @@ import { Container, ActiveOrdersContainer } from './styles'
 export default function Dashboard() {
     return (
         <Container>
-            <Navbar />
+            <Navbar /> 
 
             <main>
                 <Information

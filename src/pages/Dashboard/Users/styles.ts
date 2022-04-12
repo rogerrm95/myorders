@@ -11,13 +11,14 @@ export const Container = styled.div`
 
     main {
         height: 100%;
+        max-width: 1260px;
         display: flex;
         flex-direction: column;
-        align-items: center;
         gap: 2rem;
-        padding: 1.25rem;
+        padding: 1rem;
+        margin: auto;
 
-        overflow: scroll;
+        overflow: auto;
     }
 
     section {
@@ -58,7 +59,12 @@ export const Container = styled.div`
             text-decoration: underline;
             filter: brightness(0.85);
         }
-    } 
+    }
+
+    @media(max-width: 768px){
+        grid-template-columns: 1fr;
+        grid-template-rows: 5rem 1fr;
+    }
 `
 
 export const UserListStyled = styled.aside`

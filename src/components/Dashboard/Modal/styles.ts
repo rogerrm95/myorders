@@ -26,7 +26,7 @@ export const Modal = styled.div`
     display: flex;
     justify-content: center;    
 
-    .header {
+    .modal-header {
         width: 50%;
         position: absolute;
         top: -1.5rem;
@@ -47,7 +47,7 @@ export const Modal = styled.div`
         }
     }
 
-    .section {
+    .modal-section {
         width: 100%;
         padding: 1.5rem 2rem;
         margin-top: 3rem;

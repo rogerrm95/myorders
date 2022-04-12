@@ -15,11 +15,13 @@ export const Container = styled.div<StatusProps>`
     background-color: var(--background);
 
     main {
-        flex: 1;
+        height: 100%;
+        max-width: 1260px;
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        padding: 1rem 1.5rem 0.5rem;
+        padding: 1rem;
+        margin: auto;
     }
 
     section {
@@ -83,6 +85,11 @@ export const Container = styled.div<StatusProps>`
                 filter: brightness(0.95);
             }
         }
+    }
+
+    @media(max-width: 768px){
+        grid-template-columns: 1fr;
+        grid-template-rows: 5rem 1fr;
     }
 `
 
