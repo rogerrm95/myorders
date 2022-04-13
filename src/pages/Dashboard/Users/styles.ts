@@ -64,6 +64,11 @@ export const Container = styled.div`
     @media(max-width: 768px){
         grid-template-columns: 1fr;
         grid-template-rows: 5rem 1fr;
+
+        section {
+            display: flex;
+            flex-direction: column;
+        }
     }
 `
 
@@ -171,6 +176,39 @@ export const UserListStyled = styled.aside`
         flex: 1;
         align-self: center;
     }
+
+    @media(max-width: 768px){
+        min-height: 250px;
+        height: 100%;
+
+        ul {
+            gap: 0.75rem;
+        }
+
+        li {
+            margin-right: 1rem;
+
+            p {
+                font-size: 1.25rem;
+            }
+
+            span {
+                font-size: 1rem;
+                font-size: 0.85rem;
+            }
+
+            button {
+                width: 40px;
+                height: 40px;
+                transform: rotate(90deg);
+            }
+        }
+
+        hr:last-child{
+            margin: 0;
+            visibility: hidden;
+        }
+    }
 `
 
 export const UserInfoStyled = styled.div`
@@ -207,7 +245,7 @@ export const UserInfoStyled = styled.div`
             grid-template-columns: 1fr 1fr;
             grid-template-rows: repeat(4, 32px);
             -webkit-column-gap: 10rem;
-            column-gap: 2rem;
+            column-gap: 1rem;
 
             span {
                 font-size: 0.8rem;
@@ -215,6 +253,16 @@ export const UserInfoStyled = styled.div`
 
             span > strong {
                 margin-right: 0.25rem;
+            }
+
+            span:nth-child(even) {
+                text-align: right;
+            }
+
+            @media(max-width: 768px){
+                span {
+                    font-size: 0.9rem;
+                }
             }
         }
 

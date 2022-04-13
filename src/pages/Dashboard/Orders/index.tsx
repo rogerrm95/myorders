@@ -255,7 +255,7 @@ export default function Orders() {
                                         <h1>Sem resultados</h1>
                                         <p>
                                             Para visualizar os detalhes de uma pedido,
-                                            basta selecionar um dos números a esquerda.
+                                            basta selecionar uma das comandas disponíveis.
                                         </p>
                                     </NoOrders>
                                 )

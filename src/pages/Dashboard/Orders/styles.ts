@@ -22,6 +22,25 @@ export const Container = styled.div<StatusProps>`
         gap: 2rem;
         padding: 1rem;
         margin: auto;
+
+        overflow: auto;
+
+        /* SCROLL-BAR */
+        ::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #040404; 
+        }
     }
 
     section {
@@ -90,12 +109,53 @@ export const Container = styled.div<StatusProps>`
     @media(max-width: 768px){
         grid-template-columns: 1fr;
         grid-template-rows: 5rem 1fr;
+
+        section {
+            flex-direction: column;
+            flex: 1;
+
+            .orders-id {
+                width: 100%;
+                max-width: 100%;
+                min-height: 12rem;
+
+                div {
+                    ul {
+                        align-self: flex-start;
+
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                        padding: 0 1rem;
+                    }
+
+                    li {
+                        font-size: 1.25rem;
+                        padding: 1rem 1.25rem;
+                        transition: border 0.1s ease-in-out;
+                        
+                        :hover{
+                            border-width: 2px;
+                            border-style: solid;
+                            border-color: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
+                            color: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
+                        }
+                    }
+
+                    .selected:hover{
+                        color: var(--white);
+                        padding: 1rem;
+                    }
+                }
+            }
+        }
     }
 `
 
 export const Order = styled.div<StatusProps>`
     width: 100%;
-
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;

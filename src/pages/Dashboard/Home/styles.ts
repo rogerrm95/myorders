@@ -82,7 +82,6 @@ export const ActiveOrdersContainer = styled.div`
         gap: 2rem;
     }
 
-    // Media Queries //
     @media(max-width: 1100px){
 
         margin-bottom: 1.5rem;
@@ -90,13 +89,6 @@ export const ActiveOrdersContainer = styled.div`
         .orders-container {
             flex-direction: column;
             align-items: center;
-        }
-    }
-
-    @media(max-width: 800px){
-
-        a {
-            display: none;
         }
     }
 `
