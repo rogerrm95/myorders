@@ -20,6 +20,7 @@ export const Container = styled.div`
         justify-content: center;
 
         border-bottom: 1px solid var(--primary);
+        cursor: pointer;
 
         span {
             text-align: center;
