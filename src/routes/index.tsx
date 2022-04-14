@@ -63,10 +63,10 @@ export default function Routes() {
             <Route component={EditOrder} path='/orders/edit/:id' exact />
             <Route component={DetailsOrder} path='/orders/details/:id' exact />
 
-            <Route component={Dashboard} path='/admin/home' exact />
-            <Route component={AdminOrders} path='/admin/pedidos' exact />
-            <Route component={AdminFoods} path='/admin/pratos' exact />
-            <Route component={Users} path='/admin/usuarios' exact />
+            <Route component={Dashboard} path='/dashboard' exact />
+            <Route component={AdminOrders} path='/dashboard/pedidos' exact />
+            <Route component={AdminFoods} path='/dashboard/pratos' exact />
+            <Route component={Users} path='/dashboard/usuarios' exact />
 
             <Route path='*' component={isSigned ? Home : Login} />
         </Switch>
