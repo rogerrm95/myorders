@@ -11,6 +11,17 @@ export const Form = styled.form`
         display: flex;
         justify-content: center;
     }
+
+    @media(max-width: 768px){
+        .third-line{
+            flex-direction: column;
+            gap: 1.25rem;
+
+            div:nth-child(2) span{
+                align-self: flex-start;
+            }
+        }
+    }
 `
 
 export const ButtonGroup = styled.div`
@@ -25,6 +36,12 @@ export const ButtonGroup = styled.div`
     span {
         font-size: 1.25rem;
     }
+
+    @media(max-width: 768px){
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
 `
 
 export const XButton = styled.button`
@@ -32,6 +49,7 @@ export const XButton = styled.button`
     right: 2rem;
     top: 1rem;
     place-items: center;
+    padding: 0.5rem;
 
     border-radius: 4px;
     background: var(--primary);

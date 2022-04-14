@@ -16,6 +16,18 @@ export const Form = styled.form`
         grid-template-columns: 1fr 2fr;
         gap: 1.25rem;
     }
+
+    @media(max-width: 768px){
+        .second-line, .third-line{
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+
+            div:nth-child(2) span{
+                align-self: flex-start;
+            }
+        }
+    }
 `
 
 export const ButtonGroup = styled.div`

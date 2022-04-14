@@ -120,6 +120,8 @@ export default function Users() {
                                             <hr />
                                         </Fragment>
                                     ))
+
+
                                 ) : (
                                     <div className='loading'>
                                         <Spinner />
@@ -209,7 +211,7 @@ export default function Users() {
                 </section>
 
                 <button className='new-user-button' onClick={() => setIsModalNewUserOpen(true)}>
-                   + Clique aqui para criar um novo usuário
+                    + Clique aqui para criar um novo usuário
                 </button>
 
             </main>
@@ -231,12 +233,12 @@ export default function Users() {
             }
 
             {
-                isModalDeleteUserOpen && activeUser &&(
-                    <DeleteUserModal 
+                isModalDeleteUserOpen && activeUser && (
+                    <DeleteUserModal
                         id={activeUser.id}
-                        onModalClose={(e) => setIsModalDeleteUserOpen(e)}/>
-                        )
-            }
-                    </Container>
+                        onModalClose={(e) => setIsModalDeleteUserOpen(e)} />
                 )
             }
+        </Container>
+    )
+}

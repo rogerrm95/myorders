@@ -66,7 +66,7 @@ export default function Home() {
                 <div className='menu-group'>
                     <ItemMenu image={PlateImage} path='/order/new' title="Nova Comanda" legend="Criar um novo pedido" icon={PlusIcon} />
                     <ItemMenu image={ScreenIcon} path='/orders' title="Gerenciar pedidos" legend="Gerenciar os pedidos de hoje" icon={RefreshIcon} />
-                    <ItemMenu image={HatImage} path='/admin/home' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} />
+                    <ItemMenu image={HatImage} path='/dashboard' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} />
                 </div>
             </main >
         </Container >

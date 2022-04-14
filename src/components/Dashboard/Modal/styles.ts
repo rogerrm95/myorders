@@ -17,10 +17,10 @@ export const Overlay = styled.div`
 export const Modal = styled.div`
     width: 100%;
     max-width: 600px;
-    min-height: 160px;
+    margin: 1.5rem 2rem;
 
-    background: var(--white);
     border-radius: 8px;
+    background: var(--white);
 
     position: relative;
     display: flex;

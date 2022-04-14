@@ -21,6 +21,10 @@ export const Container = styled.aside`
             display: none;
         }
 
+        h2 {
+            display: none;
+        }
+
         .logo-mini {
             display: none;
         }
@@ -79,6 +83,10 @@ export const Container = styled.aside`
                 &:hover{
                     filter: brightness(0.7) ;
                 }
+            }
+
+            h2 {
+                display: block;
             }
 
             hr {

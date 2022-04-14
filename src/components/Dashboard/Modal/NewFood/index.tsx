@@ -150,7 +150,7 @@ export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
             </ButtonGroup >
 
             <XButton className="x-button" onClick={closeModal}>
-                <FiX size={28} />
+                <FiX size={24} />
             </XButton>
         </Modal >
     )

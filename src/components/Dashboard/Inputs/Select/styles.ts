@@ -57,14 +57,14 @@ export const Container = styled.div`
         gap: 1rem;
         
         position: absolute;
-        left: 0;
+        right: 0;
         top: 4.5rem;
-        width: 95%;
+        width: 100%;
         z-index: 999;
 
         background-color: var(--background);
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
-        border-radius: 4px;
+        border-radius: 0px 0px 8px 8px;
 
         li {
             height: 2rem;

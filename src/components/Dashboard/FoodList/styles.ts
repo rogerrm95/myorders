@@ -1,52 +1,41 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-
-    overflow-x: auto;
-
+    width: 100%;
+    overflow: auto;
+    
     table {
         width: 100%;
         border-collapse: collapse;
-        min-width: 600px;
     }
 
     td, th {
         padding: 1rem 0;
-        width: 10rem;
         border-bottom: 1px solid var(--primary) ;
         text-align: left;
         line-height: 1.25rem;
-
-        /* Preço, Status e Ações */
-        &:nth-child(3), :nth-child(4), :nth-child(5){
-            text-align: center;
-        }
-
-        /* Nome */
-        &:nth-child(1) {
-            width: 300px;
-            padding: 1rem 0;
-        }
-
-        /* Descrição */
-        &:nth-child(2) {
-            width: 500px;
-            padding: 1rem 0;
-        }
     }
 
     th {
         height: 32px;
         font-size: 0.9rem;
+
+        &:nth-child(4), &:nth-child(5){
+            text-align: center;
+        }
     }
 
     td {
-        max-width: 200px ;
         font-size: 0.8rem;
-        padding: 1rem 1rem;
         
+        /* Nome */
+        &:nth-child(1){
+            width: 15%;
+        }
+
         /* Descrição */
         &:nth-child(2){
+            width: 40%;
             font-size: 0.7rem;
 
             span {
@@ -59,9 +48,21 @@ export const Container = styled.div`
             }
         }
 
+        /* Preço */
+        &:nth-child(3){
+            width: 15%;
+        }
+
         /* Status */
         &:nth-child(4){
+            width: 20%;
             font-size: 0.75rem;
+            text-align: center;
+        }
+
+        /* Ações */
+        &:nth-child(5){
+            width: 10%;
         }
 
         /* Preço */

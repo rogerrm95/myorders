@@ -42,8 +42,8 @@ export const Categories = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 1rem;
         flex-wrap: wrap;
+        gap: 1rem;
     }
 `
 
@@ -64,6 +64,12 @@ export const FoodList = styled.section`
             align-self: flex-end;
             color: var(--green-250);
             font-size: 0.9rem;
+        }
+
+        @media(max-width: 768px){
+            button {
+                font-size: 1.25rem;
+            }
         }
     }
 `

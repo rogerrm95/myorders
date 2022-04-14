@@ -30,7 +30,7 @@ export default function Dashboard() {
                             Pedidos Ativos
                             <MdFastfood size='32' />
                         </h1>
-                        <Link to='/admin/pedidos'>Visualizar todos os pedidos</Link>
+                        <Link to='/dashboard/pedidos'>Visualizar todos os pedidos</Link>
                     </div>
 
                     <div className='orders-container'>

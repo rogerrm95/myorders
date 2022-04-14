@@ -5,9 +5,28 @@ export const Container = styled.div`
 
     display: grid;
     grid-template-columns: 15rem 1fr;
-    overflow: hidden;
 
     background-color: var(--background);
+
+    overflow: auto;
+    
+    /* SCROLL-BAR */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--placeholder);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #040404; 
+    }
 
     main {
         height: 100%;
@@ -17,8 +36,6 @@ export const Container = styled.div`
         gap: 2rem;
         padding: 1rem;
         margin: auto;
-
-        overflow: auto;
     }
 
     section {
@@ -27,24 +44,6 @@ export const Container = styled.div`
         display: grid;
         grid-template-columns: 192px 1fr;
         gap: 1.25rem;
-    }
-
-    /* SCROLL-BAR */
-    & ::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    & ::-webkit-scrollbar-track {
-        background: var(--placeholder);
-    }
-    
-    & ::-webkit-scrollbar-thumb {
-        background: var(--primary);
-        border-radius: 8px;
-    }
-
-    & ::-webkit-scrollbar-thumb:hover {
-        background: #040404; 
     }
 
     .new-user-button {
@@ -64,6 +63,7 @@ export const Container = styled.div`
     @media(max-width: 768px){
         grid-template-columns: 1fr;
         grid-template-rows: 5rem 1fr;
+        height: 100%;
 
         section {
             display: flex;
@@ -178,7 +178,8 @@ export const UserListStyled = styled.aside`
     }
 
     @media(max-width: 768px){
-        min-height: 250px;
+        max-height: 20rem;
+        min-height: 20rem;
         height: 100%;
 
         ul {
@@ -311,6 +312,7 @@ export const UserInfoStyled = styled.div`
                 }
             }
         }
+
 
     }
 
