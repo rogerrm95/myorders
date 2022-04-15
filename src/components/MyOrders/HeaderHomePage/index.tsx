@@ -33,7 +33,7 @@ export function HeaderHomePage() {
 
             {
                 !!username && (
-                    <>
+                    <div>
                         <p>
                             Bem-vindo, <br />
                             <strong>{username}</strong>
@@ -43,7 +43,7 @@ export function HeaderHomePage() {
                             <span>Sair</span>
                             <FiLogOut size='16' />
                         </button>
-                    </>
+                    </div>
                 )
             }
 

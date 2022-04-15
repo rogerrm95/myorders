@@ -3,17 +3,23 @@ import styled from 'styled-components'
 export const Header = styled.header`
     flex: 1;
     display: flex;
-    justify-content: stretch;
     width: 100%;
-
+    gap: 1rem;
 
     img {
         width: 250px;
         height: 120px;
-    }   
+    }
+
+    div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 0;
+        gap: 0.5rem;
+    }
     
     p {
-        margin: 1rem 0.5rem;
         font-family: Roboto, sans-serif;
         font-size: 0.85rem;
         
@@ -24,7 +30,6 @@ export const Header = styled.header`
 
     button {
         display: flex;
-        margin: 1rem 0 auto auto;
         background: transparent;
 
         transition: 0.3s filter;
@@ -45,6 +50,13 @@ export const Header = styled.header`
 
         &:hover {
             filter: brightness(0.85);
+        }
+    }
+
+    @media(max-width: 768px){
+        img {
+            width: 200px;
+            height: 100px;
         }
     }
 `

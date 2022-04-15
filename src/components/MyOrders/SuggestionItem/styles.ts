@@ -50,4 +50,9 @@ export const Container = styled.div`
         font-size: 0.85rem;
     }
 
+    @media (max-width: 768px){
+        padding: 0.5rem 1rem;
+
+        gap: 0.75rem;
+    }
 `

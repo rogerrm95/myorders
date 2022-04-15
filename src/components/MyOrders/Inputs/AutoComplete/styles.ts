@@ -52,7 +52,7 @@ export const InputAutoComplete = styled.div`
 
         &::placeholder{
             color: var(--placeholder);
-            font: 1rem normal Roboto, sans-serif;
+            font: 1.15rem normal Roboto, sans-serif;
         }
     }
 

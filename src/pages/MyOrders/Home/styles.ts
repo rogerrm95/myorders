@@ -32,9 +32,18 @@ export const Container = styled.div`
             line-height: 2rem;
             color: var(--secondary);
         }
+
+        @media (max-width: 768px){
+            flex: 2;
+            align-items: flex-start;
+
+            & > img {
+                display: none;
+            }
+        }
     }
 
-    // Menu - Opções //
+    /* Menu */
     main {
         flex:5;
 
@@ -55,6 +64,16 @@ export const Container = styled.div`
         gap: 2rem;
 
         padding: 1rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    @media(max-width:768px){
+        main {
+            flex: 4;
+        }
+
+        .menu-group {
+            margin: auto 0;
+        }
     }
 `
 

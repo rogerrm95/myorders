@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Box = styled.div`
-    width: inherit;
+    width: 100%;
     display: flex;
     flex-direction:column;
     justify-content: flex-start;
@@ -23,6 +23,18 @@ export const Box = styled.div`
             align-items: center;
             border-radius: 8px;
         }
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-areas:
+            "food"
+            "unit"
+            "obs"
+            "button";
+            gap: 2rem;
+        }
+
     }
 
     // Botões //

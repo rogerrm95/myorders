@@ -18,6 +18,21 @@ export const Container = styled.div`
 
     form {
         display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas: 
+        "user"
+        "desk"
+        "qtdPeople"
+        "waiter";
+        gap: 1.5rem;
+    }
+
+    button svg {
+        stroke-width: 4;
+    }
+
+    @media (max-width: 768px){
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 110px);
         grid-template-areas: 
@@ -25,9 +40,5 @@ export const Container = styled.div`
         "desk qtdPeople"
         "waiter waiter";
         gap: 1.5rem 2rem;
-    }
-
-    button svg {
-        stroke-width: 4;
     }
 `
