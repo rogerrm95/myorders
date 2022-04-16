@@ -10,12 +10,12 @@ import FoodInServiceIcon from '../../../../assets/icons/plate-in-service.svg'
 import NoteIcon from '../../../../assets/icons/note.svg'
 import NumberIcon from '../../../../assets/icons/number.svg'
 // Components //
+import { AutoComplete } from '../../Inputs/AutoComplete'
 import { Button } from '../../Button'
 import { Input } from '../../Inputs/General'
 import { ItemList } from '../../ItemList'
 // Schema - Validação //
 import { Step1Schema } from './schema'
-import { AutoComplete } from '../../Inputs/AutoComplete'
 // Styles //
 import { Box, Summary } from './styles'
 
@@ -42,14 +42,14 @@ export function Step1() {
     // Irá buscar todos os pratos cadastrados no sistema //
     // Pratos indisponíveis não serão listados //
     useEffect(() => {
+        async function loadListOfFoods() {
+            const data = await getAllFoods(true)
+            setFoods(data)
+        }
         loadListOfFoods()
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    })
-
-    async function loadListOfFoods() {
-        const data = await getAllFoods(true)
-        setFoods(data)
-    }
+    }, [])
 
     // Calculará o preço total do pedido //
     useEffect(() => {

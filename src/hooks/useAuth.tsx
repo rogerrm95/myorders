@@ -18,13 +18,15 @@ export const useAuth = () => {
         setIsLoading(true)
 
         const data = await api.post('/authenticate', user)
-            .then(res => res.data)
+            .then(res => {
+                api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+                return res.data
+            })
             .catch(error => {
                 setIsLoading(false)
                 toast.error(error.response.data.message)
             })
-
-        api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+                
         localStorage.setItem('@my-orders', JSON.stringify(data))
 
         setUser(data)

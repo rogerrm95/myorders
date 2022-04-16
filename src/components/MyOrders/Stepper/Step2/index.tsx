@@ -49,7 +49,7 @@ export function Step2() {
 
         loadWaiters()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    })
+    },[])
 
     async function handleUpdateOrder() {
         setIsLoading(true)

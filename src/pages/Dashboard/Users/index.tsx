@@ -50,19 +50,20 @@ export default function Users() {
     const [activeUser, setActiveUser] = useState<UserProps | null>(null)
 
     useEffect(() => {
+        async function loadUser() {
+            const data = await api.get('/users')
+                .then(res => {
+                    return res.data
+                }).catch(error => {
+                    toast.error(error.response.data.message)
+                })
+    
+            setUserList(data)
+        }
+
         loadUser()
-    })
+    }, [])
 
-    async function loadUser() {
-        const data = await api.get('/users')
-            .then(res => {
-                return res.data
-            }).catch(error => {
-                toast.error(error.response.data.message)
-            })
-
-        setUserList(data)
-    }
 
     // Carregar os dados do usuário selecionado //
     function handleLoadInfoOfUser(user: User) {
@@ -104,7 +105,7 @@ export default function Users() {
                 <section>
                     <UserListStyled>
                         <h2>Usuários</h2>
-                        <ul onClick={loadUser}>
+                        <ul>
                             {
                                 userList ? (
                                     userList.map((user, index: number) => (

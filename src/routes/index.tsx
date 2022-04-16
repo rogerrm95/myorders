@@ -1,7 +1,6 @@
 import { api } from '../services/api'
 // Hooks //
 import { useEffect } from 'react'
-import { useOrders } from '../hooks/useOrders'
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 // PAGES //
@@ -20,7 +19,6 @@ import Users from '../pages/Dashboard/Users'
 
 export default function Routes() {
     const { push } = useHistory()
-    const { getOrders } = useOrders()
     const { signOut, isSigned, setIsSigned } = useAuth()
 
     // Verifica se o usuário está autorizado; //
@@ -36,7 +34,6 @@ export default function Routes() {
 
             await api.get('/')
                 .then(_ => {
-                    getOrders()
                     setIsSigned(true)
                 })
                 .catch(_ => {
