@@ -46,24 +46,18 @@ export default function Users() {
     const [isModalUpdateUserOpen, setIsModalUpdateUserOpen] = useState(false)
     const [isModalDeleteUserOpen, setIsModalDeleteUserOpen] = useState(false)
     // Dados do Usuário //
-    const [userList, setUserList] = useState<User[]>([] as User[])
+    const [userList, setUserList] = useState<User[]>([])
     const [activeUser, setActiveUser] = useState<UserProps | null>(null)
 
     useEffect(() => {
         async function loadUser() {
-            const data = await api.get('/users')
-                .then(res => {
-                    return res.data
-                }).catch(error => {
-                    toast.error(error.response.data.message)
-                })
-    
-            setUserList(data)
+            api.get('/users')
+                .then(res => setUserList(res.data))
+                .catch(error => toast.error(error.response.data.message))
         }
 
         loadUser()
     }, [])
-
 
     // Carregar os dados do usuário selecionado //
     function handleLoadInfoOfUser(user: User) {

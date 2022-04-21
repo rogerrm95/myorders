@@ -29,18 +29,11 @@ export default function Routes() {
         async function verifyAuthorization() {
             const dataJSON = localStorage.getItem('@my-orders')
 
-            if (!dataJSON) {
-                return push('/login')
-            }
-            else {
-                const data = JSON.parse(dataJSON)
-                //api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
-                console.log(api.defaults.headers.common['Authorization'])
-            }
+            if (!dataJSON) return push('/login')
 
             await api.get('/')
                 .then(_ => isMounted && setIsSigned(true))
-                //.catch(_ => signOut())
+                .catch(_ => signOut())
         }
 
         verifyAuthorization()
