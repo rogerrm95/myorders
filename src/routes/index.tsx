@@ -1,7 +1,7 @@
 import { api } from '../services/api'
 // Hooks //
 import { useEffect } from 'react'
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
+import { Switch, Route, useHistory } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 // PAGES //
 // Garçom //
@@ -19,34 +19,37 @@ import Users from '../pages/Dashboard/Users'
 
 export default function Routes() {
     const { push } = useHistory()
-    const { signOut, isSigned, setIsSigned } = useAuth()
+    const { isSigned, setIsSigned, signOut } = useAuth()
 
     // Verifica se o usuário está autorizado; //
     // Senão estiver, o redireciona para a página de login //
     useEffect(() => {
+        let isMounted = true
+
         async function verifyAuthorization() {
             const dataJSON = localStorage.getItem('@my-orders')
 
-            if (!dataJSON) return push('/login')
-
-            const data = JSON.parse(dataJSON)
-            api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+            if (!dataJSON) {
+                return push('/login')
+            }
+            else {
+                const data = JSON.parse(dataJSON)
+                //api.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+                console.log(api.defaults.headers.common['Authorization'])
+            }
 
             await api.get('/')
-                .then(_ => {
-                    setIsSigned(true)
-                })
-                .catch(_ => {
-                    signOut()
-                })
+                .then(_ => isMounted && setIsSigned(true))
+                //.catch(_ => signOut())
         }
 
         verifyAuthorization()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSigned])
 
-    // Se não estiver logado, redireciona para tela de login //
-    !isSigned && <Redirect to={'/login'} push />
+        return () => {
+            isMounted = false
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [setIsSigned, isSigned])
 
     return (
         <Switch>
