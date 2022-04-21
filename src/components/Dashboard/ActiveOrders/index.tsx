@@ -27,10 +27,6 @@ export function ActiveOrders({ title, status, Icon }: ActiveOrdersProps) {
         const data = orders.filter(order => order.status === status && order)
         setOrderList(data)
 
-        const time = setInterval(() => { getOrders() }, 10000)
-
-        return () => clearInterval(time)
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orders, status, getOrdersByStatus])
 

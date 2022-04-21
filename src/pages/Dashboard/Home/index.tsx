@@ -9,12 +9,23 @@ import { FaCheckCircle, FaClock } from 'react-icons/fa'
 import { GiCookingPot } from 'react-icons/gi'
 import HeroImage from '../../../assets/dashboard-hero.svg'
 // Styles //
-import { Container, ActiveOrdersContainer } from './styles' 
+import { Container, ActiveOrdersContainer } from './styles'
+import { useEffect } from 'react'
+import { useOrders } from '../../../hooks/useOrders'
 
 export default function Dashboard() {
+    const { getOrders } = useOrders()
+    useEffect(() => {
+        async function loadOrders() {
+            await getOrders()
+        }
+
+        loadOrders()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
         <Container>
-            <Navbar /> 
+            <Navbar />
 
             <main>
                 <Information
