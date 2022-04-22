@@ -60,10 +60,10 @@ export default function Users() {
     }, [])
 
     // Carregar os dados do usuário selecionado //
-    function handleLoadInfoOfUser(user: User) {
+    async function handleLoadInfoOfUser(user: User) {
         const age = CalculateAgeOfAnything(user.birthday).toString()
 
-        const orders = getOrdersByWaiter(user.id)
+        const orders = await getOrdersByWaiter(user.id)
 
         const sales = orders.map(order => {
             const id = order.id

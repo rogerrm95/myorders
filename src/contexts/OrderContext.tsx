@@ -17,8 +17,8 @@ interface OrderContextData {
     deleteOrder: (id: string) => Promise<void>,
     getOrdersByStatus: (status: string) => Order[] | [],
     getOrderById: (id: string) => Promise<Order | undefined>,
-    getOrders: () => Promise<void>,
-    getOrdersByWaiter: (waiterRef: number) => Order[],
+    getOrders: () => Promise<Order[]>,
+    getOrdersByWaiter: (waiterRef: number) => Promise<Order[]>,
     newOrder: (order: any) => Promise<object>,
     updateOrder: (order: any, id: string) => Promise<void>
 }
@@ -36,6 +36,8 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
             .catch(error => toast.error(error.response.data.message))
 
         setOrders(response)
+
+        return response
     }
 
     // GET - ORDER BY ID //
@@ -55,8 +57,8 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
 
     // GET - ORDER BY WAITER //
-    function getOrdersByWaiter(waiterRef: number) {
-        const ordersFiltered = orders.filter(order => order.waiter.id === +waiterRef)
+    async function getOrdersByWaiter(waiterRef: number) {
+        const ordersFiltered = await getOrders().then(res => res.filter(order => order.waiter.id === +waiterRef))
 
         if (ordersFiltered.length === 0) return []
 
