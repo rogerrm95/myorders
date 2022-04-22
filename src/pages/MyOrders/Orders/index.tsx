@@ -16,10 +16,16 @@ type OrderData = {
 }
 
 export default function Orders() {
-    const { orders } = useOrders()
+    const { getOrders, orders } = useOrders()
     const [list, setList] = useState<OrderData[]>([])
 
     useEffect(() => {
+        async function loadOrdersList(){
+           await getOrders()
+        }
+
+        loadOrdersList()
+
         const newList = orders.map(order => {
             const hour = new Date(order.createdAt).getHours().toString().padStart(2, "0")
             const minute = new Date(order.createdAt).getMinutes().toString().padStart(2, "0")
@@ -33,6 +39,7 @@ export default function Orders() {
         })
         const sort = sortOrders(newList)
         setList(sort)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orders])
 
     return (
