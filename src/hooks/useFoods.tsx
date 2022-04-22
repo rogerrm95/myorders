@@ -16,19 +16,21 @@ export const useFoods = () => {
 
     // GET FOODS //
     async function getAllFoods(onlyActive?: boolean) {
-        await api.get('/foods')
+        const response = await api.get('/foods')
             .then(res => {
                 const data = res.data as Food[]
 
                 if (onlyActive) {
                     const filteredList = data.filter(food => food.isActive && food)
                     setFoods(filteredList)
+                    return filteredList
                 } else {
                     setFoods(data)
+                    return data
                 }
             })
 
-        return foods
+        return response
     }
 
     // GET FOOD BY ID //

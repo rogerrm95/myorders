@@ -30,9 +30,9 @@ type Food = {
 // Etapa 1: Adicionar itens ao pedido //
 export function Step1() {
     const { order, onNextPage, updateOrder } = useStepper()
-    const { getAllFoods } = useFoods()
+    const { getAllFoods, foods } = useFoods()
 
-    const [foods, setFoods] = useState([] as Food[]) // Lista dos itens vindo da API //
+    const [foodList, setFoodList] = useState([] as Food[]) // Lista dos itens vindo da API //
     const [food, setFood] = useState({} as Food)
     const [anotation, setAnotation] = useState('')
     const [units, setUnits] = useState(1)
@@ -42,9 +42,12 @@ export function Step1() {
     // Irá buscar todos os pratos cadastrados no sistema //
     // Pratos indisponíveis não serão listados //
     useEffect(() => {
+        async function loadListOfFoods() {
+            const response = await getAllFoods(true)
+            setFoodList(response)
+        }
+
         loadListOfFoods()
-        
-        return () => { setFoods([] as Food[]) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -56,11 +59,6 @@ export function Step1() {
             setTotal(value)
         }
     }, [order.items])
-
-    async function loadListOfFoods() {
-        const data = await getAllFoods(true)
-        setFoods(data)
-    }
 
     // Adiociona um item na tabela //
     async function handleAddItem() {
@@ -109,7 +107,7 @@ export function Step1() {
                     gridAreaName='food'
                     imageSrc={FoodInServiceIcon}
                     placeholder='Selecione os pratos ou bebidas...'
-                    items={foods}
+                    items={foodList}
                     onSelectedChange={setFood}
                     clearData={hasClean} />
 
