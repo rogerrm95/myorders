@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useFoods } from '../../../hooks/useFoods'
 // Componentes //
 import { InformationHeader } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
 import { CategoryIcon } from '../../../components/Dashboard/CategoryIcon'
 import { FoodList as FoodTable } from '../../../components/Dashboard/FoodList'
+import { NewFoodModal } from '../../../components/Dashboard/Modal/NewFood'
 // Imagens //
 import HeroImage from '../../../assets/food-hero-image.svg'
 import MainPlateImage from '../../../assets/icons/categories/main-plate.svg'
@@ -13,15 +15,32 @@ import SaladImage from '../../../assets/icons/categories/salad.svg'
 import SideDishesImage from '../../../assets/icons/categories/side-dishes.svg'
 import JuiceImage from '../../../assets/icons/categories/juice.svg'
 import DessertImage from '../../../assets/icons/categories/desserts.svg'
-
-import { Categories, Container, FoodList } from './styles' // Styles //
-import { NewFoodModal } from '../../../components/Dashboard/Modal/NewFood'
+// Types //
+import { Food } from '../../../types/Food'
+// Styles //
+import { Categories, Container, FoodList } from './styles'
 
 export default function Foods() {
+    const { getAllFoods, foods } = useFoods()
     const [categoryActive, setCategoryActive] = useState("Pratos Principais")
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [foodList, setFoodList] = useState<Food[]>([])
 
-    function handleOpenModal(){
+    useEffect(() => {
+        async function loadFoodList() {
+            await getAllFoods()
+        }
+
+        loadFoodList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        const listFiltered = foods.filter(food => food.category === categoryActive)
+        setFoodList(listFiltered)
+    }, [categoryActive, foods])
+
+    function handleOpenModal() {
         setIsModalOpen(!isModalOpen)
     }
 
@@ -58,14 +77,14 @@ export default function Foods() {
                         <button onClick={handleOpenModal}> + Novo </button>
                     </div>
 
-                    <FoodTable category={categoryActive} />
+                    <FoodTable category={categoryActive} list={foodList}/>
 
                 </FoodList>
             </main>
 
             {
                 isModalOpen && (
-                    <NewFoodModal onModalClose={(e) => setIsModalOpen(e)}/>
+                    <NewFoodModal onModalClose={(e) => setIsModalOpen(e)} />
                 )
             }
 

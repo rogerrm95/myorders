@@ -43,9 +43,9 @@ export function Step1() {
     // Pratos indisponíveis não serão listados //
     useEffect(() => {
         loadListOfFoods()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-
+        
         return () => { setFoods([] as Food[]) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Calculará o preço total do pedido //

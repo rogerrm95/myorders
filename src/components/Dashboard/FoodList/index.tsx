@@ -1,39 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
-import { useFoods } from '../../../hooks/useFoods' // Hook //
+import { useState } from 'react'
 import { FiEdit, FiTrash2 } from 'react-icons/fi' // Icones //
-import { Container } from './styles' // Styles //
 import { UpdateFoodModal } from '../Modal/UpdateFood'
 import { DeleteFoodModal } from '../Modal/DeleteFood'
+// Types //
+import { Food } from '../../../types/Food'
+// Styles //
+import { Container } from './styles'
 
 type FoodListProps = {
     category: string,
+    list: Food[]
 }
 
-type Foods = {
-    id: number | string,
-    name: string,
-    description: string,
-    price: string,
-    isActive: boolean
-}
-
-export function FoodList({ category }: FoodListProps) {
-    const { getAllFoods } = useFoods()
-    const [foods, setFoods] = useState<Foods[]>([] as Foods[])
+export function FoodList({ category, list }: FoodListProps) {
     const [activeFoodUpdating, setActiveFoodUpdating] = useState({} as any)
     // Modal //
     const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(false)
     const [deleteFoodModalIsOpen, setDeleteModalFoodIsOpen] = useState(false)
-
-    useEffect(() => {
-        getFoodsByCategory()
-    }, [category])
-
-    async function getFoodsByCategory() {
-        const data = await getAllFoods().then(data => data.filter(foods => foods.category === category))
-        setFoods(data)
-    }
 
     return (
         <Container>
@@ -50,7 +34,7 @@ export function FoodList({ category }: FoodListProps) {
 
                 <tbody>
                     {
-                        foods.map((food, index) => (
+                        list.map((food, index) => (
                             <tr key={index}>
                                 <td>{food.name}</td>
                                 <td>

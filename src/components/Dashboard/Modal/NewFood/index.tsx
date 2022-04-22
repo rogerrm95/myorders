@@ -46,8 +46,6 @@ export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
             isActive: status === 'Indisponível' ? false : true
         }
 
-        console.log(price)
-
         const regexMoney = /(\d*)+(,\d{2})/g
         const isValidPrice = data.price.match(regexMoney)
 

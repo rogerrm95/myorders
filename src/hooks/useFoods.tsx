@@ -1,5 +1,6 @@
 import { api } from "../services/api"
 import { uid } from 'uid/secure'
+import { useState } from "react"
 
 type Food = {
     id: number | string,
@@ -11,14 +12,23 @@ type Food = {
 }
 
 export const useFoods = () => {
+    const [foods, setFoods] = useState<Food[]>([])
 
     // GET FOODS //
     async function getAllFoods(onlyActive?: boolean) {
+        await api.get('/foods')
+            .then(res => {
+                const data = res.data as Food[]
 
-        const response: Food[] = await api.get('/foods')
-            .then(res => res.data)
+                if (onlyActive) {
+                    const filteredList = data.filter(food => food.isActive && food)
+                    setFoods(filteredList)
+                } else {
+                    setFoods(data)
+                }
+            })
 
-        return onlyActive ? response.filter(food => food.isActive && food) : response
+        return foods
     }
 
     // GET FOOD BY ID //
@@ -32,15 +42,14 @@ export const useFoods = () => {
     async function createNewFood(data: Food) {
         const uniqueID = uid(5)
 
-        const response: Food[] = await api.post(`/foods`, { ...data, id: uniqueID })
+        const newFood: Food = await api.post(`/foods`, { ...data, id: uniqueID }).then(res => res.data)
 
-        return response
+        return newFood
     }
 
     // POST FOODS - UPDATE //
     async function updateFood(data: Food) {
-
-        const response: Food[] = await api.patch(`/foods`, data)
+        const response: Food[] = await api.patch(`/foods`, data).then(res => res.data)
 
         return response
     }
@@ -50,5 +59,5 @@ export const useFoods = () => {
         await api.delete(`/foods/${id}`)
     }
 
-    return { getAllFoods, getFoodByID, createNewFood, updateFood, deleteFood }
+    return { getAllFoods, getFoodByID, createNewFood, updateFood, deleteFood, foods }
 }
