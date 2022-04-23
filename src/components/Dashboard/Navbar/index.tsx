@@ -14,7 +14,7 @@ import { useHistory } from 'react-router'
 
 export function Navbar() {
     const { location } = useHistory()
-    const navRef = useRef<HTMLElement>(null)
+    const asideRef = useRef<HTMLElement>(null)
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [headerTitle, setHeaderTitle] = useState('') // Disponível apenas no mobile //
@@ -36,7 +36,7 @@ export function Navbar() {
         const checkIfMouseClickedOutside = (e:any) => {
           // Se o menu estiver aberto e o evento de clique não for no menu //
           // Então o menu é fechado //
-          if (isMenuOpen && navRef.current && !navRef.current.contains(e.target)) {
+          if (isMenuOpen && asideRef.current && !asideRef.current.contains(e.target)) {
             setIsMenuOpen(false)
           }
         }
@@ -49,7 +49,7 @@ export function Navbar() {
       }, [isMenuOpen])
 
     return (
-        <Container>
+        <Container ref={asideRef}>
             <header>
                 <img src={Logo} alt="Logo" className='logo-full' />
                 <img src={LogoMini} alt="Logo" className='logo-mini' />
@@ -58,7 +58,7 @@ export function Navbar() {
                 <hr />
             </header>
 
-            <nav className={isMenuOpen ? 'menu-open' : ''} ref={navRef}>
+            <nav className={isMenuOpen ? 'menu-open' : ''}>
                 <NavMenuItem name='Dashboard' href="/dashboard" Icon={MdHome} />
                 <NavMenuItem name='Pedidos' href="/dashboard/pedidos" Icon={MdNoteAlt} />
                 <NavMenuItem name='Usuários' href="/dashboard/usuarios" Icon={FaUsers} />

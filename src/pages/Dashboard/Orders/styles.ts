@@ -210,7 +210,12 @@ export const Details = styled.div<StatusProps>`
         }
 
         p {
+            width: 90%;
             font-size: 1.25rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
         }
 
         span {
