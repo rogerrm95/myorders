@@ -28,7 +28,7 @@ export default function Routes() {
 
         async function verifyAuthorization() {
             const dataJSON = localStorage.getItem('@my-orders')
-
+            console.log("Executando...")
             if (!dataJSON) return push('/login')
 
             await api.get('/')
@@ -48,9 +48,9 @@ export default function Routes() {
         <Switch>
             <Route component={Home} path='/' exact />
 
-            {
-                !isSigned && <Route component={Login} path='/login' exact />
-            }
+
+            <Route component={Login} path='/login' exact />
+
             <Route component={Orders} path='/orders' exact />
             <Route component={NewOrder} path='/order/new' exact />
             <Route component={EditOrder} path='/orders/edit/:id' exact />

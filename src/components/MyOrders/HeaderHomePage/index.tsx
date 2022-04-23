@@ -23,6 +23,7 @@ export function HeaderHomePage() {
     })
 
     function handleLogout() {
+        localStorage.removeItem('@my-orders')
         setUsername(null)
         signOut()
     }
