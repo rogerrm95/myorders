@@ -19,7 +19,7 @@ type Order = {
 }
 
 export function ActiveOrders({ title, status, Icon }: ActiveOrdersProps) {
-    const { orders, getOrdersByStatus, getOrders } = useOrders()
+    const { orders } = useOrders()
 
     const [orderList, setOrderList] = useState([] as Order[])
 
@@ -28,7 +28,7 @@ export function ActiveOrders({ title, status, Icon }: ActiveOrdersProps) {
         setOrderList(data)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orders, status, getOrdersByStatus])
+    }, [orders])
 
 
     return (

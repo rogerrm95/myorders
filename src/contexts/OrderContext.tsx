@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { useHistory } from "react-router";
 import { uid } from 'uid/secure'
 import { api } from '../services/api';
@@ -14,6 +14,7 @@ interface OrderContextProviderProps {
 
 interface OrderContextData {
     orders: Order[],
+    qtdOrdersFinished: number
     deleteOrder: (id: string) => Promise<void>,
     getOrdersByStatus: (status: string) => Order[] | [],
     getOrderById: (id: string) => Promise<Order | undefined>,
@@ -28,6 +29,14 @@ export const OrderContext = createContext<OrderContextData>({} as OrderContextDa
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
     const { push } = useHistory()
     const [orders, setOrders] = useState<Order[]>([])
+    const [qtdOrdersFinished, setQtdOrdersFinished] = useState(0)
+
+    useEffect(() => {
+        const listOfOrdersFinished = orders.filter(order => order.status === 'Pronto' && order)
+        setQtdOrdersFinished(listOfOrdersFinished.length)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orders])
 
     // GET - PEDIDOS //
     async function getOrders() {
@@ -116,6 +125,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         <OrderContext.Provider
             value={{
                 orders,
+                qtdOrdersFinished,
                 deleteOrder,
                 getOrdersByStatus,
                 getOrderById,

@@ -15,6 +15,7 @@ import { useOrders } from '../../../hooks/useOrders'
 
 export default function Dashboard() {
     const { getOrders } = useOrders()
+   
     useEffect(() => {
         async function loadOrders() {
             await getOrders()
@@ -23,6 +24,7 @@ export default function Dashboard() {
         loadOrders()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
     return (
         <Container>
             <Navbar />

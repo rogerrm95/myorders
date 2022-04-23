@@ -28,7 +28,7 @@ import { Container } from './styles'
 
 export function Step2() {
     const { order } = useStepper()
-    const { newOrder, updateOrder } = useOrders()
+    const { newOrder, updateOrder, orders } = useOrders()
     const { getAllUsers } = useUsers()
     const { id }: any = useParams()
     const { push }: any = useHistory()
@@ -98,7 +98,8 @@ export function Step2() {
                             toast.success(`Pedido atualizado! Nº ${id}`)
                             setIsLoading(false)
                             createBrowserHistory()
-                            push('/')
+                            console.log(orders)
+                            //push('/')
                         }).catch(error => toast.error("Não foi possível executar ação, tente novamente - 1"))
                 } else {
                     newOrder({ ...data, createdAt: String(new Date()) })

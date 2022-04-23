@@ -16,16 +16,22 @@ import { FiAlertTriangle } from 'react-icons/fi'
 import { Container, NotificationBox } from './styles'
 
 export default function Home() {
-    const { getOrdersByStatus } = useOrders()
-
+    const { qtdOrdersFinished, getOrders } = useOrders()
     const [amountOrdersToService, setAmountOrdersToService] = useState(0)
+
+    useEffect(() => {
+        async function loadFinishedOrders(){
+            await getOrders()
+        }
+
+        loadFinishedOrders()
+    },[])
 
     // Exibe a quantidade de pedidos disponíveis para retirada //
     useEffect(() => {
-        const qtdOrders = getOrdersByStatus('Pronto')
-        qtdOrders && setAmountOrdersToService(qtdOrders.length)
+        setAmountOrdersToService(qtdOrdersFinished)
 
-    }, [getOrdersByStatus])
+    }, [qtdOrdersFinished])
 
     return (
         <Container>
