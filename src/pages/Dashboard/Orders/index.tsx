@@ -47,15 +47,14 @@ export default function Orders() {
     const [ordersList, setOrdersList] = useState([] as OrderData[])
     const [selectOrder, setSelectOrder] = useState({} as OrderData)
     const [isOrderFinished, setIsOrderFinished] = useState(false)
-    const [status, setStatus] = useState('Preparando' as Status)
+    const [status, setStatus] = useState('Aguardando' as Status)
     const [costTotal, setCostTotal] = useState('0,00')
 
     // Carrega a lista de pedidos de acordo com o status //
     useEffect(() => {
         async function loadOrdersByStatus() {
             const data = await getOrdersByStatus(status)
-            console.log(data)
-            data.length > 0 ? setOrdersList(data) : setOrdersList([])
+            setOrdersList(data)
         }
 
         loadOrdersByStatus()

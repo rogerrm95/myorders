@@ -16,7 +16,7 @@ interface OrderContextData {
     orders: Order[],
     qtdOrdersFinished: number
     deleteOrder: (id: string) => Promise<void>,
-    getOrdersByStatus: (status: string) => Order[] | [],
+    getOrdersByStatus: (status: string) => Promise<Order[]>,
     getOrderById: (id: string) => Promise<Order | undefined>,
     getOrders: () => Promise<Order[]>,
     getOrdersByWaiter: (waiterRef: number) => Promise<Order[]>,
@@ -78,9 +78,11 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
 
     // GET - ORDER BY STATUS //
-    function getOrdersByStatus(status: string) {
-        if (orders) {
-            const list = orders.filter(order => order.status === status && order)
+    async function getOrdersByStatus(status: string) {
+        const data = await getOrders()
+
+        if (data) {
+            const list = data.filter(order => order.status === status && order)
 
             return list
         }
