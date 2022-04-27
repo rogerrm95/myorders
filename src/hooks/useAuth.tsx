@@ -38,6 +38,10 @@ export const useAuth = () => {
     function signOut() {
         delete api.defaults.headers.common['Authorization']
         setIsSigned(false)
+        
+        const hasLocalStorageData = !!localStorage.getItem('@my-orders')
+        hasLocalStorageData && localStorage.removeItem('@my-orders')
+
         push('/login')
     }
 
