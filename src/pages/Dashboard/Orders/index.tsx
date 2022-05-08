@@ -42,7 +42,7 @@ type Item = {
 type Status = 'Pronto' | 'Preparando' | 'Aguardando'
 
 export default function Orders() {
-    const { getOrdersByStatus, getOrders, updateOrder, deleteOrder } = useOrders()
+    const { getOrdersByStatus, updateOrder, deleteOrder } = useOrders()
 
     const [ordersList, setOrdersList] = useState([] as OrderData[])
     const [selectOrder, setSelectOrder] = useState({} as OrderData)
@@ -88,7 +88,6 @@ export default function Orders() {
 
         await updateOrder(newData, selectOrder.id)
             .then(_ => {
-                getOrders()
                 setSelectOrder(newData)
                 toast.success('Item excluído')
             })
@@ -120,6 +119,8 @@ export default function Orders() {
     async function handleDeleteOrder() {
         await deleteOrder(selectOrder.id)
             .then((_) => {
+                const newOrderList = ordersList.filter(order => order.id !== selectOrder.id)
+                setOrdersList(newOrderList)
                 setSelectOrder({} as OrderData)
             })
     }

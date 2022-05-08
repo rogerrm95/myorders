@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 import { useHistory } from "react-router";
 import { uid } from 'uid/secure'
 import { api } from '../services/api';
@@ -14,7 +14,6 @@ interface OrderContextProviderProps {
 
 interface OrderContextData {
     orders: Order[],
-    qtdOrdersFinished: number
     deleteOrder: (id: string) => Promise<void>,
     getOrdersByStatus: (status: string) => Promise<Order[]>,
     getOrderById: (id: string) => Promise<Order | undefined>,
@@ -28,15 +27,7 @@ export const OrderContext = createContext<OrderContextData>({} as OrderContextDa
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
     const { push } = useHistory()
-    const [orders, setOrders] = useState<Order[]>([])
-    const [qtdOrdersFinished, setQtdOrdersFinished] = useState(0)
-
-    useEffect(() => {
-        const listOfOrdersFinished = orders.filter(order => order.status === 'Pronto' && order)
-        setQtdOrdersFinished(listOfOrdersFinished.length)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [orders])
+    const [orders, setOrders] = useState<Order[]>([] as Order[])
 
     // GET - PEDIDOS //
     async function getOrders() {
@@ -79,14 +70,13 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
 
     // GET - ORDER BY STATUS //
     async function getOrdersByStatus(status: string) {
-        const data = await getOrders()
-
-        if (data) {
-            const list = data.filter(order => order.status === status && order)
-
-            return list
+        if(orders.length === 0){
+            await getOrders()  
         }
-        return []
+
+        const list = orders.filter(order => order.status === status && order)
+
+        return list
     }
 
     // POST - ORDER //
@@ -106,7 +96,12 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     // UPDATE - ORDER //
     async function updateOrder(order: any, id: string) {
         await api.patch(`/orders/${id}`, order)
-            .then(_ => getOrders())
+            .then(_ => {
+                const newOrders = orders.map(item => {
+                    return item.id === id ? order : item 
+                })
+                setOrders(newOrders)
+            })
             .catch(error => toast.error(error.response.data.message))
     }
 
@@ -114,9 +109,9 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     async function deleteOrder(id: string) {
         await api.delete(`/orders/${id}`)
             .then(res => {
-                getOrders()
-                console.log(res.data.message)
-                //toast.success("Pedido Excluído")
+                const newOrders = orders.filter(order => order.id !== id)
+                setOrders(newOrders)
+                toast.success("Pedido Excluído")
             })
             .catch((error) => {
                 return toast.error(error.response.data.message)
@@ -127,7 +122,6 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         <OrderContext.Provider
             value={{
                 orders,
-                qtdOrdersFinished,
                 deleteOrder,
                 getOrdersByStatus,
                 getOrderById,
