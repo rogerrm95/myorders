@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react'
+import { useHistory } from 'react-router'
 import { useAuth } from '../../../hooks/useAuth'
 // Utils //
 import { toast } from 'react-toastify'
@@ -17,6 +18,7 @@ import PasswordIcon from '../../../assets/icons/lock.svg'
 import { Container, Footer } from './styles'
 
 export default function Login() {
+    const { push } = useHistory()
     const { signIn, isLoading } = useAuth()
 
     const [email, setEmail] = useState('')
@@ -31,7 +33,9 @@ export default function Login() {
 
             await LoginSchema.validate({ ...user }, { abortEarly: false })
                 .then(_ => {
-                    signIn(user).catch(error => toast.error(error))
+                    signIn(user)
+                        .then(() => push('/'))
+                        .catch(error => toast.error(error))
                 })
                 .catch(err => {
                     err.errors.map((error: string) => (

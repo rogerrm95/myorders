@@ -1,8 +1,10 @@
 import { api } from '../services/api'
 // Hooks //
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Switch, Route, useHistory } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+// Componentes //
+import { Spinner } from '../components/MyOrders/Spinner'
 // PAGES //
 // Garçom //
 import DetailsOrder from '../pages/MyOrders/DetailsOrder'
@@ -18,22 +20,28 @@ import AdminFoods from '../pages/Dashboard/Foods'
 import Users from '../pages/Dashboard/Users'
 
 export default function Routes() {
-    const { push } = useHistory()
+    const { replace } = useHistory()
     const { isSigned, setIsSigned, signOut } = useAuth()
+    const [isLoading, setIsLoading] = useState(false)
 
     // Verifica se o usuário está autorizado; //
     // Senão estiver, o redireciona para a página de login //
     useEffect(() => {
+        setIsLoading(true)
         let isMounted = true
 
         async function verifyAuthorization() {
             const dataJSON = localStorage.getItem('@my-orders')
-            console.log("Executando...")
-            if (!dataJSON) return push('/login')
+
+            if (!dataJSON) {
+                setIsLoading(false)
+                return replace('/login')
+            }
 
             await api.get('/')
                 .then(_ => isMounted && setIsSigned(true))
                 .catch(_ => signOut())
+                .finally(() => setIsLoading(false))
         }
 
         verifyAuthorization()
@@ -43,6 +51,8 @@ export default function Routes() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setIsSigned, isSigned])
+
+    if (isLoading) return <Spinner />
 
     return (
         <Switch>
