@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useFoods } from '../../../hooks/useFoods'
 import { FiEdit, FiTrash2 } from 'react-icons/fi' // Icones //
 import { UpdateFoodModal } from '../Modal/UpdateFood'
 import { DeleteFoodModal } from '../Modal/DeleteFood'
@@ -7,17 +8,45 @@ import { DeleteFoodModal } from '../Modal/DeleteFood'
 import { Food } from '../../../types/Food'
 // Styles //
 import { Container } from './styles'
+import { Spinner } from '../../MyOrders/Spinner'
 
 type FoodListProps = {
     category: string,
-    list: Food[]
 }
 
-export function FoodList({ category, list }: FoodListProps) {
+export function FoodList({ category }: FoodListProps) {
+    const { getAllFoods, foods } = useFoods()
+
     const [activeFoodUpdating, setActiveFoodUpdating] = useState({} as any)
+    const [foodList, setFoodList] = useState<Food[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+
     // Modal //
     const [newFoodModalIsOpen, setNewModalFoodIsOpen] = useState(false)
     const [deleteFoodModalIsOpen, setDeleteModalFoodIsOpen] = useState(false)
+
+    useEffect(() => {
+        setIsLoading(true)
+        async function loadFoodList() {
+            await getAllFoods().then(_ => setIsLoading(false))
+        }
+
+        loadFoodList()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        const listFiltered = foods.filter(food => food.category === category)
+        setFoodList(listFiltered)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [category, foods])
+
+    function handleUpdateListOfFoods(newItem: Food) {
+        const newList = foodList.map(food => food.id === newItem.id ? newItem : food)
+        setFoodList(newList)
+    }
+
+    if (isLoading) return <Spinner />
 
     return (
         <Container>
@@ -34,7 +63,7 @@ export function FoodList({ category, list }: FoodListProps) {
 
                 <tbody>
                     {
-                        list.map((food, index) => (
+                        foodList.map((food, index) => (
                             <tr key={index}>
                                 <td>{food.name}</td>
                                 <td>
@@ -69,13 +98,21 @@ export function FoodList({ category, list }: FoodListProps) {
             </table>
             {
                 newFoodModalIsOpen && (
-                    <UpdateFoodModal onModalClose={(e) => setNewModalFoodIsOpen(e)} values={activeFoodUpdating} />
+                    <UpdateFoodModal
+                        values={activeFoodUpdating}
+                        onModalClose={(e) => setNewModalFoodIsOpen(e)}
+                        onUpdate={(updatedList) => handleUpdateListOfFoods(updatedList)}
+                    />
                 )
             }
 
             {
                 deleteFoodModalIsOpen && (
-                    <DeleteFoodModal onModalClose={(e) => setDeleteModalFoodIsOpen(e)} id={activeFoodUpdating.id} />
+                    <DeleteFoodModal
+                        id={activeFoodUpdating.id}
+                        onModalClose={(e) => setDeleteModalFoodIsOpen(e)}
+                        onDelete={(newList) => setFoodList(newList)}
+                    />
                 )
             }
 

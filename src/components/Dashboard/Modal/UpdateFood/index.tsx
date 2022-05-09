@@ -21,8 +21,9 @@ import { TextArea } from "../../Inputs/TextArea";
 import { Spinner } from "../../../MyOrders/Spinner";
 
 interface UpdateFoodModalProps {
+    values?: Food,
     onModalClose: (hasCloseModal: boolean) => void,
-    values?: Food
+    onUpdate: (updatedList: Food) => void
 }
 
 type Food = {
@@ -31,10 +32,10 @@ type Food = {
     price: string,
     category: string,
     description: string,
-    isActive: string
+    isActive: boolean
 }
 
-export function UpdateFoodModal({ onModalClose, values }: UpdateFoodModalProps) {
+export function UpdateFoodModal({ onModalClose, onUpdate, values }: UpdateFoodModalProps) {
     const { updateFood } = useFoods()
 
     // Novo Item de Menu //
@@ -91,12 +92,13 @@ export function UpdateFoodModal({ onModalClose, values }: UpdateFoodModalProps) 
             .then(async () => {
                 // Enviando os dados para o back-end //
                 updateFood(data)
-                    .then(() => {
+                    .then((res) => {
                         handleResetFields()
                         closeModal()
                         setIsLoading(false)
+                        onUpdate(res)
                         toast.success('Produto adicionado')
-                    }).catch((_) => toast.error("Erro inesperado, tente novamente"))
+                    }).catch((err) => console.error(err))
             }).catch(err => {
                 err.errors.map((error: string) => (
                     toast.warning(error)

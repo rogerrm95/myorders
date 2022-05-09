@@ -74,7 +74,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
             await getOrders()  
         }
 
-        const list = orders.filter(order => order.status === status && order)
+        const list = orders.length === 0 ? [] : orders.filter(order => order.status === status && order)
 
         return list
     }

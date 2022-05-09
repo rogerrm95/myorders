@@ -2,15 +2,17 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { Modal } from '..'
 import { useFoods } from '../../../../hooks/useFoods'
+import { Food } from '../../../../types/Food'
 import { Spinner } from '../../../MyOrders/Spinner'
 import { Container } from './styles'
 
 interface DeleteFoodModalProps {
     id: string | number,
     onModalClose: (hasCloseModal: boolean) => void,
+    onDelete: (foodList: Food[]) => void
 }
 
-export function DeleteFoodModal({ id, onModalClose }: DeleteFoodModalProps) {
+export function DeleteFoodModal({ id, onModalClose, onDelete }: DeleteFoodModalProps) {
     const { deleteFood } = useFoods()
 
     const [isLoading, setIsLoading] = useState(false)
@@ -19,9 +21,10 @@ export function DeleteFoodModal({ id, onModalClose }: DeleteFoodModalProps) {
         setIsLoading(true)
 
         await deleteFood(id)
-            .then(_ => {
+            .then(res => {
                 setIsLoading(false)
                 onModalClose(false)
+                onDelete(res)
                 toast.success('Item deletado !')
             })
             .catch(_ => {
@@ -40,7 +43,7 @@ export function DeleteFoodModal({ id, onModalClose }: DeleteFoodModalProps) {
                 <div>
                     {
                         isLoading ? (
-                            <Spinner size={12} color='#E84A5F'/>
+                            <Spinner size={12} color='#E84A5F' />
                         ) : (
                             <>
                                 <button className='btn-cancel' onClick={() => onModalClose(false)}>

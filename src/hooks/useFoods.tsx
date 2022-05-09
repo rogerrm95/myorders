@@ -12,7 +12,7 @@ type Food = {
 }
 
 export const useFoods = () => {
-    const [foods, setFoods] = useState<Food[]>([])
+    const [foods, setFoods] = useState<Food[]>([] as Food[])
 
     // GET FOODS //
     async function getAllFoods(onlyActive?: boolean) {
@@ -45,20 +45,31 @@ export const useFoods = () => {
         const uniqueID = uid(5)
 
         const newFood: Food = await api.post(`/foods`, { ...data, id: uniqueID }).then(res => res.data)
+        const newListOfFood = [...foods, newFood]
+        setFoods(newListOfFood)
 
         return newFood
     }
 
     // POST FOODS - UPDATE //
     async function updateFood(data: Food) {
-        const response: Food[] = await api.patch(`/foods`, data).then(res => res.data)
+        const response = await api.patch(`/foods`, data).then(res => {
+            return res.data.data
+        })
 
-        return response
+        return response as Food
     }
 
     // DELETE FOOD //
     async function deleteFood(id: number | string) {
-        await api.delete(`/foods/${id}`)
+        const response = await api.delete(`/foods/${id}`).then(_ => {
+            const newList = foods.filter(food => food.id !== id)
+            setFoods(newList)
+
+            return newList
+        })
+
+        return response
     }
 
     return { getAllFoods, getFoodByID, createNewFood, updateFood, deleteFood, foods }

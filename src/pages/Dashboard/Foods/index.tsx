@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useFoods } from '../../../hooks/useFoods'
+import { useState } from 'react'
 // Componentes //
 import { InformationHeader } from '../../../components/Dashboard/InformationHeader'
 import { Navbar } from '../../../components/Dashboard/Navbar'
@@ -15,30 +14,12 @@ import SaladImage from '../../../assets/icons/categories/salad.svg'
 import SideDishesImage from '../../../assets/icons/categories/side-dishes.svg'
 import JuiceImage from '../../../assets/icons/categories/juice.svg'
 import DessertImage from '../../../assets/icons/categories/desserts.svg'
-// Types //
-import { Food } from '../../../types/Food'
 // Styles //
 import { Categories, Container, FoodList } from './styles'
 
 export default function Foods() {
-    const { getAllFoods, foods } = useFoods()
     const [categoryActive, setCategoryActive] = useState("Pratos Principais")
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [foodList, setFoodList] = useState<Food[]>([])
-
-    useEffect(() => {
-        async function loadFoodList() {
-            await getAllFoods()
-        }
-
-        loadFoodList()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useEffect(() => {
-        const listFiltered = foods.filter(food => food.category === categoryActive)
-        setFoodList(listFiltered)
-    }, [categoryActive, foods])
 
     function handleOpenModal() {
         setIsModalOpen(!isModalOpen)
@@ -77,7 +58,7 @@ export default function Foods() {
                         <button onClick={handleOpenModal}> + Novo </button>
                     </div>
 
-                    <FoodTable category={categoryActive} list={foodList}/>
+                    <FoodTable category={categoryActive} />
 
                 </FoodList>
             </main>
