@@ -52,7 +52,7 @@ export default function Routes() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setIsSigned, isSigned])
 
-    if (isLoading) return <Spinner />
+    if (isLoading) return <Spinner speed={1}/>
 
     return (
         <Switch>
