@@ -9,10 +9,11 @@ import { Container } from './styles'
 
 interface DeleteUserModalProps {
     id: number,
+    onDelete: (id: number | string) => void,
     onModalClose: (hasCloseModal: boolean) => void,
 }
 
-export function DeleteUserModal({ id, onModalClose }: DeleteUserModalProps) {
+export function DeleteUserModal({ id, onModalClose, onDelete }: DeleteUserModalProps) {
     const { deleteUser } = useUsers()
 
     const [isLoading, setIsLoading] = useState(false)
@@ -24,6 +25,7 @@ export function DeleteUserModal({ id, onModalClose }: DeleteUserModalProps) {
             .then(_ => {
                 setIsLoading(false)
                 onModalClose(false)
+                onDelete(id)
             })
             .catch(_ => {
                 setIsLoading(false)

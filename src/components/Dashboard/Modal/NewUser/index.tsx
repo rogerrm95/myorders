@@ -17,9 +17,10 @@ import { Spinner } from "../../../MyOrders/Spinner";
 import { InputDate } from "../../Inputs/InputDate";
 
 interface UpdateUserProps {
+    onCreateUser: (userID: unknown) => void,
     onModalClose: (hasCloseModal: boolean) => void,
 }
-export function NewUserModal({ onModalClose }: UpdateUserProps) {
+export function NewUserModal({ onCreateUser, onModalClose }: UpdateUserProps) {
     const { createUser } = useUsers()
 
     // Dados do usuário //
@@ -56,10 +57,11 @@ export function NewUserModal({ onModalClose }: UpdateUserProps) {
         // Validação dos dados //
         await NewUserSchema.validate(data)
             .then(() => {
-                createUser(data).then(_ => {
+                createUser(data).then(res => {
                     setIsLoading(false)
                     onModalClose(false)
                     handleResetFields()
+                    onCreateUser(res)
                 })
             }).catch(err => {
                 err.errors.map((error: string) => (

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useUsers } from "../../../../hooks/useUsers";
-import { ButtonGroup, Form, XButton } from "./styles"; // Styles //
 // Utils //
 import { toast } from "react-toastify";
 // Schema - Validação //
@@ -15,11 +14,16 @@ import { Input } from "../../Inputs/Input";
 import { Radio } from "../../Inputs/Radio";
 import { Spinner } from "../../../MyOrders/Spinner";
 import { InputDate } from "../../Inputs/InputDate";
+// Types //
+import User from "../../../../types/User";
+// Styles //
+import { ButtonGroup, Form, XButton } from "./styles";
 
 interface UpdateUserProps {
     id: string | number | undefined,
     userSeleted: any | UserData,
     onModalClose: (hasCloseModal: boolean) => void,
+    onUpdateUser: (user: User) => void
 }
 
 type UserData = {
@@ -32,14 +36,13 @@ type UserData = {
     job: string,
 }
 
-export function UpdateUserModal({ id, userSeleted,onModalClose }: UpdateUserProps) {
+export function UpdateUserModal({ id, userSeleted, onModalClose, onUpdateUser }: UpdateUserProps) {
     const { updateUser } = useUsers()
     // Dados do usuário //
     const [name, setName] = useState(`${userSeleted.name} ${userSeleted.lastname}`)
     const [birthday, setBirthday] = useState(userSeleted.birthday)
     const [genre, setGenre] = useState(userSeleted.genre)
     const [password, setPassword] = useState('')
-    const [email, setEmail] = useState(userSeleted.email)
     const [phone, setPhone] = useState(userSeleted.phone)
     const [job, setJob] = useState(userSeleted.job)
 
@@ -59,16 +62,17 @@ export function UpdateUserModal({ id, userSeleted,onModalClose }: UpdateUserProp
             genre,
             phone: phone ? phone : null,
             job,
-            email,
+            email: userSeleted.email,
             password
         }
 
         // Validação dos dados //
         await UpdateUserSchema.validate(data)
             .then(() => {
-                updateUser(data).then(_ => {
+                updateUser(data).then(res => {
                     setIsLoading(false)
                     onModalClose(false)
+                    onUpdateUser(res)
                     handleResetFields()
                 })
             }).catch(err => {
@@ -128,8 +132,8 @@ export function UpdateUserModal({ id, userSeleted,onModalClose }: UpdateUserProp
                 </div>
                 <Input label='E-mail *'
                     placeholder='Ex: roger@test.com.br'
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={userSeleted.email}
+                    readOnly
                 />
 
                 <Input label='Senha'

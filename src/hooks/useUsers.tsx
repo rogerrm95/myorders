@@ -9,11 +9,10 @@ export const useUsers = () => {
     async function getAllUsers() {
         const data: User[] = await api.get('/users')
             .then(res => {
-                console.log(res.data)
                 return res.data
             })
             .catch(error => toast.error(error.response.data.message))
-
+    
         return data
     }
 
@@ -32,18 +31,28 @@ export const useUsers = () => {
     async function createUser(user: any) {
         const data: UserUpdateProps = user
 
-        await api.post(`users/`, data)
-            .then(_ => toast.success('Usuário criado'))
+        const response = await api.post(`users/`, data)
+            .then(res => {
+                toast.success('Usuário criado')
+                return res.data
+            })
             .catch(error => toast.error(error.response.data.message))
+
+        return response as User
     }
 
     // PUT USER //
     async function updateUser(user: any) {
         const data: UserUpdateProps = user
 
-        await api.put(`users/${user.id}`, data)
-            .then(_ => toast.success('Dados atualizados'))
+        const response = await api.put(`users/${user.id}`, data)
+            .then(res => {
+                toast.success('Dados atualizados')
+                return res.data
+            })
             .catch(error => toast.error(error.response.data.message))
+
+        return response
     }
 
     // DELETE USER //

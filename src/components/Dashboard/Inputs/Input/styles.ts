@@ -25,5 +25,10 @@ export const Container = styled.div`
             opacity: 0.5;
             font: 1rem normal Roboto, sans-serif;
         }
+
+        &:read-only{
+            opacity:0.3;
+            cursor: not-allowed;
+        }
     }
 `

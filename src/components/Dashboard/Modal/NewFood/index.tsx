@@ -61,9 +61,8 @@ export function NewFoodModal({ onModalClose }: NewFoodModalProps) {
                 // Enviando os dados para o back-end //
                 createNewFood(data)
                     .then(() => {
-                        handleResetFields()
-                        closeModal()
-                        setIsLoading(false)
+                        // eslint-disable-next-line no-restricted-globals
+                        location.reload()
                         toast.success('Produto adicionado')
                     }).catch((_) => toast.error("Erro inesperado, tente novamente"))
             }).catch(err => {

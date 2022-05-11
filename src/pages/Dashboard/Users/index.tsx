@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify'
 import { Fragment, useEffect, useState } from 'react'
-import { api } from '../../../services/api'
 // Hook //
 import { useOrders } from '../../../hooks/useOrders'
+import { useUsers } from '../../../hooks/useUsers'
 // Componentes //
 import { DeleteUserModal } from '../../../components/Dashboard/Modal/DeleteUser'
 import { NewUserModal } from '../../../components/Dashboard/Modal/NewUser'
@@ -15,6 +15,7 @@ import HeroImage from '../../../assets/user-hero-image.svg'
 import { FiSkipForward } from 'react-icons/fi'
 // Utils //
 import { CalculateValueTotal } from '../../../utils/CalculateValueTotal'
+import { SortArrayOfObjects } from '../../../utils/SortArray'
 import CalculateAgeOfAnything from '../../../utils/CalculateAge'
 import FormartHours from '../../../utils/FormartHours'
 // Types //
@@ -41,6 +42,7 @@ type DateProps = {
 
 export default function Users() {
     const { getOrdersByWaiter } = useOrders()
+    const { getAllUsers } = useUsers()
     // Modais //
     const [isModalNewUserOpen, setIsModalNewUserOpen] = useState(false)
     const [isModalUpdateUserOpen, setIsModalUpdateUserOpen] = useState(false)
@@ -51,12 +53,16 @@ export default function Users() {
 
     useEffect(() => {
         async function loadUser() {
-            api.get('/users')
-                .then(res => setUserList(res.data))
+            await getAllUsers()
+                .then(res => {
+                    const formattedUserList = SortArrayOfObjects(res, 'name')
+                    setUserList(formattedUserList)
+                })
                 .catch(error => toast.error(error.response.data.message))
         }
 
         loadUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // Carregar os dados do usuário selecionado //
@@ -81,6 +87,27 @@ export default function Users() {
         })
 
         setActiveUser({ ...user, age, sales })
+    }
+
+    // Exclui o usuário da lista //
+    function handleDeleteUser(id: string | number) {
+        const newList = userList.filter(user => user.id !== id)
+        setUserList(newList)
+    }
+
+    // Adiciona um usuário a lista //
+    function handleCreateUser(user: any) {
+        const data = [...userList, user] as User[]
+        const newList = SortArrayOfObjects(data, 'name')
+        setUserList(newList)
+    }
+
+    // Atualiza os dados de um usuário //
+    function handleUpdateUser(userUpdated: User) {
+        const data = userList.map(user => user.id === userUpdated.id ? userUpdated : user)
+        const newList = SortArrayOfObjects(data, 'name')
+        setActiveUser(null)
+        setUserList(newList)
     }
 
     return (
@@ -211,11 +238,12 @@ export default function Users() {
 
             </main>
 
-            {
+            { // MODAIS //
                 isModalUpdateUserOpen && (
                     <UpdateUserModal
                         id={activeUser?.id}
                         userSeleted={activeUser}
+                        onUpdateUser={(user) => handleUpdateUser(user)}
                         onModalClose={(e) => setIsModalUpdateUserOpen(e)}
                     />
                 )
@@ -223,7 +251,10 @@ export default function Users() {
 
             {
                 isModalNewUserOpen && (
-                    <NewUserModal onModalClose={(e) => setIsModalNewUserOpen(e)} />
+                    <NewUserModal
+                        onModalClose={(e) => setIsModalNewUserOpen(e)}
+                        onCreateUser={(e) => handleCreateUser(e)}
+                    />
                 )
             }
 
@@ -231,6 +262,7 @@ export default function Users() {
                 isModalDeleteUserOpen && activeUser && (
                     <DeleteUserModal
                         id={activeUser.id}
+                        onDelete={(user) => handleDeleteUser(user)}
                         onModalClose={(e) => setIsModalDeleteUserOpen(e)} />
                 )
             }
