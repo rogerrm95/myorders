@@ -54,7 +54,8 @@ export default function Login() {
             <section>
                 <article>
                     <h1>
-                        Bem-vindo, ao MyOrders
+                        Bem-vindo, <br/>
+                        Venha conhecer nossa comanda online
                     </h1>
 
                     <p>
@@ -89,7 +90,7 @@ export default function Login() {
                     <Button type="submit" color='#FFF' backgroundColor="#45545A">
                         {
                             isLoading ? (
-                                <Spinner color='#fff' size={8}/>
+                                <Spinner color='#fff' size={8} />
                             ) : (
                                 <span>
                                     Entrar
@@ -103,8 +104,10 @@ export default function Login() {
                 <Footer>
                     <span>
                         Problemas com seu acesso ?
-                        <a href={'/'}>Clique aqui</a>
                     </span>
+                    <a href={'/'}>
+                        Clique aqui
+                    </a>
                 </Footer>
             </main>
         </Container>

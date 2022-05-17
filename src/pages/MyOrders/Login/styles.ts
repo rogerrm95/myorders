@@ -42,6 +42,7 @@ export const Container = styled.div`
             }
         }
     }
+
     // Login //
     main {
         flex: 5;
@@ -54,7 +55,7 @@ export const Container = styled.div`
         padding: 1rem 5.5rem;
 
         background-color: var(--white);
-        border-radius: 50px 50px 0 0;
+        border-radius: 16px;
         filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.2));
 
         h1 {
@@ -82,24 +83,31 @@ export const Container = styled.div`
 `
 
 export const Footer = styled.footer`
-    margin-top: 1.5rem;
-
+    margin-top: 2rem;
+    display: flex;
+        
     span {
         font-size: 0.85rem;
         font-weight: 700;
+        
+    }
 
-        a {
-            margin-left: 0.5rem;
-            color: var(--red-500);
-            text-decoration: underline;
-        }
+    a {
+        margin-left: 0.5rem;
+        color: var(--red-500);
+        text-decoration: underline;
+        text-align: center;
     }
 
     @media(max-width:768px){
-        margin-top: 1.25rem;
-
         span, a {
             font-size: 1rem;
         }
+    }
+
+    // Smartphone //
+    @media(max-width:600px){
+        flex-direction: column;
+        gap: 0.75rem;
     }
 `
