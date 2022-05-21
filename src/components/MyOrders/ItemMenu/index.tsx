@@ -1,19 +1,15 @@
-import { Box, Card, IconBox, Labels } from './styles'
+import { AnchorHTMLAttributes } from "react";
+import { Box, IconBox, Labels } from './styles'
 
-type ItemMenuProps = {
-    image: string,
-    path: string,
+interface ItemMenuProps extends AnchorHTMLAttributes<HTMLAnchorElement>  {
+    path?: string,
     title: string,
     legend: string,
     icon: string
 }
-export function ItemMenu({ image, path, title, legend, icon }: ItemMenuProps) {
+export function ItemMenu({ path, title, legend, icon, ...rest }: ItemMenuProps) {
     return (
-        <Box href={path}>
-            <Card>
-                <img src={image} alt={title} />
-            </Card>
-
+        <Box href={path} {...rest}>
             <Labels>
                 <h2>{title}</h2>
                 <p>{legend}</p>

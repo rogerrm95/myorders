@@ -7,7 +7,6 @@ import { LoginSchema } from './schema'
 // Components //
 import { Input } from '../../../components/MyOrders/Inputs/General'
 import { Button } from '../../../components/MyOrders/Button'
-import { HeaderHomePage as Header } from '../../../components/MyOrders/HeaderHomePage'
 import { Spinner } from '../../../components/MyOrders/Spinner'
 // Images & Icons //
 import { FiLogIn } from 'react-icons/fi'
@@ -49,8 +48,6 @@ export default function Login() {
 
     return (
         <Container>
-            <Header />
-
             <section>
                 <article>
                     <h1>

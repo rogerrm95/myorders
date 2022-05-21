@@ -1,34 +1,43 @@
-import { useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { useOrders } from '../../../hooks/useOrders'
+import { useAuth } from '../../../hooks/useAuth'
 // Components //
-import { HeaderHomePage as Header } from '../../../components/MyOrders/HeaderHomePage'
+import { Header } from './components/Header'
 import { ItemMenu } from '../../../components/MyOrders/ItemMenu'
 // Images & Icons //
 import WaiterImage from '../../../assets/waiter.png'
-import PlateImage from '../../../assets/icons/plates.png'
-import ScreenIcon from '../../../assets/icons/screen.png'
-import HatImage from '../../../assets/icons/chef-hat.png'
 import PlusIcon from '../../../assets/icons/plus.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import HatIcon from '../../../assets/icons/hat.svg'
 import { FiAlertTriangle } from 'react-icons/fi'
 // Styles //
 import { Container, NotificationBox } from './styles'
+import { useHistory } from 'react-router'
 
 export default function Home() {
     const { getOrdersByStatus, orders } = useOrders()
+    const { signOut } = useAuth()
+    const { push } = useHistory()
     const [amountOrdersToService, setAmountOrdersToService] = useState(0)
 
     // Exibe o número total de pedidos Prontos //
-     useEffect(() => {
-        async function loadFinishedOrders(){
+    useEffect(() => {
+        async function loadFinishedOrders() {
             const qtdOrdersToFinished = await getOrdersByStatus('Pronto').then(res => res.length)
             setAmountOrdersToService(qtdOrdersToFinished)
         }
 
         loadFinishedOrders()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[orders]) 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [orders])
+
+    function handleLogout(event: MouseEvent<HTMLAnchorElement>) {
+        event.preventDefault()
+
+        localStorage.removeItem('@my-orders')
+        signOut()
+        push('/login')
+    }
 
     return (
         <Container>
@@ -67,9 +76,10 @@ export default function Home() {
                 </NotificationBox>
 
                 <div className='menu-group'>
-                    <ItemMenu image={PlateImage} path='/order/new' title="Nova Comanda" legend="Criar um novo pedido" icon={PlusIcon} />
-                    <ItemMenu image={ScreenIcon} path='/orders' title="Gerenciar pedidos" legend="Gerenciar os pedidos de hoje" icon={RefreshIcon} />
-                    <ItemMenu image={HatImage} path='/dashboard' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} />
+                    <ItemMenu path='/order/new' title="Nova Comanda" legend="Criar um novo pedido" icon={PlusIcon} />
+                    <ItemMenu path='/orders' title="Gerenciar pedidos" legend="Gerenciar os pedidos de hoje" icon={RefreshIcon} />
+                    <ItemMenu path='/dashboard' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} />
+                    <ItemMenu title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} onClick={(e) => handleLogout(e)} />
                 </div>
             </main >
         </Container >
