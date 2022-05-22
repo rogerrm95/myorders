@@ -41,7 +41,9 @@ export default function Home() {
 
     return (
         <Container>
+            
             <Header />
+
             <section>
                 <article>
                     <h1>

@@ -1,88 +1,140 @@
 import styled from 'styled-components'
+import Background from '../../../assets/restaurant-login.png'
+import Blob from '../../../assets/blob-login.svg'
 
 export const Container = styled.div`
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
     height: 100%;
     margin: auto;
 
     display: flex;
-    flex-direction: column;
 
-    section {
-        flex: 2;
+    .banner {
+        flex: 1;
 
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin: 0 1.5rem;
+        align-items: flex-end;
 
-        h1, p {
-            font-family: Rambla, sans-serif;
+        background: transparent url(${Background}) no-repeat right;
+        background-size: cover;
+
+        article {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            height: 380px;
+            max-width: 440px;
+            padding: 0.75rem;
+
+            background: transparent url(${Blob}) no-repeat right;
+            background-size: cover; 
         }
 
-        h1 {
+        h2, p, span {
+            font-family: Rambla, sans-serif;
+            color: var(--white);
+            user-select: none;
+        }
+
+        h2 {
             font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+
+            &::first-letter{
+                color: var(--red-500);
+                font-size: 6rem;
+            }
+        }
+
+        p, span {
+            max-width: 75%;
         }
 
         p {
             font-size: 1.5rem;
             line-height: 2rem;
-            color: var(--secondary);
         }
 
-        @media(max-width:768px){
-            flex: 2;
-            align-items: flex-start;
+        span {
+            margin-top: 2.25rem;
+        }
 
-            & > img {
+        @media(max-width:900px){
+            & {
                 display: none;
             }
         }
     }
 
     // Login //
-    main {
-        flex: 5;
+    .login {
+        flex: 1;
 
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin: 0 1.5rem;
-        padding: 1rem 5.5rem;
 
-        background-color: var(--white);
-        border-radius: 16px;
-        filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.2));
-
-        h1 {
-            color: var(--primary);
-            font-size: 2.5rem;
+        img {
+            max-width: 330px;
         }
 
-        form {
-            align-self: stretch;
+        article {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+
+            padding: 1.5rem;
+            user-select: none;
+
+            h1 {
+                color: var(--primary);
+                font-size: 2.25rem;
+                max-width: 75%;
+            }
         }
-        
-        @media(max-width:768px){
-            flex: 4;
-            justify-content: space-evenly;
-            padding: 0rem 3.5rem;
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 2.5rem;
+
+
+            width: 100%;
+            max-width: 380px;
+            margin: auto;
+            padding: 2rem;
+
+            border-radius: 8px;
+            background: var(--white);
+            filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.1));
+
+            h2 {
+                align-self: center;
+            }
 
             form {
-                gap: 2rem;
+                align-self: stretch;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+            }
+
+        }
+        
+        @media (min-width: 900px) {
+            article {
+                display: none;
             }
         }
     }
 `
-
 export const Footer = styled.footer`
+    align-self: center;
+
     margin-top: 2rem;
     display: flex;
         

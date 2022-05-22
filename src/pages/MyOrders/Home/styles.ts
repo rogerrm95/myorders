@@ -8,10 +8,9 @@ export const Container = styled.div`
 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
     section {
-        flex: 2;
-
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -34,7 +33,6 @@ export const Container = styled.div`
         }
 
         @media (max-width: 768px){
-            flex: 2;
             align-items: flex-start;
 
             & > img {
@@ -45,8 +43,6 @@ export const Container = styled.div`
 
     /* Menu */
     main {
-        flex:5;
-
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -67,10 +63,6 @@ export const Container = styled.div`
     }
 
     @media(max-width:768px){
-        main {
-            flex: 4;
-        }
-
         .menu-group {
             margin: auto 0;
         }
