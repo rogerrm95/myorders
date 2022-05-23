@@ -34,7 +34,6 @@ export const Box = styled.div`
             "button";
             gap: 2rem;
         }
-
     }
 
     // Botões //

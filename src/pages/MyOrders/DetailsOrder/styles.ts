@@ -17,7 +17,7 @@ export const Container = styled.div<ContainerProps>`
         justify-content: space-between;
 
         h2 {
-            font-size: 2rem;
+            font-size: 1.75rem;
         }
 
         .status {
@@ -27,12 +27,19 @@ export const Container = styled.div<ContainerProps>`
             strong {
                 color: ${props => props.statusStyle ? statusColors[props.statusStyle] : 'none'};
                 margin-left: 0.5rem;
-                padding: 0.5rem;
                 border-radius: 0.5rem;
             }
+        
+            @media (max-width: 500px) {
+                & {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 1.15rem;
+                }
+            }        
         }
-
-
     }
 
     form {

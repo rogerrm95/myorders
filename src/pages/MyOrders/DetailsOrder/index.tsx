@@ -85,7 +85,7 @@ export default function DetailsOrder() {
 
                         <header>
                             <h2>{`Pedido Nº ${order.id}`}</h2>
-                            <span className='status'>Status
+                            <span className='status'>Status:
                                 <strong>
                                     {order.status}
                                 </strong>
