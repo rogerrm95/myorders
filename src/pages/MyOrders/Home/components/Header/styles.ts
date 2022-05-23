@@ -6,8 +6,7 @@ export const Container = styled.header`
     width: 100%;
     
     img {
-        width: 250px;
-        height: 120px;
+        width: 160px;
         object-fit: cover;
         margin-right: -0.75rem;
     }
@@ -50,12 +49,5 @@ export const Container = styled.header`
     span {        
         font-size: 0.75rem;
         color: var(--red-500);
-    }
-
-    @media(max-width: 768px){
-        img {
-            width: 160px;
-            height: 72px;
-        }
     }
 `

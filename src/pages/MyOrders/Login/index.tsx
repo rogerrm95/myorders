@@ -95,7 +95,7 @@ export default function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="**************" />
 
-                        <Button type="submit" color='#FFF' backgroundColor="#45545A">
+                        <Button type="submit" color='#FFF' backgroundColor="#45545A" height={3}>
                             {
                                 isLoading ? (
                                     <Spinner color='#fff' size={8} />

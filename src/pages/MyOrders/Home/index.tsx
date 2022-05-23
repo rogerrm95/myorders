@@ -5,11 +5,12 @@ import { useAuth } from '../../../hooks/useAuth'
 import { Header } from './components/Header'
 import { ItemMenu } from '../../../components/MyOrders/ItemMenu'
 // Images & Icons //
-import WaiterImage from '../../../assets/waiter.png'
 import PlusIcon from '../../../assets/icons/plus.svg'
 import RefreshIcon from '../../../assets/icons/refresh.svg'
 import HatIcon from '../../../assets/icons/hat.svg'
+import LogoutIcon from '../../../assets/icons/logout.svg'
 import { FiAlertTriangle } from 'react-icons/fi'
+import { FaHome } from 'react-icons/fa'
 // Styles //
 import { Container, NotificationBox } from './styles'
 import { useHistory } from 'react-router'
@@ -41,49 +42,58 @@ export default function Home() {
 
     return (
         <Container>
-            
-            <Header />
+            <section className='banner'>
+                <article>
+                    <h2>
+                        Página inicial
+                        <FaHome />
+                    </h2>
 
-            <section>
+                    <span>Aqui você terá praticidade e agilidade nos seus pedidos</span>
+                </article>
+            </section>
+
+            <section className='home'>
+                <Header />
+
                 <article>
                     <h1>
                         Página inicial
                     </h1>
 
                     <p>
-                        Selecione um dos menus e mão na massa.
+                        Selecione um dos menus <br/> e mão na massa
                     </p>
                 </article>
 
-                <img src={WaiterImage} alt="Garçom" />
-            </section>
+                <div>
+                    <NotificationBox hasOrders={!!amountOrdersToService}>
+                        {
+                            amountOrdersToService < 1 ?
+                                (
+                                    <>
+                                        <FiAlertTriangle color='#95A3A9' size={20} />
+                                        <span>Não há pedidos a serem retirados</span>
+                                    </>
+                                ) :
+                                (
+                                    <>
+                                        <FiAlertTriangle color='#FFF' size={20} />
+                                        <span>Você possui {amountOrdersToService} prato(s) para retirada</span>
+                                    </>
+                                )
+                        }
+                    </NotificationBox>
 
-            <main>
-                <NotificationBox hasOrders={!!amountOrdersToService}>
-                    {
-                        amountOrdersToService < 1 ?
-                            (
-                                <>
-                                    <FiAlertTriangle color='#95A3A9' size={20} />
-                                    <span>Não há pedidos a serem retirados</span>
-                                </>
-                            ) :
-                            (
-                                <>
-                                    <FiAlertTriangle color='#FFF' size={20} />
-                                    <span>Você possui {amountOrdersToService} prato(s) para retirada</span>
-                                </>
-                            )
-                    }
-                </NotificationBox>
+                    <div className='menu-group'>
+                        <ItemMenu path='/order/new' title="Nova Comanda" legend="Criar um novo pedido" icon={PlusIcon} />
+                        <ItemMenu path='/orders' title="Pedidos" legend="Gerenciar os pedidos de hoje" icon={RefreshIcon} />
+                        <ItemMenu path='/dashboard' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} />
+                        <ItemMenu title="Sair" legend="Encerrar sessão" icon={LogoutIcon} onClick={(e) => handleLogout(e)} />
+                    </div>
 
-                <div className='menu-group'>
-                    <ItemMenu path='/order/new' title="Nova Comanda" legend="Criar um novo pedido" icon={PlusIcon} />
-                    <ItemMenu path='/orders' title="Gerenciar pedidos" legend="Gerenciar os pedidos de hoje" icon={RefreshIcon} />
-                    <ItemMenu path='/dashboard' title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} />
-                    <ItemMenu title="Cozinha" legend="Acessar área administrativa" icon={HatIcon} onClick={(e) => handleLogout(e)} />
                 </div>
-            </main >
+            </section>
         </Container >
     )
 }

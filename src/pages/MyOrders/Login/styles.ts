@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Background from '../../../assets/restaurant-login.png'
-import Blob from '../../../assets/blob-login.svg'
+import Blob from '../../../assets/blob.svg'
 
 export const Container = styled.div`
     max-width: 1200px;
@@ -9,9 +9,10 @@ export const Container = styled.div`
     margin: auto;
 
     display: flex;
+    overflow: hidden;
 
     .banner {
-        flex: 1;
+        flex: 3;
 
         display: flex;
         align-items: flex-end;
@@ -25,6 +26,7 @@ export const Container = styled.div`
             justify-content: center;
 
             height: 380px;
+            width: 100%;
             max-width: 440px;
             padding: 0.75rem;
 
@@ -69,15 +71,14 @@ export const Container = styled.div`
         }
     }
 
-    // Login //
     .login {
-        flex: 1;
+        width: 440px;
 
         display: flex;
         flex-direction: column;
 
         img {
-            max-width: 330px;
+            max-width: 220px;
         }
 
         article {
@@ -103,16 +104,21 @@ export const Container = styled.div`
 
 
             width: 100%;
-            max-width: 380px;
+            max-width: 320px;
             margin: auto;
             padding: 2rem;
 
             border-radius: 8px;
             background: var(--white);
-            filter: drop-shadow(0px -1px 25px rgba(0, 0, 0, 0.1));
+            filter: drop-shadow(0px -1px 4px rgba(0, 0, 0, 0.15));
 
             h2 {
                 align-self: center;
+                font-size: 1.75rem;
+
+                &::first-letter{
+                    font-size: 2rem;
+                }
             }
 
             form {
@@ -128,6 +134,16 @@ export const Container = styled.div`
         @media (min-width: 900px) {
             article {
                 display: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            & {
+                flex: 1;
+            }
+
+            img {
+                max-width: 330px;
             }
         }
     }

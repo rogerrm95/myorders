@@ -13,8 +13,7 @@ export const Container = styled.div<ContainerProps>`
 
 
     span {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.25rem;
     }
     
     div {
@@ -29,14 +28,20 @@ export const Container = styled.div<ContainerProps>`
             margin-left: 0.75rem;
             
             color: var(--primary);
-            font: 1.5rem normal Roboto, sans-serif;
+            font: 1rem normal Roboto, sans-serif;
             border-bottom: 2px solid  #45545A;
 
             caret-color: var(--primary);
             
             &::placeholder{
                 color: var(--placeholder);
-                font: 1rem normal Roboto, sans-serif;
+                font: 0.85rem normal Roboto, sans-serif;
+            }
+
+            @media (max-width: 900px) {
+                & {
+                    font: 1.25rem normal Roboto, sans-serif;
+                }
             }
         }
         
@@ -48,12 +53,13 @@ export const ImageBox = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    min-width: 69px;
-    min-height: 64px;
+    min-width: 48px;
+    min-height: 48px;
 
     background-color: var(--primary);
 
-    img {
-        max-width: 35px;
+    & > img {
+        width: 20px;
+        object-fit: contain;
     }
 `
