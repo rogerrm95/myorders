@@ -22,13 +22,15 @@ export const ImageBox = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    min-width: 69px;
-    min-height: 64px;
+    min-width: 48px;
+    min-height: 48px;
 
+    cursor: pointer;
     background-color: var(--primary);
 
-    img {
-        max-width: 35px;
+    & > img {
+        width: 24px;
+        object-fit: contain;
     }
 `
 
@@ -52,7 +54,13 @@ export const InputAutoComplete = styled.div`
 
         &::placeholder{
             color: var(--placeholder);
-            font: 1.15rem normal Roboto, sans-serif;
+            font: 0.85rem normal Roboto, sans-serif;
+        }
+
+        @media (max-width: 900px) {
+            & {
+                font: 1.25rem normal Roboto, sans-serif;
+            }
         }
     }
 
@@ -88,7 +96,7 @@ export const InputAutoComplete = styled.div`
 
         // Scroll-Bar //
         &::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         &::-webkit-scrollbar-track {

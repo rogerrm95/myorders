@@ -18,7 +18,7 @@ interface SelectProps {
 }
 
 // Select personalizado //
-export function Select({ gridAreaName, imageSrc, value, options, onSelectChange, ...rest }: SelectProps) {
+export function Select({ gridAreaName, imageSrc, value, options, onSelectChange}: SelectProps) {
     const [selectedWaiter, setSelectedWaiter] = useState(value)
     const [isVisible, setIsVisible] = useState(false)
 

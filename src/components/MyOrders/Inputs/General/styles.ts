@@ -56,6 +56,7 @@ export const ImageBox = styled.div`
     min-width: 48px;
     min-height: 48px;
 
+    cursor: pointer;
     background-color: var(--primary);
 
     & > img {

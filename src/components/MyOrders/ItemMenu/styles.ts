@@ -18,6 +18,14 @@ export const Box = styled.a`
         filter: brightness(0.9);
         cursor: pointer;
     }
+
+    // Mobile //
+    @media (max-width: 400px) {
+        & {
+            grid-template-columns: 1fr 32px;
+            grid-template-rows: 80px;
+        }
+    }
 `
 
 export const Labels = styled.div`
@@ -28,6 +36,17 @@ export const Labels = styled.div`
     justify-content: space-around;
 
     transition: color 0.3s;
+
+    // Mobile //
+    @media (max-width: 400px) {
+        h2 {
+            font-size: 1.25rem;
+        }
+
+        p {
+            font-size: 0.85rem;
+        }
+    }
 `
 
 export const IconBox = styled.div`
@@ -36,4 +55,11 @@ export const IconBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    // Mobile //
+    @media (max-width: 400px) {
+        img {
+            width: 28px;
+        }
+    }
 `

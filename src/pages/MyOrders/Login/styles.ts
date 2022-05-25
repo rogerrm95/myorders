@@ -76,6 +76,7 @@ export const Container = styled.div`
 
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
 
         img {
             max-width: 220px;
@@ -125,7 +126,7 @@ export const Container = styled.div`
                 align-self: stretch;
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
+                gap: 2rem;
 
             }
 
@@ -141,9 +142,11 @@ export const Container = styled.div`
             & {
                 flex: 1;
             }
+        }
 
-            img {
-                max-width: 330px;
+        @media (max-width: 400px) {
+            & > div {
+                max-width: 240px;
             }
         }
     }
@@ -177,5 +180,10 @@ export const Footer = styled.footer`
     @media(max-width:600px){
         flex-direction: column;
         gap: 0.75rem;
+
+        span, a {
+            font-size: 0.9rem;
+        }
     }
+
 `

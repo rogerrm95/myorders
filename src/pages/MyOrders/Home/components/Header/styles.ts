@@ -50,4 +50,14 @@ export const Container = styled.header`
         font-size: 0.75rem;
         color: var(--red-500);
     }
+
+    // Mobile //
+        @media (max-width: 400px) {
+            img {
+                width: 120px;
+                object-fit: contain;
+                margin-right: -1rem;
+                margin-top: -0.5rem;
+        }
+    }
 `

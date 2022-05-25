@@ -40,7 +40,27 @@ export const Header = styled.header`
 
     img {
         width: 8rem;
-        height: auto;
+        object-fit: cover;
+    }
+
+    .logo-tiny {
+        display: none ;
+    }
+
+    // Mobile //
+    @media (max-width: 500px){
+        h2 {
+            font-size: 1.25rem;
+        }
+
+        .logo-full {
+            display: none;
+        }
+
+        .logo-tiny {
+            display: block ;
+            width: 6rem;
+        }
     }
 `
 

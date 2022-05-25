@@ -2,7 +2,8 @@ import { ReactNode } from 'react'
 import { useHistory } from 'react-router'
 import { FiArrowLeft } from 'react-icons/fi'
 
-import Logo from '../../../assets/logo-full.png'
+import LogoFull from '../../../assets/logo-full.png'
+import LogoTiny from '../../../assets/logo-tiny.png'
 import { Container, Header, Main } from './styles'
 import { useStepper } from '../../../hooks/useStepper'
 
@@ -36,7 +37,8 @@ export function OrderPage({ title, children }: OrderPageProps) {
 
                 <h2>{title}</h2>
 
-                <img src={Logo} alt="Logo" />
+                <img className='logo-full' src={LogoFull} alt="Logo MyOrders" />
+                <img className='logo-tiny' src={LogoTiny} alt="Logo MyOrders" />
             </Header>
 
             <Main>

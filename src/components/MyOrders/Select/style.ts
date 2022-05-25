@@ -23,7 +23,6 @@ export const Container = styled.div<ContainerProps>`
         
         color: var(--primary);
         background: var(--white);
-        font: 1.5rem normal Roboto, sans-serif;
         border-bottom: 2px solid  #45545A;
         list-style: none;
 
@@ -32,6 +31,7 @@ export const Container = styled.div<ContainerProps>`
         p {
             display: flex;
             align-items: center;
+            font: 1.25rem normal Roboto, sans-serif;
             height: 4rem;
             margin-left: 0.75rem;
         }
@@ -50,7 +50,7 @@ export const Container = styled.div<ContainerProps>`
             box-shadow: 0 2px 10px 1px #00000025;
 
             list-style: none;
-            overflow: hidden scroll;
+            overflow: hidden auto;
             z-index: 1;
 
             li {
@@ -62,7 +62,7 @@ export const Container = styled.div<ContainerProps>`
                 height: 3rem;
                 padding: 1rem;
 
-                font-size: 1.25rem;
+                font: 1rem normal Roboto, sans-serif;
                 transition: background-color 0.3s;
 
                 &:hover{
@@ -81,6 +81,24 @@ export const Container = styled.div<ContainerProps>`
                         margin-right: 1rem;
                     }
                 }
+            }
+
+            // Scroll-Bar //
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--grey-light);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--primary);
+                border-radius: 4px;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background-color: var(--secondary);
             }
         }
 
@@ -112,13 +130,13 @@ export const ImageBox = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    min-width: 69px;
-    min-height: 64px;
+    min-width: 48px;
+    min-height: 48px;
 
     background-color: var(--primary);
 
     img {
-        max-width: 35px;
+        max-width: 20px;
     }
 `
 
