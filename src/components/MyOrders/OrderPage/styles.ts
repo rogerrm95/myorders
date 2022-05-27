@@ -68,7 +68,7 @@ export const Main = styled.main`
     flex: 1;
     display: flex;
     margin: 1rem 1rem;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
     
     border-radius: 8px;
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);

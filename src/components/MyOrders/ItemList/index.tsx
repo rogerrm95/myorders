@@ -1,4 +1,4 @@
-import { FiCheck, FiTrash2 } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 import { List, ListItem } from "./styles";
 
 type ItemsListProps = {
@@ -21,7 +21,7 @@ export function ItemList({ items, onRemoveItem }: ItemsListProps) {
             <div>
                 <h2>Descrição</h2>
                 <h2>Preço</h2>
-                <h2>Ações</h2>
+                <h2 className="actions-column">Ações</h2>
             </div>
 
             <ul>
@@ -37,13 +37,9 @@ export function ItemList({ items, onRemoveItem }: ItemsListProps) {
                                 <p>R$ {item.price}</p>
 
                                 {
-                                    !item.isDone ? (
-                                        <button onClick={() => onRemoveItem(index)}>
+                                    !item.isDone && (
+                                        <button className="actions-column" onClick={() => onRemoveItem(index)}>
                                             <FiTrash2 size='24' color="#E84A5F" />
-                                        </button>
-                                    ) : (
-                                        <button disabled>
-                                            <FiCheck size='24' color="#E0E0E0" />
                                         </button>
                                     )
                                 }

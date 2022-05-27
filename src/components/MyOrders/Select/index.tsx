@@ -43,7 +43,7 @@ export function Select({ gridAreaName, imageSrc, value, options, onSelectChange}
             <button className='select-button' type='button' >
                 <p>
                     {
-                        selectedWaiter ? selectedWaiter.name : "Selecionar atendente..."
+                        selectedWaiter ? selectedWaiter.name : "Selecionar atendente"
                     }
                 </p>
 

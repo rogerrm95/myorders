@@ -73,6 +73,7 @@ export const Container = styled.div`
 
     .login {
         width: 440px;
+        padding-bottom: 0.5rem;
 
         display: flex;
         flex-direction: column;
@@ -144,9 +145,18 @@ export const Container = styled.div`
             }
         }
 
+        // Mobile //
         @media (max-width: 400px) {
             & > div {
                 max-width: 240px;
+            }
+
+            article p {
+                display: none;
+            }
+
+            img {
+                max-width: 160px;
             }
         }
     }

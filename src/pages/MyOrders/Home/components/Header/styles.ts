@@ -59,5 +59,13 @@ export const Container = styled.header`
                 margin-right: -1rem;
                 margin-top: -0.5rem;
         }
+        
+        .wrap {
+            width: 8rem;
+        }
+
+        p {
+            font-size: 0.85rem;
+        }
     }
 `

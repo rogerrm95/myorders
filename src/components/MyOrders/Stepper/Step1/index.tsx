@@ -30,7 +30,7 @@ type Food = {
 // Etapa 1: Adicionar itens ao pedido //
 export function Step1() {
     const { order, onNextPage, updateOrder } = useStepper()
-    const { getAllFoods, foods } = useFoods()
+    const { getAllFoods } = useFoods()
 
     const [foodList, setFoodList] = useState([] as Food[]) // Lista dos itens vindo da API //
     const [food, setFood] = useState({} as Food)

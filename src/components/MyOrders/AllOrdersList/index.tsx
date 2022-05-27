@@ -42,8 +42,8 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
                 <tr>
                     <th>Nº</th>
                     <th>Mesa</th>
-                    <th>Status</th>
-                    <th>Horário</th>
+                    <th className="status-column">Status</th>
+                    <th className="time-column">Horário</th>
                     <th>Ação</th>
                 </tr>
             </thead>
@@ -53,13 +53,13 @@ export function AllOrdersList({ orders, ...rest }: AllOrdersListProps) {
                         <ListItem key={order.id} status={order.status}>
                             <td>{order.id}</td>
                             <td>{order.desk}</td>
-                            <td>
+                            <td className="status-column">
                                 {
                                     order.status
                                 }
                             </td>
-                            <td>{order.initialTime}</td>
-                            <td className='actionButtons'>
+                            <td className="time-column">{order.initialTime}</td>
+                            <td className='actions-column'>
                                 {
                                     order.status !== 'Encerrado' && (
                                         <Link to={`${location.pathname}/edit/${order.id}`} >

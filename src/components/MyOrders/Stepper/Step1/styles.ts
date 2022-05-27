@@ -57,4 +57,10 @@ export const Summary = styled.div`
     h2:last-child{
         color:var(--blue-500);
     }
+
+    @media (max-width: 500px) {
+        h2:last-child{
+            font-size: 1.25rem;
+        }
+    }
 `

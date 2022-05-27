@@ -9,6 +9,8 @@ export const Container = styled.table`
     border-collapse: collapse;
     width: 100%;
 
+    overflow: scroll;
+
     thead {
         height: 3rem;
         background: var(--primary);
@@ -31,6 +33,17 @@ export const Container = styled.table`
             font-weight: 700;
         }
     }
+
+    @media (max-width: 500px){
+        .time-column{
+            display: none;
+        }
+    }
+    @media (max-width: 400px){
+        .status-column{
+            display: none;
+        }
+    }
 `
 
 export const ListItem = styled.tr<ListItemData>`
@@ -46,7 +59,7 @@ export const ListItem = styled.tr<ListItemData>`
         }
     }
 
-    .actionButtons {
+    .actions-column {
         display: flex;
         justify-content: center;
         align-items: center;

@@ -34,6 +34,12 @@ export const Container = styled.div<ContainerProps>`
             font: 1.25rem normal Roboto, sans-serif;
             height: 4rem;
             margin-left: 0.75rem;
+
+            @media (max-width: 500px){
+                & {
+                    font-size: 1rem;
+                }
+            }
         }
 
         .options {

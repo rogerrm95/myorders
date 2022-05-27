@@ -3,7 +3,7 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
     flex: 1;
-    min-height: 4rem;
+    height: 4rem;
 
     display: grid;
     grid-template-columns: 1fr 5.5rem;
@@ -54,5 +54,21 @@ export const Container = styled.div`
         padding: 0.5rem 1rem;
 
         gap: 0.75rem;
+    }
+
+    // Mobile //
+    @media (max-width: 500px){
+        height: 150px;
+        grid-template-columns: 1fr 2.5rem;
+
+        gap: 0.75rem;
+
+        .category {
+            font-size: 0.75rem;
+        }
+
+        .price {
+            font-size: 0.85rem;
+        }
     }
 `

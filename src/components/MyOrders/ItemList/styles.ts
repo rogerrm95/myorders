@@ -33,6 +33,16 @@ export const List = styled.div`
         border-top: none;
         border-radius: 8px;
     }
+
+    @media(max-width: 500px){
+        > div {
+            grid-template-columns: 5fr 100px;
+        }
+        
+        .actions-column {
+            display: none;
+        }
+    }
 `
 export const ListItem = styled.li`
     display: grid;
@@ -89,6 +99,12 @@ export const ListItem = styled.li`
     &.done {    
         p, span {
             color: var(--grey-light);
+        }
+    }
+
+    @media(max-width: 500px){       
+        & {
+            grid-template-columns: 1fr 90px;
         }
     }
 `
