@@ -1,5 +1,4 @@
 import { FormEvent, useState } from 'react'
-import { useHistory } from 'react-router'
 import { useAuth } from '../../../hooks/useAuth'
 // Utils //
 import { toast } from 'react-toastify'
@@ -18,33 +17,30 @@ import { Container, Footer } from './styles'
 
 export default function Login() {
     const { signIn, isLoading } = useAuth()
-    const { push } = useHistory()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-        // Realiza o Login do usuário //
-        async function handleLogin(e: FormEvent) {
-            e.preventDefault()
-    
-            try {
-                const user = { email, password }
-    
-                await LoginSchema.validate({ ...user }, { abortEarly: false })
-                    .then(_ => {
-                        signIn(user)
-                            .then(() => push('/'))
-                            .catch(error => toast.error(error))
-                    })
-                    .catch(err => {
-                        err.errors.map((error: string) => (
-                            toast.error(error)
-                        ))
-                    })
-            } catch {
-                return toast.error('Erro durante o processamento')
-            }
+    // Realiza o Login do usuário //
+    async function handleLogin(e: FormEvent) {
+        e.preventDefault()
+
+        try {
+            const user = { email, password }
+
+            await LoginSchema.validate({ ...user }, { abortEarly: false })
+                .then(_ => {
+                    signIn(user)
+                })
+                .catch(err => {
+                    err.errors.map((error: string) => (
+                        toast.error(error)
+                    ))
+                })
+        } catch {
+            return toast.error('Erro durante o processamento')
         }
+    }
 
     return (
         <Container>

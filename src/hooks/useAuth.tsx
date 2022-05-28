@@ -5,7 +5,7 @@ import { toast } from "react-toastify"
 import { api } from "../services/api"
 
 export const useAuth = () => {
-    const { push } = useHistory()
+    const { replace } = useHistory()
     const [isLoading, setIsLoading] = useState(false)
     const [isSigned, setIsSigned] = useState(false)
     const [user, setUser] = useState(() => {
@@ -17,22 +17,18 @@ export const useAuth = () => {
     async function signIn(user: { email: string, password: string }) {
         setIsLoading(true)
 
-        const data = await api.post('/authenticate', user)
+        await api.post('/authenticate', user)
             .then(res => {
                 api.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
-                return res.data
+                localStorage.setItem('@my-orders', JSON.stringify(res.data))
+                setUser(res.data)
+                setIsSigned(true)
+                replace('/')
             })
             .catch(error => {
-                setIsLoading(false)
                 toast.error(error.response.data.message)
             })
-                
-        localStorage.setItem('@my-orders', JSON.stringify(data))
-
-        setUser(data)
-        setIsSigned(true)
-        setIsLoading(false)
-        push('/')
+            .finally(() => setIsLoading(false))        
     }
 
     function signOut() {
@@ -42,7 +38,7 @@ export const useAuth = () => {
         const hasLocalStorageData = !!localStorage.getItem('@my-orders')
         hasLocalStorageData && localStorage.removeItem('@my-orders')
 
-        push('/login')
+        replace('/login')
     }
 
     return { signIn, signOut, setIsSigned, user, isSigned, isLoading }

@@ -69,8 +69,6 @@ export default function Routes() {
             <Route component={AdminOrders} path='/dashboard/pedidos' exact />
             <Route component={AdminFoods} path='/dashboard/pratos' exact />
             <Route component={Users} path='/dashboard/usuarios' exact />
-
-            <Route path='*' component={isSigned ? Home : Login} />
         </Switch>
     )
 }
