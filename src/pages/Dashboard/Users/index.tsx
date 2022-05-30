@@ -183,7 +183,7 @@ export default function Users() {
                                         {activeUser && activeUser.genre}
                                     </span>
                                     <span><strong>Total de Vendas:</strong>
-                                        {activeUser && activeUser.amountSales}
+                                        {activeUser && activeUser.sales.length}
                                     </span>
                                 </div>
 
