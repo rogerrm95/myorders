@@ -111,7 +111,10 @@ export function FoodList({ category }: FoodListProps) {
                     <DeleteFoodModal
                         id={activeFoodUpdating.id}
                         onModalClose={(e) => setDeleteModalFoodIsOpen(e)}
-                        onDelete={(newList) => setFoodList(newList)}
+                        onDelete={(id) => setFoodList(() => {
+                            const newList = foodList.filter(food => food.id !== id)
+                            return newList
+                        })}
                     />
                 )
             }

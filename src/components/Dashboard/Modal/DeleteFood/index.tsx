@@ -2,14 +2,13 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { Modal } from '..'
 import { useFoods } from '../../../../hooks/useFoods'
-import { Food } from '../../../../types/Food'
 import { Spinner } from '../../../MyOrders/Spinner'
 import { Container } from './styles'
 
 interface DeleteFoodModalProps {
     id: string | number,
     onModalClose: (hasCloseModal: boolean) => void,
-    onDelete: (foodList: Food[]) => void
+    onDelete: (id: string | number) => void
 }
 
 export function DeleteFoodModal({ id, onModalClose, onDelete }: DeleteFoodModalProps) {
@@ -21,10 +20,10 @@ export function DeleteFoodModal({ id, onModalClose, onDelete }: DeleteFoodModalP
         setIsLoading(true)
 
         await deleteFood(id)
-            .then(res => {
+            .then(_ => {
                 setIsLoading(false)
                 onModalClose(false)
-                onDelete(res)
+                onDelete(id)
                 toast.success('Item deletado !')
             })
             .catch(_ => {

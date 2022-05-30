@@ -62,12 +62,7 @@ export const useFoods = () => {
 
     // DELETE FOOD //
     async function deleteFood(id: number | string) {
-        const response = await api.delete(`/foods/${id}`).then(_ => {
-            const newList = foods.filter(food => food.id !== id)
-            setFoods(newList)
-
-            return newList
-        })
+        const response = await api.delete(`/foods/${id}`)
 
         return response
     }
