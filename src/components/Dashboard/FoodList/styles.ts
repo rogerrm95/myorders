@@ -23,6 +23,12 @@ export const Container = styled.div`
         &:nth-child(4), &:nth-child(5){
             text-align: center;
         }
+
+        @media (max-width: 768px){
+            &:nth-child(2){
+                display: none;
+            }
+        }
     }
 
     td {
@@ -45,6 +51,10 @@ export const Container = styled.div`
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             line-height: 1.12rem;
+            }
+        
+            @media (max-width: 768px) {
+                display: none;
             }
         }
 

@@ -5,7 +5,7 @@ export const Container = styled.div`
 
     display: grid;
     grid-template-columns: 15rem 1fr;
-    overflow: hidden;
+    overflow: hidden auto;
 
     background-color: var(--background);
 
@@ -17,8 +17,6 @@ export const Container = styled.div`
         gap: 2rem;
         padding: 1rem;
         margin: auto;
-
-        overflow: scroll;
     }
 
     @media(max-width: 768px){
