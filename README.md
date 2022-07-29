@@ -8,7 +8,7 @@ MyOrders é uma aplicação de Comanda Online no qual permite ao usuário(funcio
  
 Além disso o MyOrders trás consigo um painel administrativo (dashboard) para que os funcionários da cozinha possam visualizar os pedidos ativos e gerencia-los da melhor forma possível, além de poderem cadastrar ou alterar os pratos disponíveis no menu do estabelecimento.
 
-Este projeto foi desenvolvimento como Trabalho de Conclusão de Curso (TCC) de minha gradução em Ciências da Computação.
+Este projeto foi desenvolvimento como Trabalho de Conclusão de Curso (TCC) do curso de Graduação em Ciências da Computação - 2022.
 
 Link para o projeto online: [MyOrders](https://my-orders.vercel.app/).
 
