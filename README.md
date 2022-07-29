@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+<p align='center'>
+  <img src="./src/assets/logo-full.png" alt="Logo">
+</p>
+ 
+ # 💻 Projeto
+ 
+MyOrders é uma aplicação de Comanda Online no qual permite ao usuário(funcionário) de um determinado estabelecimento realizar/anotar os pedidos de seus clientes através de uma aplicação web responsiva. A aplicação permite criar e atualizar uma comanda, finalizar um pedido e támbem possibilita ao usuário a acompanhar os status dos pedidos em aberto.
+ 
+Além disso o MyOrders trás consigo um painel administrativo (dashboard) para que os funcionários da cozinha possam visualizar os pedidos ativos e gerencia-los da melhor forma possível, além de poderem cadastrar ou alterar os pratos disponíveis no menu do estabelecimento.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto foi desenvolvimento como Trabalho de Conclusão de Curso (TCC) de minha gradução em Ciências da Computação.
 
-## Available Scripts
+Link para o projeto online: [MyOrders](https://my-orders.vercel.app/).
 
-In the project directory, you can run:
+ 
+ # 🧪 Tecnologias
 
-### `yarn start`
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+- [React JS](https://pt-br.reactjs.org/);
+- [Context API](https://pt-br.reactjs.org/docs/context.html);
+- [FaunaDB](https://fauna.com/);
+- [Styled Components](https://styled-components.com/).
+- [Typescript](https://www.typescriptlang.org/).
+- [Yup](https://github.com/jquense/yup);
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# 🚀 Como executar
 
-### `yarn test`
+Clone o projeto e acesse a pasta do mesmo.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+$ git clone https://github.com/rogerrm95/myorders.git
+$ cd myorders
+```
+Para iniciá-lo, siga os passos abaixo:
+```bash
+# Instalar as dependências
+$ yarn
 
-### `yarn build`
+# Iniciar o projeto
+$ yarn start
+```
+O app estará disponível no seu browser pelo endereço http://localhost:3000.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Lembrando que será necessário criar uma conta no FaunaDB e configurar a seguinte variável ambiente no arquivo .env.local:
+  ````bash
+# API - AUTH
+REACT_APP_AUTH_API_URL= Link da API
+````
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Além disso, é necessário clonar o back-end e realizar as suas devidas configurações para que seja possível testar esta aplicação em seu dispositivo.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Link para o back-end: [my-orders-API](https://github.com/rogerrm95/my-orders-api)
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# 🔖 Layout
+Você pode visualizar o layout do projeto através do link abaixo:
+- [Layout Web](https://www.figma.com/file/m4Vmr8HKo6bYRkvR6TPwlY/TCC?node-id=0%3A1) (Lembrando que você precisa ter uma conta no Figma).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📃 License
+[MIT](https://choosealicense.com/licenses/mit/)
